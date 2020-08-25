@@ -1,15 +1,15 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import time
 
-from typeTest import TypeTest
-import mainWindow
-import easyWindow
-import mediumWindow
-import hardWindow
-import scoreWindow
+from assets.typeTest import TypeTest
+import assets.mainWindow
+import assets.easyWindow
+import assets.mediumWindow
+import assets.hardWindow
+import assets.scoreWindow
 
 
-class Main(mainWindow.Ui_MainWindow):
+class Main(assets.mainWindow.Ui_MainWindow):
 
 
     timer_start = 0
