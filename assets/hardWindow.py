@@ -3,7 +3,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_HardWindow(object):
 
     def setupUi(self, HardWindow):
-        #fonts
+        #Fonts
         font1 = QtGui.QFont()
         font1.setFamily("Arial")
         font1.setPointSize(12)
@@ -15,52 +15,46 @@ class Ui_HardWindow(object):
         font2.setFamily("Arial")
         font2.setPointSize(12)
 
-
         #UI
         HardWindow.setObjectName("HardWindow")
-        HardWindow.resize(780, 710)
+        HardWindow.resize(980, 740)
 
         self.centralwidget = QtWidgets.QWidget(HardWindow)
         self.centralwidget.setObjectName("centralwidget")
 
-        self.hard_input_frame = QtWidgets.QFrame(self.centralwidget)
-        self.hard_input_frame.setGeometry(QtCore.QRect(10, 10, 760, 640))
-        self.hard_input_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.hard_input_frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.hard_input_frame.setObjectName("hard_input_frame")
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setSizeConstraint(QtWidgets.QLayout.SetNoConstraint)
+        self.verticalLayout.setObjectName("verticalLayout")
 
-        self.hard_button_frame = QtWidgets.QFrame(self.centralwidget)
-        self.hard_button_frame.setGeometry(QtCore.QRect(9, 650, 760, 40))
-        self.hard_button_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.hard_button_frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.hard_button_frame.setObjectName("hard_button_frame")
-
-        self.hard_title_label = QtWidgets.QLabel(self.hard_input_frame)
-        self.hard_title_label.setGeometry(QtCore.QRect(180, 20, 400, 20))
+        self.hard_title_label = QtWidgets.QLabel(self.centralwidget)
         self.hard_title_label.setFont(font1)
         self.hard_title_label.setAlignment(QtCore.Qt.AlignCenter)
         self.hard_title_label.setObjectName("hard_title_label")
+        self.verticalLayout.addWidget(self.hard_title_label)
 
-        self.hard_label = QtWidgets.QTextBrowser(self.hard_input_frame)
-        self.hard_label.setGeometry(QtCore.QRect(5, 50, 750, 280))
+        self.hard_label = QtWidgets.QTextBrowser(self.centralwidget)
         self.hard_label.setFont(font2)
         self.hard_label.setInputMethodHints(QtCore.Qt.ImhMultiLine)
         self.hard_label.setTextInteractionFlags(QtCore.Qt.NoTextInteraction)
         self.hard_label.setObjectName("hard_label")
+        self.verticalLayout.addWidget(self.hard_label)
 
-        self.hard_textEdit = QtWidgets.QTextEdit(self.hard_input_frame)
-        self.hard_textEdit.setGeometry(QtCore.QRect(5, 345, 750, 280))
+        self.hard_textEdit = QtWidgets.QTextEdit(self.centralwidget)
         self.hard_textEdit.setFont(font2)
         self.hard_textEdit.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
         self.hard_textEdit.setInputMethodHints(QtCore.Qt.ImhMultiLine|QtCore.Qt.ImhNoAutoUppercase|QtCore.Qt.ImhNoPredictiveText)
-        # self.hard_textEdit.setMarkdown("")
-        # self.hard_textEdit.setPlaceholderText("")
+        self.hard_textEdit.setMarkdown("")
+        self.hard_textEdit.setPlaceholderText("")
         self.hard_textEdit.setObjectName("hard_textEdit")
-        self.hard_textEdit.setStyleSheet("color: green;")
+        self.verticalLayout.addWidget(self.hard_textEdit)
 
-        self.hard_restart = QtWidgets.QPushButton(self.hard_button_frame)
-        self.hard_restart.setGeometry(QtCore.QRect(670, 10, 75, 25))
+        self.hard_restart = QtWidgets.QPushButton(self.centralwidget)
         self.hard_restart.setObjectName("hard_restart")
+        self.verticalLayout.addWidget(self.hard_restart)
+
+        self.verticalLayout_2.addLayout(self.verticalLayout)
 
         HardWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(HardWindow)
