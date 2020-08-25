@@ -2,14 +2,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import time
 
 from typeTest import TypeTest
-from mainWindow import Ui_MainWindow
+import mainWindow
 import easyWindow
 import mediumWindow
 import hardWindow
 import scoreWindow
 
 
-class Main(Ui_MainWindow):
+class Main(mainWindow.Ui_MainWindow):
 
 
     timer_start = 0
@@ -111,6 +111,7 @@ class Main(Ui_MainWindow):
 
         self.easy_ui.easy_label.setText(self.type_test.easy_choice())
         self.timer_start = time.time()
+        self.easy_ui.easyLineEdit.setText("")
 
 
     def medium_restart(self):
@@ -118,6 +119,7 @@ class Main(Ui_MainWindow):
 
         self.medium_ui.medium_label.setText(self.type_test.medium_choice())
         self.timer_start = time.time()
+        self.medium_ui.mediumLineEdit.setText("")
 
 
     def hard_restart(self):
@@ -125,6 +127,7 @@ class Main(Ui_MainWindow):
 
         self.hard_ui.hard_label.setText(self.type_test.hard_choice())
         self.timer_start = time.time()
+        self.hard_ui.hard_textEdit.setText("")
 
 
     def ok_click(self):
