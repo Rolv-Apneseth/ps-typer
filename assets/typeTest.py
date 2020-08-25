@@ -11,26 +11,27 @@ class TypeTest():
     def __init__(self):
         """Creates Highscore files and gives them default values if the do not exist"""
 
-        if not os.path.exists("today.txt"):
-            with open("today.txt", "w") as today_txt:
+        if not os.path.exists("assets/today.txt"):
+            with open("assets/today.txt", "w") as today_txt:
                 today_txt.write("".join([self.date, " : 0"]))
 
-        if not os.path.exists("highscore.txt"):
-            with open("highscore.txt", "w") as highscore_txt:
+        if not os.path.exists("assets/highscore.txt"):
+            with open("assets/highscore.txt", "w") as highscore_txt:
                 highscore_txt.write("0")
 
     def easy_choice(self):
         """Returns a random common word"""
 
-        easy_words = ["run", "line", "the", "away", "three", "their", "still", "other", "seem", "has", "very", "state", "if", "who", "mean", "those", "the", "why", "best", "down", "carry", "story", "seem", "off", "many", "give", "play", "need", "year", "under", "way", "live", "mean", "near", "not", "book", "few", "river", "at", "last", "was", "below", "might", "earth", "list", "part", "children", "for", "over", "keep", "where", "write", "fire", "she", "large", "may", "back", "eat", "walk", "far", "start", "than", "might", "ask", "almost", "took", "family", "ask", "see", "before", "down", "home", "even", "might", "would", "for", "fall", "got", "upon", "got", "over"]
+        with open("assets/Easy.txt", "r") as easy:
+            lines = easy.readlines()
 
-        return random.choice(easy_words)
+        return random.choice(lines).replace("\n", "")
 
 
     def medium_choice(self):
         """Returns a random common phrase"""
 
-        with open("Medium.txt") as med:
+        with open("assets/Medium.txt") as med:
             lines = med.readlines()
 
         return random.choice(lines).replace("\n", "")
@@ -39,7 +40,7 @@ class TypeTest():
     def hard_choice(self):
         """Returns a random paragraph from a book or a quote (in one line)"""
 
-        with open("Hard.txt") as hard:
+        with open("assets/Hard.txt") as hard:
             lines = hard.readlines()
 
         return (random.choice(lines)).replace("\n", "")
@@ -61,7 +62,7 @@ class TypeTest():
 
 
     def get_today_highscore(self):
-        with open("today.txt", "r") as today_text:
+        with open("assets/today.txt", "r") as today_text:
             today_highscore_line = today_text.readlines()[-1]
         if today_highscore_line.startswith(self.date):
             today_highscore = int(today_highscore_line.split()[-1])
@@ -76,7 +77,7 @@ class TypeTest():
 
 
     def get_highscore(self):
-        with open("highscore.txt", "r") as highscore_text:
+        with open("assets/highscore.txt", "r") as highscore_text:
             highscore = int(highscore_text.read())
         print(highscore)
         return highscore
@@ -87,11 +88,11 @@ class TypeTest():
 
 
     def set_day_highscore(self, wpm):
-        with open("today.txt", "a") as today_text:
+        with open("assets/today.txt", "a") as today_text:
             today_text.write("".join(["\n", self.date, " : ", str(wpm)]))
 
     def set_highscore(self, wpm):
-        with open("highscore.txt", "w") as highscore_text:
+        with open("assets/highscore.txt", "w") as highscore_text:
             highscore_text.write(str(wpm))
 
 

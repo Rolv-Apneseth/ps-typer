@@ -11,7 +11,6 @@ import assets.scoreWindow
 
 class Main(assets.mainWindow.Ui_MainWindow):
 
-
     timer_start = 0
     type_test = TypeTest()
 
@@ -152,7 +151,7 @@ class Main(assets.mainWindow.Ui_MainWindow):
         """Score window displayed after typing of any difficulty is completed"""
 
         self.score_window = QtWidgets.QMainWindow()
-        self.score_ui = scoreWindow.Ui_scoreWindow()
+        self.score_ui = assets.scoreWindow.Ui_scoreWindow()
         self.score_ui.setupUi(self.score_window)
         self.score_ui.ok_button.clicked.connect(lambda: self.ok_click())
         self.score_window.show()
@@ -165,7 +164,7 @@ class Main(assets.mainWindow.Ui_MainWindow):
         """
 
         self.easy_window = QtWidgets.QMainWindow()
-        self.easy_ui = easyWindow.Ui_EasyWindow()
+        self.easy_ui = assets.easyWindow.Ui_EasyWindow()
         self.easy_ui.setupUi(self.easy_window)
         self.easy_ui.easyLineEdit.mousePressedEvent = self.onPressed()
         self.easy_ui.easy_label.setText(self.type_test.easy_choice())
@@ -181,7 +180,7 @@ class Main(assets.mainWindow.Ui_MainWindow):
         """
 
         self.medium_window = QtWidgets.QMainWindow()
-        self.medium_ui = mediumWindow.Ui_MediumWindow()
+        self.medium_ui = assets.mediumWindow.Ui_MediumWindow()
         self.medium_ui.setupUi(self.medium_window)
         self.medium_ui.mediumLineEdit.mousePressedEvent = self.onPressed()
         self.medium_ui.medium_label.setText(self.type_test.medium_choice())
@@ -196,7 +195,7 @@ class Main(assets.mainWindow.Ui_MainWindow):
         To be typed: a quote or paragraph from a book
         """
         self.hard_window = QtWidgets.QMainWindow()
-        self.hard_ui = hardWindow.Ui_HardWindow()
+        self.hard_ui = assets.hardWindow.Ui_HardWindow()
         self.hard_ui.setupUi(self.hard_window)
         self.hard_ui.hard_textEdit.mousePressedEvent = self.onPressed()
         self.hard_ui.hard_label.setText(self.type_test.hard_choice())
