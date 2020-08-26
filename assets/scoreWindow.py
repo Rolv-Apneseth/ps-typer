@@ -2,15 +2,20 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_scoreWindow(object):
     def setupUi(self, scoreWindow):
+        #Fonts
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
 
+        #UI
         scoreWindow.setObjectName("scoreWindow")
         scoreWindow.resize(550, 130)
         self.centralwidget = QtWidgets.QWidget(scoreWindow)
         self.centralwidget.setObjectName("centralwidget")
 
-        font = QtGui.QFont()
-        font.setFamily("Arial")
-        font.setPointSize(12)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("assets/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        scoreWindow.setWindowIcon(icon)
 
         self.score_frame1 = QtWidgets.QFrame(self.centralwidget)
         self.score_frame1.setGeometry(QtCore.QRect(15, 10, 521, 51))

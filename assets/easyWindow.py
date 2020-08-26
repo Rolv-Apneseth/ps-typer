@@ -31,6 +31,10 @@ class Ui_EasyWindow(object):
         self.centralwidget = QtWidgets.QWidget(EasyWindow)
         self.centralwidget.setObjectName("centralwidget")
 
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("assets/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        EasyWindow.setWindowIcon(icon)
+
         self.easy_input_frame = QtWidgets.QFrame(self.centralwidget)
         self.easy_input_frame.setGeometry(QtCore.QRect(10, 10, 440, 180))
         self.easy_input_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)

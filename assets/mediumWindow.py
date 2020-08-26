@@ -25,6 +25,10 @@ class Ui_MediumWindow(object):
         self.centralwidget = QtWidgets.QWidget(MediumWindow)
         self.centralwidget.setObjectName("centralwidget")
 
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("assets/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MediumWindow.setWindowIcon(icon)
+
         self.medium_input_frame = QtWidgets.QFrame(self.centralwidget)
         self.medium_input_frame.setGeometry(QtCore.QRect(10, 10, 440, 180))
         self.medium_input_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)

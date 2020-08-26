@@ -18,9 +18,12 @@ class Ui_HardWindow(object):
         #UI
         HardWindow.setObjectName("HardWindow")
         HardWindow.resize(980, 740)
-
         self.centralwidget = QtWidgets.QWidget(HardWindow)
         self.centralwidget.setObjectName("centralwidget")
+
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("assets/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        HardWindow.setWindowIcon(icon)
 
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout_2.setObjectName("verticalLayout_2")

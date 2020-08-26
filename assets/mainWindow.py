@@ -36,6 +36,10 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("assets/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
+
         #HIGHSCORE FRAME
         self.highscore_frame = QtWidgets.QFrame(self.centralwidget)
         self.highscore_frame.setGeometry(QtCore.QRect(20, 30, 170, 120))
