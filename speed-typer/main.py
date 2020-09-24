@@ -15,20 +15,20 @@ class Main(assets.mainWindow.Ui_MainWindow):
     type_test = TypeTest()
 
     def initial_highscores(self):
-        self.today_highscore.setText("".join([str(self.type_test.get_today_highscore()), " wpm"]))
-        self.all_time_highscore.setText("".join([str(self.type_test.get_highscore()), " wpm"]))
+        self.today_highscore.setText(
+            "".join([str(self.type_test.get_today_highscore()), " wpm"]))
+        self.all_time_highscore.setText(
+            "".join([str(self.type_test.get_highscore()), " wpm"]))
 
+    # Window Functionality Functions
 
-    #Window Functionality Functions
     def get_time(self):
         print(self.ui.timer_start)
-
 
     def onPressed(self):
         """Starts timer when editor is clicked"""
 
         self.timer_start = time.time()
-
 
     def easy_onTextChanged(self):
         """
@@ -51,9 +51,9 @@ class Main(assets.mainWindow.Ui_MainWindow):
 
             self.easy_window.close()
             self.score_pop_up()
-            self.score_ui.you_typed_label.setText(f"You typed {words} word(s) in {round(seconds)} second(s) and your score was {wpm} w.p.m.!")
+            self.score_ui.you_typed_label.setText(
+                f"You typed {words} word(s) in {round(seconds)} second(s) and your score was {wpm} w.p.m.!")
             self.highscore(int(wpm))
-
 
     def medium_onTextChanged(self):
         """
@@ -76,9 +76,9 @@ class Main(assets.mainWindow.Ui_MainWindow):
 
             self.medium_window.close()
             self.score_pop_up()
-            self.score_ui.you_typed_label.setText(f"You typed {words} word(s) in {round(seconds)} second(s) and your score was {wpm} w.p.m.!")
+            self.score_ui.you_typed_label.setText(
+                f"You typed {words} word(s) in {round(seconds)} second(s) and your score was {wpm} w.p.m.!")
             self.highscore(int(wpm))
-
 
     def hard_onTextChanged(self):
         """
@@ -101,9 +101,9 @@ class Main(assets.mainWindow.Ui_MainWindow):
 
             self.hard_window.close()
             self.score_pop_up()
-            self.score_ui.you_typed_label.setText(f"You typed {words} word(s) in {round(seconds)} second(s) and your score was {wpm} w.p.m.!")
+            self.score_ui.you_typed_label.setText(
+                f"You typed {words} word(s) in {round(seconds)} second(s) and your score was {wpm} w.p.m.!")
             self.highscore(int(wpm))
-
 
     def easy_restart(self):
         """Resets the timer and gives a new word to be typed out"""
@@ -112,7 +112,6 @@ class Main(assets.mainWindow.Ui_MainWindow):
         self.timer_start = time.time()
         self.easy_ui.easyLineEdit.setText("")
 
-
     def medium_restart(self):
         """Resets the timer and gives a new phrase to be typed out"""
 
@@ -120,14 +119,12 @@ class Main(assets.mainWindow.Ui_MainWindow):
         self.timer_start = time.time()
         self.medium_ui.mediumLineEdit.setText("")
 
-
     def hard_restart(self):
         """Resets the timer and gives a new paragraph to be typed out"""
 
         self.hard_ui.hard_label.setText(self.type_test.hard_choice())
         self.timer_start = time.time()
         self.hard_ui.hard_textEdit.setText("")
-
 
     def ok_click(self):
         self.score_window.close()
@@ -139,14 +136,14 @@ class Main(assets.mainWindow.Ui_MainWindow):
             self.score_ui.outcome_label.setText("You set today's highscore!")
             self.today_highscore.setText("".join([str(wpm), " wpm"]))
 
-
             if self.type_test.check_highscore(wpm):
                 self.type_test.set_highscore(wpm)
-                self.score_ui.outcome_label.setText("You set an all time highscore!")
+                self.score_ui.outcome_label.setText(
+                    "You set an all time highscore!")
                 self.all_time_highscore.setText("".join([str(wpm), " wpm"]))
 
+    # Pop up Functions
 
-    #Pop up Functions
     def score_pop_up(self):
         """Score window displayed after typing of any difficulty is completed"""
 
@@ -155,7 +152,6 @@ class Main(assets.mainWindow.Ui_MainWindow):
         self.score_ui.setupUi(self.score_window)
         self.score_ui.ok_button.clicked.connect(lambda: self.ok_click())
         self.score_window.show()
-
 
     def easy_pop_up(self):
         """
@@ -172,7 +168,6 @@ class Main(assets.mainWindow.Ui_MainWindow):
         self.easy_ui.easy_restart.clicked.connect(lambda: self.easy_restart())
         self.easy_window.show()
 
-
     def medium_pop_up(self):
         """
         Medium difficulty pop up window.
@@ -184,10 +179,11 @@ class Main(assets.mainWindow.Ui_MainWindow):
         self.medium_ui.setupUi(self.medium_window)
         self.medium_ui.mediumLineEdit.mousePressedEvent = self.onPressed()
         self.medium_ui.medium_label.setText(self.type_test.medium_choice())
-        self.medium_ui.mediumLineEdit.textChanged.connect(self.medium_onTextChanged)
-        self.medium_ui.medium_restart.clicked.connect(lambda: self.medium_restart())
+        self.medium_ui.mediumLineEdit.textChanged.connect(
+            self.medium_onTextChanged)
+        self.medium_ui.medium_restart.clicked.connect(
+            lambda: self.medium_restart())
         self.medium_window.show()
-
 
     def hard_pop_up(self):
         """
@@ -203,8 +199,8 @@ class Main(assets.mainWindow.Ui_MainWindow):
         self.hard_ui.hard_restart.clicked.connect(self.hard_restart)
         self.hard_window.show()
 
+    # Button Functions
 
-    #Button Functions
     def begin(self, easy_chk, med_chk):
         """Uses pop up functions begin the typing test of the chosen difficulty."""
 
