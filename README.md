@@ -23,9 +23,10 @@
     * Easy: A commonly used English word
     * Medium: A commonly used English phrase/expression
     * Hard: A paragraph from a book or a famous quote (high degree of variation in length)
-4. Type out the word/phrase/paragraph. Your text will remain green while all characters are correct and turn red when you type a wrong character. 
-    * If you want a different word/phrase/paragraph, simply click the restart button. This will also restart your timer so don't worry.
-5. When finished, a window will come up and tell you whether you have set a new daily/all time highscore. These highscores are then displayed on the main window.
-    * Note: The highscores are stored in the assets folder in today.txt and highscore.txt (generated on startup if they don't exist) and can be deleted if you want to reset your highscore (or look at a record of your daily highscores).
+4. Type out the word/phrase/paragraph. Your text will remain green while all characters are correct and turn red when you type a wrong character.
+    * If you want a different word/phrase/paragraph, simply click the restart button. This will also restart your timer so don't worry
+5. When finished, a window will come up and tell you whether you have set a new daily/all time highscore. These highscores are then displayed on the main window
+    * Note: The highscores are stored in the assets folder in today.txt and highscore.txt (generated on startup if they don't exist) and can be deleted if you want to reset your highscore (or look at a record of your daily highscores). 
+        ** Please take care not to delete the other text files as they hold the text that you are asked to type out so the program will not work without them
 
 Scores are calculated as words per minute (w.p.m) using ```(characters typed/5)/minutes``` This gives a more fair w.p.m calculation since longer words would be worth more than short words. This also means, however, that it would still be hard to get high w.p.m scores on easy and medium difficulties.
