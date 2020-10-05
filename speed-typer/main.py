@@ -26,7 +26,7 @@ class Main(assets.mainWindow.Ui_MainWindow):
         print(self.ui.timer_start)
 
     def onPressed(self):
-        """Starts timer when editor is clicked"""
+        """Starts timer. Time used in w.p.m. calculations."""
 
         self.timer_start = time.time()
 
@@ -162,11 +162,11 @@ class Main(assets.mainWindow.Ui_MainWindow):
         self.easy_window = QtWidgets.QMainWindow()
         self.easy_ui = assets.easyWindow.Ui_EasyWindow()
         self.easy_ui.setupUi(self.easy_window)
-        self.easy_ui.easyLineEdit.mousePressedEvent = self.onPressed()
         self.easy_ui.easy_label.setText(self.type_test.easy_choice())
         self.easy_ui.easyLineEdit.textChanged.connect(self.easy_onTextChanged)
         self.easy_ui.easy_restart.clicked.connect(lambda: self.easy_restart())
         self.easy_window.show()
+        self.onPressed()
 
     def medium_pop_up(self):
         """
@@ -177,13 +177,13 @@ class Main(assets.mainWindow.Ui_MainWindow):
         self.medium_window = QtWidgets.QMainWindow()
         self.medium_ui = assets.mediumWindow.Ui_MediumWindow()
         self.medium_ui.setupUi(self.medium_window)
-        self.medium_ui.mediumLineEdit.mousePressedEvent = self.onPressed()
         self.medium_ui.medium_label.setText(self.type_test.medium_choice())
         self.medium_ui.mediumLineEdit.textChanged.connect(
             self.medium_onTextChanged)
         self.medium_ui.medium_restart.clicked.connect(
             lambda: self.medium_restart())
         self.medium_window.show()
+        self.onPressed()
 
     def hard_pop_up(self):
         """
@@ -193,11 +193,11 @@ class Main(assets.mainWindow.Ui_MainWindow):
         self.hard_window = QtWidgets.QMainWindow()
         self.hard_ui = assets.hardWindow.Ui_HardWindow()
         self.hard_ui.setupUi(self.hard_window)
-        self.hard_ui.hard_textEdit.mousePressedEvent = self.onPressed()
         self.hard_ui.hard_label.setText(self.type_test.hard_choice())
         self.hard_ui.hard_textEdit.textChanged.connect(self.hard_onTextChanged)
         self.hard_ui.hard_restart.clicked.connect(self.hard_restart)
         self.hard_window.show()
+        self.onPressed()
 
     # Button Functions
 

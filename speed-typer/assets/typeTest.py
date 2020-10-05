@@ -24,8 +24,7 @@ class TypeTest():
                 today_txt.write("".join([self.date, " : 0"]))
 
         if not os.path.exists(self.h_path):
-            path = os.path.join(os.getcwd(), "assets", "today.txt")
-            with open("assets/highscore.txt", "w") as highscore_txt:
+            with open(self.h_path, "w") as highscore_txt:
                 highscore_txt.write("0")
 
     def easy_choice(self):
@@ -36,7 +35,6 @@ class TypeTest():
 
         return random.choice(lines).replace("\n", "")
 
-
     def medium_choice(self):
         """Returns a random common phrase"""
 
@@ -44,7 +42,6 @@ class TypeTest():
             lines = med.readlines()
 
         return random.choice(lines).replace("\n", "")
-
 
     def hard_choice(self):
         """Returns a random paragraph from a book or a quote (in one line)"""
@@ -54,21 +51,17 @@ class TypeTest():
 
         return (random.choice(lines)).replace("\n", "")
 
-
     def check_text(self, text1, text2):
         return text1.startswith(text2)
 
-
     def get_words(self, text):
         return len(text.split())
-
 
     def wpm_calc(self, text, seconds):
         minutes = seconds/60
         entries = len(text)
 
         return round((entries/5)/minutes)
-
 
     def get_today_highscore(self):
         with open(self.t_path, "r") as today_text:
@@ -79,7 +72,6 @@ class TypeTest():
             today_highscore = 0
 
         return today_highscore
-
 
     def check_day_highscore(self, wpm):
         return self.get_today_highscore() < wpm
@@ -102,8 +94,6 @@ class TypeTest():
     def set_highscore(self, wpm):
         with open(self.h_path, "w") as highscore_text:
             highscore_text.write(str(wpm))
-
-
 
 
 if __name__ == "__main__":
