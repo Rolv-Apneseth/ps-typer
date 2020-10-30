@@ -1,6 +1,6 @@
 # speed-typer
 
-A program to test the speed at which you can type. Choose a difficulty, type out the word, sentence or paragraph and be told how long you took to do it and your average w.p.m. The program can also keep track of your daily and lifetime highscores.
+A program to test the speed at which you can type. Choose a difficulty, type out the text and be told how long you took to do it and your average w.p.m. The program can also keep track of your daily and lifetime highscores.
 
 ## What I learned
 
