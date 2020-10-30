@@ -1,11 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_EasyWindow(object):
     """Pop up for an easy type test"""
 
-    #GUI Functions
+    # GUI Functions
     def setupUi(self, EasyWindow):
-        #fonts
+        # fonts
         font1 = QtGui.QFont()
         font1.setFamily("Arial")
         font1.setPointSize(18)
@@ -25,14 +26,16 @@ class Ui_EasyWindow(object):
         font3.setBold(True)
         font3.setWeight(75)
 
-        #UI
+        # UI
         EasyWindow.setObjectName("EasyWindow")
         EasyWindow.resize(460, 260)
         self.centralwidget = QtWidgets.QWidget(EasyWindow)
         self.centralwidget.setObjectName("centralwidget")
 
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("assets/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(
+            QtGui.QPixmap("assets/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off
+        )
         EasyWindow.setWindowIcon(icon)
 
         self.easy_input_frame = QtWidgets.QFrame(self.centralwidget)
@@ -57,7 +60,11 @@ class Ui_EasyWindow(object):
         self.easyLineEdit = QtWidgets.QLineEdit(self.easy_input_frame)
         self.easyLineEdit.setGeometry(QtCore.QRect(5, 90, 430, 80))
         self.easyLineEdit.setFont(font3)
-        self.easyLineEdit.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly|QtCore.Qt.ImhNoAutoUppercase|QtCore.Qt.ImhNoPredictiveText)
+        self.easyLineEdit.setInputMethodHints(
+            QtCore.Qt.ImhLowercaseOnly
+            | QtCore.Qt.ImhNoAutoUppercase
+            | QtCore.Qt.ImhNoPredictiveText
+        )
         self.easyLineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.easyLineEdit.setObjectName("easyLineEdit")
 
@@ -83,16 +90,19 @@ class Ui_EasyWindow(object):
         _translate = QtCore.QCoreApplication.translate
         EasyWindow.setWindowTitle(_translate("EasyWindow", "Typing Speed Test- Easy"))
         self.easy_label.setText(_translate("EasyWindow", "Placeholder Text"))
-        self.easy_title_label.setText(_translate("EasyWindow", "Type out the following word down below:"))
+        self.easy_title_label.setText(
+            _translate("EasyWindow", "Type out the following word down below:")
+        )
         self.easy_restart.setText(_translate("EasyWindow", "Restart"))
 
-#Can run to look at ui layout but fucntionality is included in main.py
+
+# Can run to look at ui layout but fucntionality is included in main.py
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     EasyWindow = QtWidgets.QMainWindow()
     ui = Ui_EasyWindow()
     ui.setupUi(EasyWindow)
     EasyWindow.show()
     sys.exit(app.exec_())
-

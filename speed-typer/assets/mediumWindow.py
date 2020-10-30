@@ -1,11 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MediumWindow(object):
     """Pop up for a medium type test"""
 
     def setupUi(self, MediumWindow):
 
-        #fonts
+        # fonts
         font1 = QtGui.QFont()
         font1.setFamily("Arial")
         font1.setPointSize(12)
@@ -19,14 +20,16 @@ class Ui_MediumWindow(object):
         font2.setBold(True)
         font2.setWeight(75)
 
-        #UI
+        # UI
         MediumWindow.setObjectName("MediumWindow")
         MediumWindow.resize(460, 260)
         self.centralwidget = QtWidgets.QWidget(MediumWindow)
         self.centralwidget.setObjectName("centralwidget")
 
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("assets/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(
+            QtGui.QPixmap("assets/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off
+        )
         MediumWindow.setWindowIcon(icon)
 
         self.medium_input_frame = QtWidgets.QFrame(self.centralwidget)
@@ -44,7 +47,11 @@ class Ui_MediumWindow(object):
         self.mediumLineEdit = QtWidgets.QLineEdit(self.medium_input_frame)
         self.mediumLineEdit.setGeometry(QtCore.QRect(5, 90, 430, 80))
         self.mediumLineEdit.setFont(font2)
-        self.mediumLineEdit.setInputMethodHints(QtCore.Qt.ImhLowercaseOnly|QtCore.Qt.ImhNoAutoUppercase|QtCore.Qt.ImhNoPredictiveText)
+        self.mediumLineEdit.setInputMethodHints(
+            QtCore.Qt.ImhLowercaseOnly
+            | QtCore.Qt.ImhNoAutoUppercase
+            | QtCore.Qt.ImhNoPredictiveText
+        )
         self.mediumLineEdit.setAlignment(QtCore.Qt.AlignCenter)
         self.mediumLineEdit.setObjectName("mediumLineEdit")
 
@@ -75,14 +82,19 @@ class Ui_MediumWindow(object):
 
     def retranslateUi(self, MediumWindow):
         _translate = QtCore.QCoreApplication.translate
-        MediumWindow.setWindowTitle(_translate("MediumWindow", "Typing Speed Test- Medium"))
+        MediumWindow.setWindowTitle(
+            _translate("MediumWindow", "Typing Speed Test- Medium")
+        )
         self.medium_label.setText(_translate("MediumWindow", "Placeholder text"))
-        self.medium_title_label.setText(_translate("MediumWindow", "Type out the following phrase down below:"))
+        self.medium_title_label.setText(
+            _translate("MediumWindow", "Type out the following phrase down below:")
+        )
         self.medium_restart.setText(_translate("MediumWindow", "Restart"))
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MediumWindow = QtWidgets.QMainWindow()
     ui = Ui_MediumWindow()

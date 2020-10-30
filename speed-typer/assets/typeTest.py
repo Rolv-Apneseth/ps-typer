@@ -1,10 +1,12 @@
-import time
-import random
 import os
+import random
+import time
 from datetime import datetime
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class TypeTest():
+
+class TypeTest:
     today = datetime.today()
     date = "".join([str(today.day), "/", str(today.month), "/", str(today.year)])
 
@@ -58,10 +60,10 @@ class TypeTest():
         return len(text.split())
 
     def wpm_calc(self, text, seconds):
-        minutes = seconds/60
+        minutes = seconds / 60
         entries = len(text)
 
-        return round((entries/5)/minutes)
+        return round((entries / 5) / minutes)
 
     def get_today_highscore(self):
         with open(self.t_path, "r") as today_text:
@@ -76,16 +78,13 @@ class TypeTest():
     def check_day_highscore(self, wpm):
         return self.get_today_highscore() < wpm
 
-
     def get_highscore(self):
         with open(self.h_path, "r") as highscore_text:
             highscore = int(highscore_text.read())
         return highscore
 
-
     def check_highscore(self, wpm):
         return self.get_highscore() < wpm
-
 
     def set_day_highscore(self, wpm):
         with open(self.t_path, "a") as today_text:
@@ -106,6 +105,3 @@ if __name__ == "__main__":
     print(test.date)
     print(test.check_highscore(12))
     print(test.check_highscore(1))
-
-
-

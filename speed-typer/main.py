@@ -1,12 +1,13 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
 import time
 
-from assets.typeTest import TypeTest
-import assets.mainWindow
+from PyQt5 import QtCore, QtGui, QtWidgets
+
 import assets.easyWindow
-import assets.mediumWindow
 import assets.hardWindow
+import assets.mainWindow
+import assets.mediumWindow
 import assets.scoreWindow
+from assets.typeTest import TypeTest
 
 
 class Main(assets.mainWindow.Ui_MainWindow):
@@ -16,9 +17,11 @@ class Main(assets.mainWindow.Ui_MainWindow):
 
     def initial_highscores(self):
         self.today_highscore.setText(
-            "".join([str(self.type_test.get_today_highscore()), " wpm"]))
+            "".join([str(self.type_test.get_today_highscore()), " wpm"])
+        )
         self.all_time_highscore.setText(
-            "".join([str(self.type_test.get_highscore()), " wpm"]))
+            "".join([str(self.type_test.get_highscore()), " wpm"])
+        )
 
     # Window Functionality Functions
 
@@ -52,7 +55,8 @@ class Main(assets.mainWindow.Ui_MainWindow):
             self.easy_window.close()
             self.score_pop_up()
             self.score_ui.you_typed_label.setText(
-                f"You typed {words} word(s) in {round(seconds)} second(s) and your score was {wpm} w.p.m.!")
+                f"You typed {words} word(s) in {round(seconds)} second(s) and your score was {wpm} w.p.m.!"
+            )
             self.highscore(int(wpm))
 
     def medium_onTextChanged(self):
@@ -77,7 +81,8 @@ class Main(assets.mainWindow.Ui_MainWindow):
             self.medium_window.close()
             self.score_pop_up()
             self.score_ui.you_typed_label.setText(
-                f"You typed {words} word(s) in {round(seconds)} second(s) and your score was {wpm} w.p.m.!")
+                f"You typed {words} word(s) in {round(seconds)} second(s) and your score was {wpm} w.p.m.!"
+            )
             self.highscore(int(wpm))
 
     def hard_onTextChanged(self):
@@ -102,7 +107,8 @@ class Main(assets.mainWindow.Ui_MainWindow):
             self.hard_window.close()
             self.score_pop_up()
             self.score_ui.you_typed_label.setText(
-                f"You typed {words} word(s) in {round(seconds)} second(s) and your score was {wpm} w.p.m.!")
+                f"You typed {words} word(s) in {round(seconds)} second(s) and your score was {wpm} w.p.m.!"
+            )
             self.highscore(int(wpm))
 
     def easy_restart(self):
@@ -138,8 +144,7 @@ class Main(assets.mainWindow.Ui_MainWindow):
 
             if self.type_test.check_highscore(wpm):
                 self.type_test.set_highscore(wpm)
-                self.score_ui.outcome_label.setText(
-                    "You set an all time highscore!")
+                self.score_ui.outcome_label.setText("You set an all time highscore!")
                 self.all_time_highscore.setText("".join([str(wpm), " wpm"]))
 
     # Pop up Functions
@@ -178,10 +183,8 @@ class Main(assets.mainWindow.Ui_MainWindow):
         self.medium_ui = assets.mediumWindow.Ui_MediumWindow()
         self.medium_ui.setupUi(self.medium_window)
         self.medium_ui.medium_label.setText(self.type_test.medium_choice())
-        self.medium_ui.mediumLineEdit.textChanged.connect(
-            self.medium_onTextChanged)
-        self.medium_ui.medium_restart.clicked.connect(
-            lambda: self.medium_restart())
+        self.medium_ui.mediumLineEdit.textChanged.connect(self.medium_onTextChanged)
+        self.medium_ui.medium_restart.clicked.connect(lambda: self.medium_restart())
         self.medium_window.show()
         self.onPressed()
 
@@ -215,6 +218,7 @@ class Main(assets.mainWindow.Ui_MainWindow):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Main()

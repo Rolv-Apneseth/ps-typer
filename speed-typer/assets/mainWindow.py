@@ -1,10 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
-
-
     def setupUi(self, MainWindow):
-        #Fonts
+        # Fonts
         font1 = QtGui.QFont()
         font1.setFamily("Arial Black")
         font1.setPointSize(16)
@@ -30,17 +29,19 @@ class Ui_MainWindow(object):
         font5.setUnderline(True)
         font5.setWeight(75)
 
-        #UI
+        # UI
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(531, 189)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("assets/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(
+            QtGui.QPixmap("assets/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off
+        )
         MainWindow.setWindowIcon(icon)
 
-        #HIGHSCORE FRAME
+        # HIGHSCORE FRAME
         self.highscore_frame = QtWidgets.QFrame(self.centralwidget)
         self.highscore_frame.setGeometry(QtCore.QRect(20, 30, 170, 120))
         self.highscore_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -82,7 +83,7 @@ class Ui_MainWindow(object):
         self.all_time_label.setAlignment(QtCore.Qt.AlignCenter)
         self.all_time_label.setObjectName("all_time_label")
 
-        #DIFFICULTY FRAME
+        # DIFFICULTY FRAME
         self.difficulty_frame = QtWidgets.QFrame(self.centralwidget)
         self.difficulty_frame.setGeometry(QtCore.QRect(210, 30, 300, 120))
         self.difficulty_frame.setStatusTip("")
@@ -95,12 +96,16 @@ class Ui_MainWindow(object):
         self.choose_label.setFont(font5)
         self.choose_label.setObjectName("choose_label")
 
-        #Buttons
+        # Buttons
         self.begin_button = QtWidgets.QPushButton(self.difficulty_frame)
         self.begin_button.setGeometry(QtCore.QRect(100, 80, 100, 30))
         self.begin_button.setFont(font4)
         self.begin_button.setObjectName("begin_button")
-        self.begin_button.clicked.connect(lambda: self.begin(self.easy_radio.isChecked(), self.medium_radio.isChecked()))
+        self.begin_button.clicked.connect(
+            lambda: self.begin(
+                self.easy_radio.isChecked(), self.medium_radio.isChecked()
+            )
+        )
 
         self.hard_radio = QtWidgets.QRadioButton(self.difficulty_frame)
         self.hard_radio.setGeometry(QtCore.QRect(220, 45, 41, 18))
@@ -134,21 +139,35 @@ class Ui_MainWindow(object):
         self.all_time_highscore.setText(_translate("MainWindow", "00 wpm"))
         self.today_label.setText(_translate("MainWindow", "Today:"))
         self.today_highscore.setText(_translate("MainWindow", "00 wpm"))
-        self.all_time_label.setStatusTip(_translate("MainWindow", "Can be reset by deleting All_Time.txt"))
+        self.all_time_label.setStatusTip(
+            _translate("MainWindow", "Can be reset by deleting All_Time.txt")
+        )
         self.all_time_label.setText(_translate("MainWindow", "All time:"))
-        self.begin_button.setStatusTip(_translate("MainWindow", "Pops up a new window with the actual typing test"))
+        self.begin_button.setStatusTip(
+            _translate("MainWindow", "Pops up a new window with the actual typing test")
+        )
         self.begin_button.setText(_translate("MainWindow", "Begin Speed Test"))
-        self.hard_radio.setStatusTip(_translate("MainWindow", "Type out long paragraphs, either paragraphs from famous books or famous quotes"))
+        self.hard_radio.setStatusTip(
+            _translate(
+                "MainWindow",
+                "Type out long paragraphs, either paragraphs from famous books or famous quotes",
+            )
+        )
         self.hard_radio.setText(_translate("MainWindow", "Hard"))
-        self.medium_radio.setStatusTip(_translate("MainWindow", "Type some common English expressions/sayings"))
+        self.medium_radio.setStatusTip(
+            _translate("MainWindow", "Type some common English expressions/sayings")
+        )
         self.medium_radio.setText(_translate("MainWindow", "Medium"))
-        self.easy_radio.setStatusTip(_translate("MainWindow", "Type some of the most common English words"))
+        self.easy_radio.setStatusTip(
+            _translate("MainWindow", "Type some of the most common English words")
+        )
         self.easy_radio.setText(_translate("MainWindow", "Easy"))
         self.choose_label.setText(_translate("MainWindow", "Choose a difficulty"))
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
