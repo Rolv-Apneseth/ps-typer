@@ -14,8 +14,33 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(706, 222)
-        Form.setStyleSheet("")
+        Form.resize(786, 251)
+        Form.setStyleSheet("QWidget {\n"
+"    \n"
+"    background: rgb(50, 50, 50);\n"
+"    color: rgb(235, 235, 235);\n"
+"}\n"
+"\n"
+"QFrame {    \n"
+"    \n"
+"    \n"
+"    border: 1px solid rgb(235, 235, 235);\n"
+"}\n"
+"\n"
+"QPushButton, QComboBox {\n"
+"    \n"
+"    background: rgb(70, 70, 70)\n"
+"}\n"
+"\n"
+"QLabel {\n"
+"    background: transparent;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"Line {\n"
+"    border: none;\n"
+"    background-color: rgb(235, 235, 235);\n"
+"}4")
         self.horizontalLayout = QtWidgets.QHBoxLayout(Form)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
