@@ -6,12 +6,35 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1204</width>
-    <height>663</height>
+    <width>1534</width>
+    <height>615</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Typing window</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget {
+	
+	background: rgb(50, 50, 50);
+	color: rgb(235, 235, 235);
+}
+
+QFrame {	
+	
+	
+	border: 1px solid rgb(235, 235, 235);
+}
+
+QPushButton, QComboBox {
+	
+	background: rgb(70, 70, 70)
+}
+
+QLabel {
+	background: transparent;
+	border: none;
+}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -49,6 +72,55 @@
     </widget>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <spacer name="horizontalSpacer_5">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>80</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="Line" name="line">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>2</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(235, 235, 235);</string>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_6">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>80</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -78,12 +150,10 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background: #ddd;
-padding: 20px;
-margin: 20px;</string>
+      <string notr="true">padding: 60px;</string>
      </property>
      <property name="text">
-      <string>Random text to type out blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah </string>
+      <string>Random text to type out blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</string>
      </property>
      <property name="textFormat">
       <enum>Qt::RichText</enum>
@@ -130,7 +200,7 @@ margin: 20px;</string>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>100</width>
+         <width>80</width>
          <height>40</height>
         </size>
        </property>
@@ -214,7 +284,7 @@ margin: 20px;</string>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
-         <width>100</width>
+         <width>80</width>
          <height>40</height>
         </size>
        </property>

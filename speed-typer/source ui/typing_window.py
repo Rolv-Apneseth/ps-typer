@@ -14,7 +14,28 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_typingWindow(object):
     def setupUi(self, typingWindow):
         typingWindow.setObjectName("typingWindow")
-        typingWindow.resize(1204, 663)
+        typingWindow.resize(1534, 615)
+        typingWindow.setStyleSheet("QWidget {\n"
+"    \n"
+"    background: rgb(50, 50, 50);\n"
+"    color: rgb(235, 235, 235);\n"
+"}\n"
+"\n"
+"QFrame {    \n"
+"    \n"
+"    \n"
+"    border: 1px solid rgb(235, 235, 235);\n"
+"}\n"
+"\n"
+"QPushButton, QComboBox {\n"
+"    \n"
+"    background: rgb(70, 70, 70)\n"
+"}\n"
+"\n"
+"QLabel {\n"
+"    background: transparent;\n"
+"    border: none;\n"
+"}")
         self.verticalLayout = QtWidgets.QVBoxLayout(typingWindow)
         self.verticalLayout.setObjectName("verticalLayout")
         self.labelTitle = QtWidgets.QLabel(typingWindow)
@@ -32,8 +53,27 @@ class Ui_typingWindow(object):
         self.labelTitle.setAlignment(QtCore.Qt.AlignCenter)
         self.labelTitle.setObjectName("labelTitle")
         self.verticalLayout.addWidget(self.labelTitle)
-        spacerItem = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout.addItem(spacerItem)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setContentsMargins(-1, 0, -1, -1)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        spacerItem = QtWidgets.QSpacerItem(80, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.line = QtWidgets.QFrame(typingWindow)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(2)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.line.sizePolicy().hasHeightForWidth())
+        self.line.setSizePolicy(sizePolicy)
+        self.line.setStyleSheet("background-color: rgb(235, 235, 235);")
+        self.line.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line.setObjectName("line")
+        self.horizontalLayout.addWidget(self.line)
+        spacerItem1 = QtWidgets.QSpacerItem(80, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem1)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout.addItem(spacerItem2)
         self.labelMainText = QtWidgets.QLabel(typingWindow)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -43,21 +83,19 @@ class Ui_typingWindow(object):
         font = QtGui.QFont()
         font.setPointSize(28)
         self.labelMainText.setFont(font)
-        self.labelMainText.setStyleSheet("background: #ddd;\n"
-"padding: 20px;\n"
-"margin: 20px;")
+        self.labelMainText.setStyleSheet("padding: 60px;")
         self.labelMainText.setTextFormat(QtCore.Qt.RichText)
         self.labelMainText.setWordWrap(True)
         self.labelMainText.setObjectName("labelMainText")
         self.verticalLayout.addWidget(self.labelMainText)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout.addItem(spacerItem1)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout.addItem(spacerItem3)
         self.horizontalLayoutButtons = QtWidgets.QHBoxLayout()
         self.horizontalLayoutButtons.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
         self.horizontalLayoutButtons.setContentsMargins(-1, 0, -1, -1)
         self.horizontalLayoutButtons.setObjectName("horizontalLayoutButtons")
-        spacerItem2 = QtWidgets.QSpacerItem(100, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayoutButtons.addItem(spacerItem2)
+        spacerItem4 = QtWidgets.QSpacerItem(80, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayoutButtons.addItem(spacerItem4)
         self.buttonBack = QtWidgets.QPushButton(typingWindow)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(1)
@@ -66,8 +104,8 @@ class Ui_typingWindow(object):
         self.buttonBack.setSizePolicy(sizePolicy)
         self.buttonBack.setObjectName("buttonBack")
         self.horizontalLayoutButtons.addWidget(self.buttonBack)
-        spacerItem3 = QtWidgets.QSpacerItem(30, 40, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayoutButtons.addItem(spacerItem3)
+        spacerItem5 = QtWidgets.QSpacerItem(30, 40, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayoutButtons.addItem(spacerItem5)
         self.buttonRestart = QtWidgets.QPushButton(typingWindow)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(1)
@@ -76,8 +114,8 @@ class Ui_typingWindow(object):
         self.buttonRestart.setSizePolicy(sizePolicy)
         self.buttonRestart.setObjectName("buttonRestart")
         self.horizontalLayoutButtons.addWidget(self.buttonRestart)
-        spacerItem4 = QtWidgets.QSpacerItem(30, 40, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayoutButtons.addItem(spacerItem4)
+        spacerItem6 = QtWidgets.QSpacerItem(30, 40, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayoutButtons.addItem(spacerItem6)
         self.buttonNewText = QtWidgets.QPushButton(typingWindow)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(1)
@@ -86,8 +124,8 @@ class Ui_typingWindow(object):
         self.buttonNewText.setSizePolicy(sizePolicy)
         self.buttonNewText.setObjectName("buttonNewText")
         self.horizontalLayoutButtons.addWidget(self.buttonNewText)
-        spacerItem5 = QtWidgets.QSpacerItem(100, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayoutButtons.addItem(spacerItem5)
+        spacerItem7 = QtWidgets.QSpacerItem(80, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayoutButtons.addItem(spacerItem7)
         self.verticalLayout.addLayout(self.horizontalLayoutButtons)
 
         self.retranslateUi(typingWindow)
@@ -97,7 +135,7 @@ class Ui_typingWindow(object):
         _translate = QtCore.QCoreApplication.translate
         typingWindow.setWindowTitle(_translate("typingWindow", "Typing window"))
         self.labelTitle.setText(_translate("typingWindow", "Mode"))
-        self.labelMainText.setText(_translate("typingWindow", "Random text to type out blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah "))
+        self.labelMainText.setText(_translate("typingWindow", "Random text to type out blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah"))
         self.buttonBack.setText(_translate("typingWindow", "Back"))
         self.buttonRestart.setText(_translate("typingWindow", "Restart"))
         self.buttonNewText.setText(_translate("typingWindow", "New Text"))
