@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(786, 251)
+        Form.resize(706, 214)
         Form.setStyleSheet("QWidget {\n"
 "    \n"
 "    background: rgb(50, 50, 50);\n"
@@ -35,17 +35,14 @@ class Ui_Form(object):
 "QLabel {\n"
 "    background: transparent;\n"
 "    border: none;\n"
-"}\n"
-"\n"
-"Line {\n"
-"    border: none;\n"
-"    background-color: rgb(235, 235, 235);\n"
-"}4")
+"}")
         self.horizontalLayout = QtWidgets.QHBoxLayout(Form)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setContentsMargins(0, -1, -1, 0)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem)
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setContentsMargins(0, -1, -1, -1)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
@@ -78,12 +75,13 @@ class Ui_Form(object):
         self.labelMainMenu.setObjectName("labelMainMenu")
         self.verticalLayout_2.addWidget(self.labelMainMenu)
         self.lineMainMenu = QtWidgets.QFrame(self.frameMainMenu)
+        self.lineMainMenu.setStyleSheet("background-color: rgb(235, 235, 235);")
         self.lineMainMenu.setFrameShape(QtWidgets.QFrame.HLine)
         self.lineMainMenu.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.lineMainMenu.setObjectName("lineMainMenu")
         self.verticalLayout_2.addWidget(self.lineMainMenu)
-        spacerItem = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_2.addItem(spacerItem)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_2.addItem(spacerItem1)
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_6.setContentsMargins(-1, 0, -1, -1)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
@@ -115,11 +113,11 @@ class Ui_Form(object):
         self.comboBoxSelectMode.addItem("")
         self.comboBoxSelectMode.addItem("")
         self.horizontalLayout_6.addWidget(self.comboBoxSelectMode)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_6.addItem(spacerItem1)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_6.addItem(spacerItem2)
         self.verticalLayout_2.addLayout(self.horizontalLayout_6)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 75, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout_2.addItem(spacerItem2)
+        spacerItem3 = QtWidgets.QSpacerItem(20, 75, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_2.addItem(spacerItem3)
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.buttonStart = QtWidgets.QPushButton(self.frameMainMenu)
@@ -134,8 +132,8 @@ class Ui_Form(object):
         self.buttonStart.setFont(font)
         self.buttonStart.setObjectName("buttonStart")
         self.horizontalLayout_5.addWidget(self.buttonStart)
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem3)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem4)
         self.buttonSettings = QtWidgets.QPushButton(self.frameMainMenu)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
@@ -148,8 +146,8 @@ class Ui_Form(object):
         self.buttonSettings.setFont(font)
         self.buttonSettings.setObjectName("buttonSettings")
         self.horizontalLayout_5.addWidget(self.buttonSettings)
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem4)
+        spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem5)
         self.verticalLayout_2.addLayout(self.horizontalLayout_5)
         self.horizontalLayout_4.addWidget(self.frameMainMenu)
         self.frameHighscore = QtWidgets.QFrame(Form)
@@ -182,12 +180,13 @@ class Ui_Form(object):
         self.labelHighscore.setObjectName("labelHighscore")
         self.verticalLayout.addWidget(self.labelHighscore)
         self.lineHighscore = QtWidgets.QFrame(self.frameHighscore)
+        self.lineHighscore.setStyleSheet("background-color: rgb(235, 235, 235);")
         self.lineHighscore.setFrameShape(QtWidgets.QFrame.HLine)
         self.lineHighscore.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.lineHighscore.setObjectName("lineHighscore")
         self.verticalLayout.addWidget(self.lineHighscore)
-        spacerItem5 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout.addItem(spacerItem5)
+        spacerItem6 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout.addItem(spacerItem6)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.labelTodayTitle = QtWidgets.QLabel(self.frameHighscore)
@@ -226,8 +225,8 @@ class Ui_Form(object):
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.horizontalLayout_4.addWidget(self.frameHighscore)
         self.verticalLayout_3.addLayout(self.horizontalLayout_4)
-        spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_3.addItem(spacerItem6)
+        spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem7)
         self.horizontalLayout.addLayout(self.verticalLayout_3)
 
         self.retranslateUi(Form)
