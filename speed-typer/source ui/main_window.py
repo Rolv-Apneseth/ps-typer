@@ -11,11 +11,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(706, 214)
-        Form.setStyleSheet("QWidget {\n"
+class Ui_mainWindow(object):
+    def setupUi(self, mainWindow):
+        mainWindow.setObjectName("mainWindow")
+        mainWindow.resize(706, 214)
+        mainWindow.setStyleSheet("QWidget {\n"
 "    \n"
 "    background: rgb(50, 50, 50);\n"
 "    color: rgb(235, 235, 235);\n"
@@ -36,7 +36,7 @@ class Ui_Form(object):
 "    background: transparent;\n"
 "    border: none;\n"
 "}")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(Form)
+        self.horizontalLayout = QtWidgets.QHBoxLayout(mainWindow)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setContentsMargins(0, -1, -1, 0)
@@ -46,7 +46,7 @@ class Ui_Form(object):
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setContentsMargins(0, -1, -1, -1)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.frameMainMenu = QtWidgets.QFrame(Form)
+        self.frameMainMenu = QtWidgets.QFrame(mainWindow)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(2)
         sizePolicy.setVerticalStretch(0)
@@ -106,6 +106,7 @@ class Ui_Form(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.comboBoxSelectMode.setFont(font)
+        self.comboBoxSelectMode.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.comboBoxSelectMode.setObjectName("comboBoxSelectMode")
         self.comboBoxSelectMode.addItem("")
         self.comboBoxSelectMode.addItem("")
@@ -130,6 +131,7 @@ class Ui_Form(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.buttonStart.setFont(font)
+        self.buttonStart.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.buttonStart.setObjectName("buttonStart")
         self.horizontalLayout_5.addWidget(self.buttonStart)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
@@ -144,13 +146,14 @@ class Ui_Form(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.buttonSettings.setFont(font)
+        self.buttonSettings.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.buttonSettings.setObjectName("buttonSettings")
         self.horizontalLayout_5.addWidget(self.buttonSettings)
         spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_5.addItem(spacerItem5)
         self.verticalLayout_2.addLayout(self.horizontalLayout_5)
         self.horizontalLayout_4.addWidget(self.frameMainMenu)
-        self.frameHighscore = QtWidgets.QFrame(Form)
+        self.frameHighscore = QtWidgets.QFrame(mainWindow)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(1)
         sizePolicy.setVerticalStretch(0)
@@ -229,33 +232,33 @@ class Ui_Form(object):
         self.verticalLayout_3.addItem(spacerItem7)
         self.horizontalLayout.addLayout(self.verticalLayout_3)
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(mainWindow)
+        QtCore.QMetaObject.connectSlotsByName(mainWindow)
 
-    def retranslateUi(self, Form):
+    def retranslateUi(self, mainWindow):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
-        self.labelMainMenu.setText(_translate("Form", "Main Menu"))
-        self.labelSelectMode.setText(_translate("Form", "Mode:"))
-        self.comboBoxSelectMode.setItemText(0, _translate("Form", "Common Phrases"))
-        self.comboBoxSelectMode.setItemText(1, _translate("Form", "Famous Novel Excerpts"))
-        self.comboBoxSelectMode.setItemText(2, _translate("Form", "Famous Quotes/Speeches"))
-        self.comboBoxSelectMode.setItemText(3, _translate("Form", "Facts/Educational"))
-        self.comboBoxSelectMode.setItemText(4, _translate("Form", "Randomly Generated Text"))
-        self.buttonStart.setText(_translate("Form", "Begin"))
-        self.buttonSettings.setText(_translate("Form", "Settings"))
-        self.labelHighscore.setText(_translate("Form", "Highscores"))
-        self.labelTodayTitle.setText(_translate("Form", " Today: "))
-        self.labelTodayScore.setText(_translate("Form", "0 WPM"))
-        self.labelAlltimeTitle.setText(_translate("Form", " All-time: "))
-        self.labelAlltimeScore.setText(_translate("Form", "0 WPM"))
+        mainWindow.setWindowTitle(_translate("mainWindow", "Speed Type Test"))
+        self.labelMainMenu.setText(_translate("mainWindow", "Main Menu"))
+        self.labelSelectMode.setText(_translate("mainWindow", "Mode:"))
+        self.comboBoxSelectMode.setItemText(0, _translate("mainWindow", "Common Phrases"))
+        self.comboBoxSelectMode.setItemText(1, _translate("mainWindow", "Famous Novel Excerpts"))
+        self.comboBoxSelectMode.setItemText(2, _translate("mainWindow", "Famous Quotes/Speeches"))
+        self.comboBoxSelectMode.setItemText(3, _translate("mainWindow", "Facts/Educational"))
+        self.comboBoxSelectMode.setItemText(4, _translate("mainWindow", "Randomly Generated Text"))
+        self.buttonStart.setText(_translate("mainWindow", "Begin"))
+        self.buttonSettings.setText(_translate("mainWindow", "Settings"))
+        self.labelHighscore.setText(_translate("mainWindow", "Highscores"))
+        self.labelTodayTitle.setText(_translate("mainWindow", " Today: "))
+        self.labelTodayScore.setText(_translate("mainWindow", "0 WPM"))
+        self.labelAlltimeTitle.setText(_translate("mainWindow", " All-time: "))
+        self.labelAlltimeScore.setText(_translate("mainWindow", "0 WPM"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
+    mainWindow = QtWidgets.QWidget()
+    ui = Ui_mainWindow()
+    ui.setupUi(mainWindow)
+    mainWindow.show()
     sys.exit(app.exec_())

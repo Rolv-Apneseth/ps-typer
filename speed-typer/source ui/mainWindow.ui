@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>mainWindow</class>
+ <widget class="QWidget" name="mainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Speed Type Test</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget {
@@ -179,6 +179,9 @@ QLabel {
                 <pointsize>16</pointsize>
                </font>
               </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
               <item>
                <property name="text">
                 <string>Common Phrases</string>
@@ -258,6 +261,9 @@ QLabel {
                 <pointsize>16</pointsize>
                </font>
               </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
               <property name="text">
                <string>Begin</string>
               </property>
@@ -297,6 +303,9 @@ QLabel {
                <font>
                 <pointsize>16</pointsize>
                </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
               </property>
               <property name="text">
                <string>Settings</string>
