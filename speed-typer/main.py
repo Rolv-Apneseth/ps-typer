@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtWidgets
 
+import type_test
 from source_ui import main_window
-from assets import type_test
 
 
 class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
