@@ -189,17 +189,17 @@ QLabel {
               </item>
               <item>
                <property name="text">
+                <string>Facts</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
                 <string>Famous Novel Excerpts</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>Famous Quotes/Speeches</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Facts/Educational</string>
+                <string>Famous Quotes</string>
                </property>
               </item>
               <item>
