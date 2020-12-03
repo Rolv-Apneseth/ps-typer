@@ -20,7 +20,9 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         if mode == "Common Phrases":
             self.labelMainText.setAlignment(QtCore.Qt.AlignCenter)
 
-        self.text = random.choice(texts._translate[mode])
+        random_text = random.choice(texts._translate[mode])
+
+        self.text = random_text.strip()
         self.labelMainText.setText(self.text)
 
 
