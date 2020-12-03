@@ -31,6 +31,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     # Helper Functions
     def make_mode_window(self, mode):
         self.mode_window = type_test.TypingWindow()
+        self.mode_window.setMode(mode)
 
         self.mode_window.buttonBack.clicked.connect(self.on_clicked_back)
 
