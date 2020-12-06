@@ -1,3 +1,6 @@
+import random
+
+
 COMMON_PHRASES = [
     "A bird in the hand is worth two in the bush.",
     "A penny for your thoughts.",
@@ -283,9 +286,18 @@ QUOTES = [
     "I have a dream that my four little children will one day live in a nation where they will not be judged by the color of their skin but by the content of their character. I have a dream today. -Martin Luther King Jr.",
 ]
 
+
+def get_random_choice(lst: list) -> str:
+    """Returns a random string from a list of strings with whitespaces.
+
+    Text is also stripped of trailing and leading whitespaces."""
+
+    return random.choice(lst).strip()
+
+
 _translate = {
-    "Common Phrases": COMMON_PHRASES,
-    "Facts": FACTS,
-    "Famous Novel Excerpts": NOVEL_EXCERPTS,
-    "Famous Quotes": QUOTES,
+    "Common Phrases": lambda: get_random_choice(COMMON_PHRASES),
+    "Facts": lambda: get_random_choice(FACTS),
+    "Famous Novel Excerpts": lambda: get_random_choice(NOVEL_EXCERPTS),
+    "Famous Quotes": lambda: get_random_choice(QUOTES),
 }

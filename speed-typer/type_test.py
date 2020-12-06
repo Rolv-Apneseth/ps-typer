@@ -1,4 +1,3 @@
-import random
 from PyQt5 import QtCore, QtWidgets
 
 from source_ui import typing_window
@@ -20,9 +19,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         if mode == "Common Phrases":
             self.labelMainText.setAlignment(QtCore.Qt.AlignCenter)
 
-        random_text = random.choice(texts._translate[mode])
-
-        self.text = random_text.strip()
+        self.text = texts._translate[mode]()
         self.labelMainText.setText(self.text)
 
 
