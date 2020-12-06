@@ -4,7 +4,3 @@ lib/
 lib64
 *.cfg
 share/
-
-# Highscore text files
-speed-typer/assets/highscore.txt
-speed-typer/assets/today.txt
