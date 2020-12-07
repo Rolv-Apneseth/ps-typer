@@ -12,8 +12,10 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         # setupui can be given self in for a window
         self.setupUi(self)
 
+        self.lineInput.textChanged.connect(self.on_input_text_changed)
+
     # Helper Functions
-    def setMode(self, mode):
+    def set_mode(self, mode):
         self.mode = mode
 
         if mode == "Common Phrases":
@@ -21,6 +23,14 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.text = texts._translate[mode]()
         self.labelMainText.setText(self.text)
+
+    # def keyPressEvent(self, event):
+    #     if event.key():
+    #         print(event.key())
+
+    # Button Functions
+    def on_input_text_changed(self, input_text):
+        print(input_text)
 
 
 if __name__ == "__main__":
