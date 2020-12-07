@@ -1,4 +1,5 @@
 import random
+from nltk.corpus import brown
 
 
 COMMON_PHRASES = [
@@ -290,9 +291,53 @@ QUOTES = [
 def get_random_choice(lst: list) -> str:
     """Returns a random string from a list of strings with whitespaces.
 
-    Text is also stripped of trailing and leading whitespaces."""
+    Text is also stripped of trailing and leading whitespaces.
+    """
 
     return random.choice(lst).strip()
+
+
+def replace_from_text(raw_text: str, symbols: dict) -> str:
+    """Replace every symbol/character in the keys of the symbols dictionary
+    with the corresponding value for each key.
+
+    For use with get_random_text()."""
+
+    for symbol in symbols:
+        raw_text = raw_text.replace(symbol, symbols[symbol])
+
+    return raw_text
+
+
+def remove_from_text(raw_text: str, symbols: list) -> str:
+    """Removes every symbol/character in the symbols list from a given string,
+    raw_text.
+
+    For use with get_random_text().
+    """
+
+    for symbol in symbols:
+        raw_text = raw_text.replace(symbol, "")
+
+    return raw_text
+
+
+def get_random_text() -> str:
+    """Returns a string of randomly generated text."""
+    LENGTH = 50
+
+    random_int = random.randint(1, 10000)
+
+    raw_list = brown.words()[random_int : random_int + LENGTH]
+
+    raw_text = " ".join(raw_list)
+
+    raw_text = replace_from_text(
+        raw_text, {" ,": ",", " .": ".", " ?": "?", "( ": "(", " )": ")"}
+    )
+    raw_text = remove_from_text(raw_text, [" ''", " ``", " '"])
+
+    return raw_text
 
 
 _translate = {
@@ -300,4 +345,9 @@ _translate = {
     "Facts": lambda: get_random_choice(FACTS),
     "Famous Novel Excerpts": lambda: get_random_choice(NOVEL_EXCERPTS),
     "Famous Quotes": lambda: get_random_choice(QUOTES),
+    "Randomly Generated Text": lambda: get_random_text(),
 }
+
+if __name__ == "__main__":
+    print(get_random_text())
+    # print(brown.words()[10:100])
