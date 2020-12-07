@@ -347,7 +347,3 @@ _translate = {
     "Famous Quotes": lambda: get_random_choice(QUOTES),
     "Randomly Generated Text": lambda: get_random_text(),
 }
-
-if __name__ == "__main__":
-    print(get_random_text())
-    # print(brown.words()[10:100])
