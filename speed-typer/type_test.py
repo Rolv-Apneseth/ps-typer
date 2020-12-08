@@ -1,7 +1,8 @@
 from PyQt5 import QtCore, QtWidgets
+from time import perf_counter
 
 from source_ui import typing_window
-from assets import texts
+from assets import texts, results
 
 
 # Constants
@@ -19,6 +20,9 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.lineInput.textChanged.connect(self.on_input_text_changed)
 
+        # timer
+        self.start_time = None
+
     # Helper Functions
     def set_mode(self, mode):
         self.mode = mode
@@ -29,8 +33,30 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.text = texts._translate[mode]()
         self.labelMainText.setText(self.text)
 
+    def set_stats(self, input_text):
+        correct = 0
+        for i, character in enumerate(input_text):
+            if character == self.text[i]:
+                correct += 1
+
+        self.accuracy = int(correct / len(self.text) * 100)
+
+        seconds = perf_counter() - self.start_time
+        self.wpm = int((len(self.text) / 5) / (seconds / 60))
+
+    def make_results_window(self):
+        self.results_window = results.ResultsWindow()
+
+        self.results_window.labelAccuracy.setText(f"Accuracy: {str(self.accuracy)}%")
+        self.results_window.labelSpeed.setText(f"Speed:    {str(self.wpm)}wpm!")
+
     def on_finished(self, input_text):
-        pass
+        self.set_stats(input_text)
+
+        self.make_results_window()
+
+        self.hide()
+        self.results_window.show()
 
     # def keyPressEvent(self, event):
     #     if event.key():
@@ -41,6 +67,8 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         """Updates background of each letter as user types and calls a function when
         the user is finished.
         """
+        if not self.start_time:
+            self.start_time = perf_counter()
 
         typed_text = []
         rest_of_text = self.text[len(input_text) :]
