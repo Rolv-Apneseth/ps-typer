@@ -66,10 +66,13 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
     #         print(event.key())
 
     # Button Functions
-    def on_clicked_new(self):
+    def on_clicked_restart(self):
         self.start_time = None
-        self.set_mode(self.mode)
         self.lineInput.clear()
+
+    def on_clicked_new(self):
+        self.on_clicked_restart()
+        self.set_mode(self.mode)
 
     def on_clicked_next(self):
         self.show()
