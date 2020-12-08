@@ -19,6 +19,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.setupUi(self)
 
         self.lineInput.textChanged.connect(self.on_input_text_changed)
+        self.buttonNewText.clicked.connect(self.on_clicked_new)
 
         # timer
         self.start_time = None
@@ -63,6 +64,11 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
     #         print(event.key())
 
     # Button Functions
+    def on_clicked_new(self):
+        self.start_time = None
+        self.set_mode(self.mode)
+        self.lineInput.clear()
+
     def on_input_text_changed(self, input_text: str) -> None:
         """Updates background of each letter as user types and calls a function when
         the user is finished.
