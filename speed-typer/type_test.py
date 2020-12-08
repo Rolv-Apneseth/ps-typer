@@ -51,6 +51,8 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.results_window.labelAccuracy.setText(f"Accuracy: {str(self.accuracy)}%")
         self.results_window.labelSpeed.setText(f"Speed:    {str(self.wpm)}wpm!")
 
+        self.results_window.buttonNext.clicked.connect(self.on_clicked_next)
+
     def on_finished(self, input_text):
         self.set_stats(input_text)
 
@@ -68,6 +70,13 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.start_time = None
         self.set_mode(self.mode)
         self.lineInput.clear()
+
+    def on_clicked_next(self):
+        self.show()
+        self.on_clicked_new()
+
+        self.results_window.close()
+        del self.results_window
 
     def on_input_text_changed(self, input_text: str) -> None:
         """Updates background of each letter as user types and calls a function when
