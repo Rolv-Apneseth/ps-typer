@@ -27,8 +27,8 @@ QFrame {
 }
 
 QPushButton, QComboBox {
-	
-	background: rgb(70, 70, 70)
+	font-size: 18pt;
+	background: rgb(70, 70, 70);
 }
 
 QLabel {
@@ -226,7 +226,7 @@ QLabel {
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="buttonBack">
+      <widget class="QPushButton" name="buttonMainMenu">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
          <horstretch>1</horstretch>
@@ -237,7 +237,7 @@ QLabel {
         <enum>Qt::NoFocus</enum>
        </property>
        <property name="text">
-        <string>Back</string>
+        <string>Main Menu</string>
        </property>
       </widget>
      </item>

@@ -22,7 +22,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.hide()
 
-    def on_clicked_back(self):
+    def on_clicked_main_menu(self):
         self.show()
 
         self.mode_window.close()
@@ -33,7 +33,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.mode_window = type_test.TypingWindow()
         self.mode_window.set_mode(mode)
 
-        self.mode_window.buttonBack.clicked.connect(self.on_clicked_back)
+        self.mode_window.buttonMainMenu.clicked.connect(self.on_clicked_main_menu)
 
 
 if __name__ == "__main__":

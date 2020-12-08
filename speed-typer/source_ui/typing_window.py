@@ -28,8 +28,8 @@ class Ui_typingWindow(object):
 "}\n"
 "\n"
 "QPushButton, QComboBox {\n"
-"    \n"
-"    background: rgb(70, 70, 70)\n"
+"    font-size: 18pt;\n"
+"    background: rgb(70, 70, 70);\n"
 "}\n"
 "\n"
 "QLabel {\n"
@@ -102,15 +102,15 @@ class Ui_typingWindow(object):
         self.horizontalLayoutButtons.setObjectName("horizontalLayoutButtons")
         spacerItem4 = QtWidgets.QSpacerItem(80, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayoutButtons.addItem(spacerItem4)
-        self.buttonBack = QtWidgets.QPushButton(typingWindow)
+        self.buttonMainMenu = QtWidgets.QPushButton(typingWindow)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(1)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.buttonBack.sizePolicy().hasHeightForWidth())
-        self.buttonBack.setSizePolicy(sizePolicy)
-        self.buttonBack.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.buttonBack.setObjectName("buttonBack")
-        self.horizontalLayoutButtons.addWidget(self.buttonBack)
+        sizePolicy.setHeightForWidth(self.buttonMainMenu.sizePolicy().hasHeightForWidth())
+        self.buttonMainMenu.setSizePolicy(sizePolicy)
+        self.buttonMainMenu.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.buttonMainMenu.setObjectName("buttonMainMenu")
+        self.horizontalLayoutButtons.addWidget(self.buttonMainMenu)
         spacerItem5 = QtWidgets.QSpacerItem(30, 40, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayoutButtons.addItem(spacerItem5)
         self.buttonRestart = QtWidgets.QPushButton(typingWindow)
@@ -145,7 +145,7 @@ class Ui_typingWindow(object):
         typingWindow.setWindowTitle(_translate("typingWindow", "Typing window"))
         self.labelTitle.setText(_translate("typingWindow", "Mode"))
         self.labelMainText.setText(_translate("typingWindow", "Random text to type out blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah"))
-        self.buttonBack.setText(_translate("typingWindow", "Back"))
+        self.buttonMainMenu.setText(_translate("typingWindow", "Main Menu"))
         self.buttonRestart.setText(_translate("typingWindow", "Restart"))
         self.buttonNewText.setText(_translate("typingWindow", "New Text"))
 
