@@ -69,6 +69,10 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.results_window.buttonNext.clicked.connect(self.on_clicked_next)
 
+        # Apply same functionality as for the self.buttonMainMenu, which
+        # is set in main.py
+        self.results_window.buttonMainMenu.clicked.connect(self.buttonMainMenu.click)
+
     def on_finished(self, input_text):
         self.set_stats(input_text)
 
@@ -76,10 +80,6 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.hide()
         self.results_window.show()
-
-    # def keyPressEvent(self, event):
-    #     if event.key():
-    #         print(event.key())
 
     # Button Functions
     def on_clicked_restart(self):
