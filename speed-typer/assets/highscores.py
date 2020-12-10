@@ -47,11 +47,21 @@ class Highscores:
             if self.data["daily-highscores"][-1].split()[0] == str(self.date):
                 self.data["daily-highscores"].append(f"{self.date}: 0")
 
-    def get_stats(self):
-        """Gets current wpm stats from self.data."""
+    def set_stats(self):
+        """Sets current wpm stats from self.data."""
 
         self.today_wpm = int(self.data["daily-highscores"][-1].split()[-1])
         self.all_time_wpm = int(self.data["all-time-highscore"].split()[-1])
+
+    def get_wpm(self):
+        """Returns the daily and all time highest wpm.
+
+        Used to display wpm scores on main menu.
+        """
+
+        self.set_stats()
+
+        return self.today_wpm, self.all_time_wpm
 
     def make_backup(self):
         """Turns current pickle file into a backup file, and deletes old backup."""
@@ -73,14 +83,14 @@ class Highscores:
     def check_all_time_highscore(self, score: int) -> bool:
         """Returns True if highscore provided is greater than the all time highscore."""
 
-        self.get_stats()
+        self.set_stats()
 
         return score > self.all_time_wpm
 
     def check_daily_highscore(self, score: int) -> bool:
         """Returns True if highscore provided is greater than today's highscore."""
 
-        self.get_stats()
+        self.set_stats()
 
         return score > self.today_wpm
 
