@@ -1,0 +1,22 @@
+from PyQt5 import QtCore, QtWidgets
+
+from source_ui import result_window
+
+
+class ResultsWindow(QtWidgets.QWidget, result_window.Ui_resultWindow):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.setupUi(self)
+
+        self.buttonNext.setDefault(True)
+        self.buttonNext.setFocus()
+
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication([])
+
+    window = ResultsWindow()
+    window.show()
+
+    app.exec_()

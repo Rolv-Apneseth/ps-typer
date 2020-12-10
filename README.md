@@ -1,13 +1,15 @@
 # speed-typer
 
-A program to test the speed at which you can type. Choose a difficulty, type out the text and be told how long you took to do it and your average w.p.m. The program can also keep track of your daily and lifetime highscores.
+A program to test the speed at which you can type. Choose a mode, type out the text and be told your average w.p.m. and your accuracy. The program can also keep track of your daily and all-time highscores.
 
 ## What I learned
 
 - Building GUI's using PyQt5 and Qt Designer
-- File i/o, both to get text for the user to write and to save highscores
-- Use of OOP
+- Making the GUI resizeable
+- Pickling of data to save, load and set new highscores
+- Use of OOP to handle the use of different windows and functionality
 - Use of the time module to time actions/functions
+- Rich text manipulation so the text typed is coloured
 
 ## Installation
 
@@ -20,16 +22,29 @@ A program to test the speed at which you can type. Choose a difficulty, type out
 
 ## Usage
 
-1. Select a difficulty by clicking on it's respective radio button
-2. Click on begin test
-3. Depending on your selection of difficulty, you will be shown:
-   - Easy: A commonly used English word
-   - Medium: A commonly used English phrase/expression
-   - Hard: A paragraph from a book or a famous quote (high degree of variation in length)
-4. Type out the word/phrase/paragraph. Your text will remain green while all characters are correct and turn red when you type a wrong character.
-   - If you want a different word/phrase/paragraph, simply click the restart button. This will also restart your timer so don't worry
-5. When finished, a window will come up and tell you whether you have set a new daily/all time highscore. These highscores are then displayed on the main window
-   - Note: The highscores are stored in the assets folder in today.txt and highscore.txt (generated on startup if they don't exist) and can be deleted if you want to reset your highscore (or look at a record of your daily highscores).
-     - Please take care not to delete the other text files as they hold the text that you are asked to type out so the program will not work without them
+1. Select a mode from the dropdown menu
+2. Click on begin and start typing! Characters typed correctly are highlighted green and characters typed incorrectly are highlighted red.
+3. When finished, a window will appear displaying your accuracy, average w.p.m and whether or not you set a daily or all-time highscore.
+   - Note: The highscores are stored in the assets folder in data.pkl and backup_data.pkl and can be deleted if you want to reset your highscore.
+     - Please take care not to delete other files in the assets folder as they are required for the program to function.
 
-Scores are calculated as words per minute (w.p.m) using `(characters typed/5)/minutes` This gives a more fair w.p.m calculation since longer words would be worth more than short words. This also means, however, that it would still be hard to get high w.p.m scores on easy and medium difficulties.
+## Modes
+
+Select one of the following options to choose what you will be typing out:
+
+- Common Phrases
+
+- Facts
+
+- Famous Novel Excerpts
+
+- Famous Quotes
+
+- Randomly Generated Text
+  - This is generated using nltk.corpus.brown which is the first million-word electronic corpus of English. A snippet of this corpus is chosen at random each time. [Source](https://www.nltk.org/book/ch02.html)
+
+## W.P.M.
+
+Your typing speed is measured by your average wpm. Wpm is calculated as words per minute (w.p.m) using `(characters typed/5)/minutes` This gives a more fair w.p.m calculation since longer words would be worth more than short words.
+
+Highscores can be set both daily or as an all-time highscore. Both values are displayed in the main menu and saved for future sessions.
