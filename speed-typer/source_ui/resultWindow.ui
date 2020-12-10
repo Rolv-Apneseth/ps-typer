@@ -76,6 +76,9 @@ QLabel {
          <property name="text">
           <string>Your accuracy: 100%</string>
          </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
@@ -93,6 +96,9 @@ QLabel {
          </property>
          <property name="text">
           <string>Your speed:      50wpm</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -127,6 +133,9 @@ QLabel {
          </property>
          <property name="text">
           <string>You set an all time highscore!</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
