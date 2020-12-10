@@ -48,11 +48,24 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         seconds = perf_counter() - self.start_time
         self.wpm = int((len(self.text) / 5) / (seconds / 60))
 
+    def display_highscore_result(self):
+        _translate_result = {
+            "all-time": "New all-time highscore set! Congratulations!",
+            "daily": "New daily highscore set! Good job!",
+            "none": "No new highscore set. Don't give up!",
+        }
+
+        self.highscore_result = self.highscore.update(self.wpm)
+        self.results_window.labelHighscoreSet.setText(
+            _translate_result[self.highscore_result]
+        )
+
     def make_results_window(self):
         self.results_window = results.ResultsWindow()
 
         self.results_window.labelAccuracy.setText(f"Accuracy: {str(self.accuracy)}%")
         self.results_window.labelSpeed.setText(f"Speed:    {str(self.wpm)}wpm!")
+        self.display_highscore_result()
 
         self.results_window.buttonNext.clicked.connect(self.on_clicked_next)
 
