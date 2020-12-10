@@ -323,21 +323,25 @@ def remove_from_text(raw_text: str, symbols: list) -> str:
 
 
 def get_random_text() -> str:
-    """Returns a string of randomly generated text."""
-    LENGTH = 50
+    """Returns a string of randomly generated text. Text from Brown corpus is formatted
+    slightly to make it easier to type.
+    """
 
-    random_int = random.randint(1, 10000)
+    LENGTH = 60
+
+    random_int = random.randint(1, 100000)
 
     raw_list = brown.words()[random_int : random_int + LENGTH]
 
     raw_text = " ".join(raw_list)
 
     raw_text = replace_from_text(
-        raw_text, {" ,": ",", " .": ".", " ?": "?", "( ": "(", " )": ")"}
+        raw_text, {" ,": ",", " .": ".", " ?": "?", "( ": "(", " )": ")", " ;": ";"}
     )
-    raw_text = remove_from_text(raw_text, [" ''", " ``", " '"])
 
-    return raw_text
+    text = remove_from_text(raw_text, [" ''", " ``", " '", "``"])
+
+    return text
 
 
 _translate = {
