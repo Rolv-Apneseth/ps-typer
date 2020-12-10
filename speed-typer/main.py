@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtWidgets
 
 import type_test
 from source_ui import main_window
+from assets import highscores
 
 
 class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
@@ -14,6 +15,9 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.buttonStart.clicked.connect(self.on_clicked_start)
 
+        self.highscore = highscores.Highscores()
+        self.update_highscores()
+
     # Button Functions
     def on_clicked_start(self):
         self.make_mode_window(str(self.comboBoxSelectMode.currentText()))
@@ -23,6 +27,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.hide()
 
     def on_clicked_main_menu(self):
+        self.update_highscores()
         self.show()
 
         self.mode_window.close()
@@ -34,6 +39,13 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.mode_window.set_mode(mode)
 
         self.mode_window.buttonMainMenu.clicked.connect(self.on_clicked_main_menu)
+
+    def update_highscores(self):
+        self.highscore.load_data()
+        self.today_wpm, self.all_time_wpm = self.highscore.get_wpm()
+
+        self.labelTodayScore.setText(f"{self.today_wpm} WPM")
+        self.labelAlltimeScore.setText(f"{self.all_time_wpm} WPM")
 
 
 if __name__ == "__main__":
