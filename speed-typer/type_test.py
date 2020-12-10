@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtWidgets
 from time import perf_counter
 
 from source_ui import typing_window
-from assets import texts, results
+from assets import texts, results, highscores
 
 
 # Constants
@@ -23,6 +23,9 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         # timer
         self.start_time = None
+
+        # Object to handle saving and updating of highscore values
+        self.highscore = highscores.Highscores()
 
     # Helper Functions
     def set_mode(self, mode):
