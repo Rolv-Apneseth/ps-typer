@@ -9,6 +9,14 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
 
         self.setupUi(self)
 
+    # Helper functions
+    def get_values(self):
+        """Gets values entered by user for the different settings."""
+
+        self.dark_mode = self.radioDarkMode.isChecked()  # False means light mode
+        self.font_size = self.spinBoxPixel.value()  # Direct font px value
+        self.key_sound = self.radioKeystrokeOn()  # False means key sound off
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
