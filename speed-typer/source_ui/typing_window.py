@@ -34,6 +34,10 @@ class Ui_typingWindow(object):
 "QLabel {\n"
 "    background: transparent;\n"
 "    border: none;\n"
+"}\n"
+"\n"
+"QFrame[frameShape=\"4\"] {\n"
+"    background-color: rgb(235, 235, 235);\n"
 "}")
         self.verticalLayout = QtWidgets.QVBoxLayout(typingWindow)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -66,7 +70,7 @@ class Ui_typingWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.line.sizePolicy().hasHeightForWidth())
         self.line.setSizePolicy(sizePolicy)
-        self.line.setStyleSheet("background-color: rgb(235, 235, 235);")
+        self.line.setStyleSheet("")
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")

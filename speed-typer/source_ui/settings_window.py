@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_settingsWindow(object):
     def setupUi(self, settingsWindow):
         settingsWindow.setObjectName("settingsWindow")
-        settingsWindow.resize(674, 405)
+        settingsWindow.resize(674, 443)
         settingsWindow.setStyleSheet("QWidget {\n"
 "    \n"
 "    background: rgb(50, 50, 50);\n"
@@ -34,6 +34,10 @@ class Ui_settingsWindow(object):
 "QLabel {\n"
 "    background: transparent;\n"
 "    border: none;\n"
+"}\n"
+"\n"
+"QFrame[frameShape=\"4\"] {\n"
+"    background-color: rgb(235, 235, 235);\n"
 "}")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(settingsWindow)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
@@ -174,6 +178,22 @@ class Ui_settingsWindow(object):
         self.verticalLayout_3.addWidget(self.frameAudio)
         spacerItem11 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_3.addItem(spacerItem11)
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_4.setContentsMargins(-1, 20, -1, -1)
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        spacerItem12 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem12)
+        self.pushButton = QtWidgets.QPushButton(settingsWindow)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
+        self.pushButton.setSizePolicy(sizePolicy)
+        self.pushButton.setObjectName("pushButton")
+        self.horizontalLayout_4.addWidget(self.pushButton)
+        spacerItem13 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem13)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_4)
 
         self.retranslateUi(settingsWindow)
         QtCore.QMetaObject.connectSlotsByName(settingsWindow)
@@ -190,6 +210,7 @@ class Ui_settingsWindow(object):
         self.labelKeystrokeSounds.setText(_translate("settingsWindow", "Keystroke sounds: "))
         self.radioKeystrokeOn.setText(_translate("settingsWindow", "On"))
         self.radioKeystrokeOff.setText(_translate("settingsWindow", "Off"))
+        self.pushButton.setText(_translate("settingsWindow", "PushButton"))
 
 
 if __name__ == "__main__":

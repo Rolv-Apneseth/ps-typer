@@ -34,6 +34,10 @@ class Ui_mainWindow(object):
 "QLabel {\n"
 "    background: transparent;\n"
 "    border: none;\n"
+"}\n"
+"\n"
+"QFrame[frameShape=\"4\"] {\n"
+"    background-color: rgb(235, 235, 235);\n"
 "}")
         self.horizontalLayout = QtWidgets.QHBoxLayout(mainWindow)
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -74,7 +78,7 @@ class Ui_mainWindow(object):
         self.labelMainMenu.setObjectName("labelMainMenu")
         self.verticalLayout_2.addWidget(self.labelMainMenu)
         self.lineMainMenu = QtWidgets.QFrame(self.frameMainMenu)
-        self.lineMainMenu.setStyleSheet("background-color: rgb(235, 235, 235);")
+        self.lineMainMenu.setStyleSheet("")
         self.lineMainMenu.setFrameShape(QtWidgets.QFrame.HLine)
         self.lineMainMenu.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.lineMainMenu.setObjectName("lineMainMenu")
@@ -182,7 +186,7 @@ class Ui_mainWindow(object):
         self.labelHighscore.setObjectName("labelHighscore")
         self.verticalLayout.addWidget(self.labelHighscore)
         self.lineHighscore = QtWidgets.QFrame(self.frameHighscore)
-        self.lineHighscore.setStyleSheet("background-color: rgb(235, 235, 235);")
+        self.lineHighscore.setStyleSheet("")
         self.lineHighscore.setFrameShape(QtWidgets.QFrame.HLine)
         self.lineHighscore.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.lineHighscore.setObjectName("lineHighscore")

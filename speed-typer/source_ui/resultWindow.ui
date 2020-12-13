@@ -36,6 +36,10 @@ QPushButton, QComboBox {
 QLabel {
 	background: transparent;
 	border: none;
+}
+
+QFrame[frameShape=&quot;4&quot;] {
+    background-color: rgb(235, 235, 235);
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">

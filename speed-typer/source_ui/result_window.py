@@ -35,6 +35,10 @@ class Ui_resultWindow(object):
 "QLabel {\n"
 "    background: transparent;\n"
 "    border: none;\n"
+"}\n"
+"\n"
+"QFrame[frameShape=\"4\"] {\n"
+"    background-color: rgb(235, 235, 235);\n"
 "}")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(resultWindow)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
