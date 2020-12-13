@@ -14,6 +14,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.setupUi(self)
 
         self.buttonStart.clicked.connect(self.on_clicked_start)
+        self.buttonSettings.clicked.connect(self.on_clicked_settings)
 
         # Initialize highscores handler
         self.highscore = highscores.Highscores()
@@ -27,19 +28,34 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.hide()
 
-    def on_clicked_main_menu(self):
+    def on_clicked_main_menu(self, window):
         self.update_highscores()
         self.show()
 
-        self.mode_window.close()
-        del self.mode_window
+        window.close()
+        del window
+
+    def on_clicked_settings(self):
+        self.make_settings_window()
+
+        self.settings_window.show()
+        self.hide()
 
     # Helper Functions
     def make_mode_window(self, mode):
         self.mode_window = type_test.TypingWindow()
         self.mode_window.set_mode(mode)
 
-        self.mode_window.buttonMainMenu.clicked.connect(self.on_clicked_main_menu)
+        self.mode_window.buttonMainMenu.clicked.connect(
+            lambda: self.on_clicked_main_menu(self.mode_window)
+        )
+
+    def make_settings_window(self):
+        self.settings_window = settings.SettingsWindow()
+
+        self.settings_window.buttonMainMenu.clicked.connect(
+            lambda: self.on_clicked_main_menu(self.settings_window)
+        )
 
     def update_highscores(self):
         self.highscore.load_data()
