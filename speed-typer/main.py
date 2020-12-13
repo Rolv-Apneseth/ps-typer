@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtWidgets
 
 import type_test
 from source_ui import main_window
-from assets import highscores
+from assets import highscores, settings
 
 
 class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
@@ -15,6 +15,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.buttonStart.clicked.connect(self.on_clicked_start)
 
+        # Initialize highscores handler
         self.highscore = highscores.Highscores()
         self.update_highscores()
 
