@@ -14,22 +14,21 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_mainWindow(object):
     def setupUi(self, mainWindow):
         mainWindow.setObjectName("mainWindow")
-        mainWindow.resize(706, 214)
+        mainWindow.resize(739, 245)
         mainWindow.setStyleSheet("QWidget {\n"
 "    \n"
 "    background: rgb(50, 50, 50);\n"
 "    color: rgb(235, 235, 235);\n"
+"    font-size: 26px;\n"
 "}\n"
 "\n"
 "QFrame {    \n"
-"    \n"
-"    \n"
 "    border: 1px solid rgb(235, 235, 235);\n"
 "}\n"
 "\n"
-"QPushButton, QComboBox {\n"
-"    \n"
-"    background: rgb(70, 70, 70)\n"
+"QPushButton, QComboBox {    \n"
+"    background: rgb(70, 70, 70);\n"
+"    font-size: 18px;\n"
 "}\n"
 "\n"
 "QLabel {\n"
@@ -67,11 +66,11 @@ class Ui_mainWindow(object):
         self.labelMainMenu.setMinimumSize(QtCore.QSize(0, 40))
         self.labelMainMenu.setMaximumSize(QtCore.QSize(16777215, 40))
         font = QtGui.QFont()
-        font.setPointSize(28)
+        font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.labelMainMenu.setFont(font)
-        self.labelMainMenu.setStyleSheet("font-weight: bold;")
+        self.labelMainMenu.setStyleSheet("font-weight: bold; font-size: 30px;")
         self.labelMainMenu.setObjectName("labelMainMenu")
         self.verticalLayout_2.addWidget(self.labelMainMenu)
         self.lineMainMenu = QtWidgets.QFrame(self.frameMainMenu)
@@ -92,7 +91,7 @@ class Ui_mainWindow(object):
         sizePolicy.setHeightForWidth(self.labelSelectMode.sizePolicy().hasHeightForWidth())
         self.labelSelectMode.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(-1)
         font.setUnderline(False)
         self.labelSelectMode.setFont(font)
         self.labelSelectMode.setObjectName("labelSelectMode")
@@ -104,7 +103,7 @@ class Ui_mainWindow(object):
         sizePolicy.setHeightForWidth(self.comboBoxSelectMode.sizePolicy().hasHeightForWidth())
         self.comboBoxSelectMode.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setPointSize(16)
+        font.setPointSize(-1)
         self.comboBoxSelectMode.setFont(font)
         self.comboBoxSelectMode.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.comboBoxSelectMode.setObjectName("comboBoxSelectMode")
@@ -129,7 +128,7 @@ class Ui_mainWindow(object):
         self.buttonStart.setSizePolicy(sizePolicy)
         self.buttonStart.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
-        font.setPointSize(16)
+        font.setPointSize(-1)
         self.buttonStart.setFont(font)
         self.buttonStart.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.buttonStart.setObjectName("buttonStart")
@@ -144,7 +143,7 @@ class Ui_mainWindow(object):
         self.buttonSettings.setSizePolicy(sizePolicy)
         self.buttonSettings.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
-        font.setPointSize(16)
+        font.setPointSize(-1)
         self.buttonSettings.setFont(font)
         self.buttonSettings.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.buttonSettings.setObjectName("buttonSettings")
@@ -174,12 +173,12 @@ class Ui_mainWindow(object):
         self.labelHighscore.setMinimumSize(QtCore.QSize(0, 40))
         self.labelHighscore.setMaximumSize(QtCore.QSize(16777215, 40))
         font = QtGui.QFont()
-        font.setPointSize(28)
+        font.setPointSize(-1)
         font.setBold(True)
         font.setUnderline(False)
         font.setWeight(75)
         self.labelHighscore.setFont(font)
-        self.labelHighscore.setStyleSheet("font-weight: bold;")
+        self.labelHighscore.setStyleSheet("font-weight: bold; font-size: 30px;")
         self.labelHighscore.setObjectName("labelHighscore")
         self.verticalLayout.addWidget(self.labelHighscore)
         self.lineHighscore = QtWidgets.QFrame(self.frameHighscore)
@@ -194,14 +193,14 @@ class Ui_mainWindow(object):
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.labelTodayTitle = QtWidgets.QLabel(self.frameHighscore)
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(-1)
         self.labelTodayTitle.setFont(font)
         self.labelTodayTitle.setAlignment(QtCore.Qt.AlignCenter)
         self.labelTodayTitle.setObjectName("labelTodayTitle")
         self.horizontalLayout_2.addWidget(self.labelTodayTitle)
         self.labelTodayScore = QtWidgets.QLabel(self.frameHighscore)
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(-1)
         font.setItalic(True)
         self.labelTodayScore.setFont(font)
         self.labelTodayScore.setAlignment(QtCore.Qt.AlignCenter)
@@ -212,14 +211,14 @@ class Ui_mainWindow(object):
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.labelAlltimeTitle = QtWidgets.QLabel(self.frameHighscore)
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(-1)
         self.labelAlltimeTitle.setFont(font)
         self.labelAlltimeTitle.setAlignment(QtCore.Qt.AlignCenter)
         self.labelAlltimeTitle.setObjectName("labelAlltimeTitle")
         self.horizontalLayout_3.addWidget(self.labelAlltimeTitle)
         self.labelAlltimeScore = QtWidgets.QLabel(self.frameHighscore)
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(-1)
         font.setItalic(True)
         self.labelAlltimeScore.setFont(font)
         self.labelAlltimeScore.setAlignment(QtCore.Qt.AlignCenter)

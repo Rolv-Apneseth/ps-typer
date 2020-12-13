@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1534</width>
-    <height>615</height>
+    <height>607</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,17 +18,16 @@
 	
 	background: rgb(50, 50, 50);
 	color: rgb(235, 235, 235);
+	font-size: 26px;
 }
 
 QFrame {	
-	
-	
 	border: 1px solid rgb(235, 235, 235);
 }
 
-QPushButton, QComboBox {
-	font-size: 18pt;
+QPushButton, QComboBox {	
 	background: rgb(70, 70, 70);
+	font-size: 18px;
 }
 
 QLabel {
@@ -60,8 +59,13 @@ QLabel {
      <property name="font">
       <font>
        <family>Sans Serif</family>
-       <pointsize>28</pointsize>
+       <pointsize>-1</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
       </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-weight: bold; font-size: 34px;</string>
      </property>
      <property name="text">
       <string>Mode</string>
@@ -146,11 +150,11 @@ QLabel {
      </property>
      <property name="font">
       <font>
-       <pointsize>28</pointsize>
+       <pointsize>-1</pointsize>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">padding: 50px 100px;</string>
+      <string notr="true">padding: 50px 100px; font-size: 34px;</string>
      </property>
      <property name="text">
       <string>Random text to type out blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</string>
@@ -181,7 +185,7 @@ QLabel {
       </size>
      </property>
      <property name="maxLength">
-      <number>50000</number>
+      <number>100000</number>
      </property>
     </widget>
    </item>
