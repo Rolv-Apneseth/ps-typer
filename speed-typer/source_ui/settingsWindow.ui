@@ -121,7 +121,7 @@ QFrame[frameShape=&quot;4&quot;] {
            <bool>true</bool>
           </property>
           <property name="autoExclusive">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -152,7 +152,7 @@ QFrame[frameShape=&quot;4&quot;] {
            <string>Light Mode</string>
           </property>
           <property name="autoExclusive">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -353,6 +353,9 @@ QFrame[frameShape=&quot;4&quot;] {
           </property>
           <property name="text">
            <string>On</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
