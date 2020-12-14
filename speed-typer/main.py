@@ -20,7 +20,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.highscore = highscores.Highscores()
         self.update_highscores()
 
-    # Button Functions
+    # Button methods
     def on_clicked_start(self):
         self.make_mode_window(str(self.comboBoxSelectMode.currentText()))
 
@@ -41,7 +41,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.settings_window.show()
         self.hide()
 
-    # Helper Functions
+    # Helper Methods
     def make_mode_window(self, mode):
         self.mode_window = type_test.TypingWindow()
         self.mode_window.set_mode(mode)

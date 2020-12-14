@@ -27,7 +27,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         # Object to handle saving and updating of highscore values
         self.highscore = highscores.Highscores()
 
-    # Helper Functions
+    # Helper Methods
     def set_mode(self, mode):
         self.mode = mode
 
@@ -71,7 +71,9 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         # Apply same functionality as for the self.buttonMainMenu, which
         # is set in main.py
-        self.results_window.buttonMainMenu.clicked.connect(self.buttonMainMenu.click)
+        self.results_window.buttonMainMenu.clicked.connect(
+            self.on_clicked_results_main_menu
+        h)
 
     def on_finished(self, input_text):
         self.set_stats(input_text)
@@ -81,7 +83,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.hide()
         self.results_window.show()
 
-    # Button Functions
+    # Button Methods
     def on_clicked_restart(self):
         self.start_time = None
         self.lineInput.clear()
@@ -96,6 +98,17 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.results_window.close()
         del self.results_window
+
+    def on_clicked_results_main_menu(self):
+        """
+        Clicks the typing window's main menu button and closes the results window.
+
+        This is done because the functinality for the main menu button is given
+        in main.py.
+        """
+
+        self.buttonMainMenu.click()
+        self.results_window.close()
 
     def on_input_text_changed(self, input_text: str) -> None:
         """Updates background of each letter as user types and calls a function when
