@@ -5,8 +5,8 @@ import datetime
 
 # CONSTANTS
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
-PICKLE_PATH = os.path.join(FILE_PATH, "data.pkl")
-BACKUP_PATH = os.path.join(FILE_PATH, "backup_data.pkl")
+PICKLE_PATH = os.path.join(FILE_PATH, "highscores.pkl")
+BACKUP_PATH = os.path.join(FILE_PATH, "backup_highscores.pkl")
 
 
 class Highscores:

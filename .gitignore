@@ -5,5 +5,5 @@ lib64
 *.cfg
 share/
 
-# pickle files for saving highscores
+# pickle files
 *.pkl
