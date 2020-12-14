@@ -73,7 +73,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         # is set in main.py
         self.results_window.buttonMainMenu.clicked.connect(
             self.on_clicked_results_main_menu
-        h)
+        )
 
     def on_finished(self, input_text):
         self.set_stats(input_text)
