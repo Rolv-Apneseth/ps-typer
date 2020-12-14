@@ -33,14 +33,9 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
         self.key_sound = self.radioKeystrokeOn.isChecked()  # False means key sound off
 
     def replace_colour(self, c1: str, c2: str) -> None:
-        """Replaces a colour in the current stylesheet with another."""
+        """Replaces 1 colour in the current stylesheet with another."""
 
         self.current_stylesheet = self.current_stylesheet.replace(c1, c2)
-
-    def replace_font(self, f1: str, f2: str) -> None:
-        """Replaces a font size in the current stylesheet with another."""
-
-        self.current_stylesheet.replace(f1, f2)
 
     def set_dark_mode(self):
         """Sets the stylesheet to be in dark mode (changes colours)."""
@@ -53,14 +48,6 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
         self.replace_colour(DARK_BACKGROUND, LIGHT_BACKGROUND)
         self.replace_colour(DARK_BUTTON, LIGHT_BUTTON)
         self.replace_colour(DARK_TEXT, LIGHT_TEXT)
-
-    def set_font_sizes(self):
-        """Sets variables for the different font sizes to be used."""
-
-        self.text_size = self.font_size
-        self.title_size = round(self.font_size * 1.15)
-        self.button_size = round(self.font_size * 0.7)
-        self.typing_size = round(self.font_size * 1.3)
 
     def get_style_sheet(self):
         """
