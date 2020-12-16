@@ -1,8 +1,13 @@
+import os
 from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtMultimedia import QSound
 
 import type_test
 from source_ui import main_window
 from assets import highscores, settings
+
+
+FILE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
 class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
@@ -22,6 +27,10 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         # Default stylesheet if settings are not changed
         self.style_sheet = self.styleSheet()
+
+        # Sound played on keystroke, On by default
+        self.play_key_sound = True
+        self.set_key_sound("key_1.wav")
 
     # Button methods
     def on_clicked_start(self):
@@ -62,6 +71,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
             lambda: self.on_clicked_main_menu(self.mode_window)
         )
 
+        self.mode_window.set_key_sound(self.key_sound)
+
     def make_settings_window(self):
         self.settings_window = settings.SettingsWindow()
 
@@ -76,6 +87,10 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.labelTodayScore.setText(f"{self.today_wpm} WPM")
         self.labelAlltimeScore.setText(f"{self.all_time_wpm} WPM")
+
+    def set_key_sound(self, sound_file):
+        self.key_sound_path = os.path.join(FILE_PATH, "assets", "sounds", sound_file)
+        self.key_sound = QSound(self.key_sound_path)
 
 
 if __name__ == "__main__":
