@@ -22,18 +22,15 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
         self.DEFAULT_STYLE = self.styleSheet()
         self.current_stylesheet = self.styleSheet()
 
-        self.buttonApply.clicked.connect(self.on_clicked_apply)
-
     # Helper methods
     def get_values(self):
         """Gets values entered by user for the different settings."""
 
         self.dark_mode = self.radioDarkMode.isChecked()  # False means light mode
-        self.font_size = self.spinBoxPixel.value()  # Direct font px value
         self.key_sound = self.radioKeystrokeOn.isChecked()  # False means key sound off
 
     def replace_colour(self, c1: str, c2: str) -> None:
-        """Replaces 1 colour in the current stylesheet with another."""
+        """Replaces a colour in the current stylesheet with another."""
 
         self.current_stylesheet = self.current_stylesheet.replace(c1, c2)
 
@@ -55,6 +52,8 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
 
         This is to be used in main.py to set the styling for all windows.
         """
+
+        self.get_values()
 
         if self.dark_mode:
             self.set_dark_mode()
