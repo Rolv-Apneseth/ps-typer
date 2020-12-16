@@ -20,11 +20,15 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.highscore = highscores.Highscores()
         self.update_highscores()
 
+        # Default stylesheet if settings are not changed
+        self.style_sheet = self.styleSheet()
+
     # Button methods
     def on_clicked_start(self):
         self.make_mode_window(str(self.comboBoxSelectMode.currentText()))
 
         self.mode_window.show()
+        self.mode_window.setStyleSheet(self.style_sheet)
 
         self.hide()
 
@@ -39,7 +43,15 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.make_settings_window()
 
         self.settings_window.show()
+        self.settings_window.setStyleSheet(self.style_sheet)
+
         self.hide()
+
+    def on_clicked_apply(self):
+        self.style_sheet = self.settings_window.get_style_sheet()
+
+        self.settings_window.setStyleSheet(self.style_sheet)
+        self.setStyleSheet(self.style_sheet)
 
     # Helper Methods
     def make_mode_window(self, mode):
@@ -56,6 +68,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.settings_window.buttonMainMenu.clicked.connect(
             lambda: self.on_clicked_main_menu(self.settings_window)
         )
+        self.settings_window.buttonApply.clicked.connect(self.on_clicked_apply)
 
     def update_highscores(self):
         self.highscore.load_data()
