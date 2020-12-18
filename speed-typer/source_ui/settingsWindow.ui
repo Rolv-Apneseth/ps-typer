@@ -333,17 +333,17 @@ QFrame[frameShape=&quot;4&quot;] {
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <property name="topMargin">
-         <number>20</number>
+         <number>0</number>
         </property>
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="labelSelectSound">
           <property name="text">
            <string>Select sound </string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QComboBox" name="comboBox"/>
+         <widget class="QComboBox" name="comboSelectSound"/>
         </item>
         <item>
          <spacer name="horizontalSpacer_7">
