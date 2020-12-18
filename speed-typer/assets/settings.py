@@ -62,6 +62,13 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
 
         return self.current_stylesheet
 
+    def get_settings(self):
+        """Returns a list of settings variables which control various attributes."""
+
+        self.get_values()
+
+        return [self.key_sound]
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])

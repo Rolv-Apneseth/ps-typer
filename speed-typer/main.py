@@ -28,8 +28,10 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         # Default stylesheet if settings are not changed
         self.style_sheet = self.styleSheet()
 
+        # Default settings - items: 0. Play key sound
+        self.settings = [True]
+
         # Sound played on keystroke, On by default
-        self.play_key_sound = True
         self.set_key_sound("key_1.wav")
 
     # Button methods
@@ -57,6 +59,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.hide()
 
     def on_clicked_apply(self):
+        self.settings = self.settings_window.get_settings()
         self.style_sheet = self.settings_window.get_style_sheet()
 
         self.settings_window.setStyleSheet(self.style_sheet)
@@ -71,7 +74,9 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
             lambda: self.on_clicked_main_menu(self.mode_window)
         )
 
-        self.mode_window.set_key_sound(self.key_sound)
+        # Sets key sound if option is set to True in self.settings
+        if self.settings[0]:
+            self.mode_window.set_key_sound(self.key_sound)
 
     def make_settings_window(self):
         self.settings_window = settings.SettingsWindow()
