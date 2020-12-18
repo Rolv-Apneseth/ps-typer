@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'settingsWindow.ui'
+# Form implementation generated from reading ui file '.\settingsWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -140,8 +140,20 @@ class Ui_settingsWindow(object):
         spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem8)
         self.verticalLayout_2.addLayout(self.horizontalLayout_3)
-        spacerItem9 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout_2.addItem(spacerItem9)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setContentsMargins(-1, 20, -1, -1)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.label = QtWidgets.QLabel(self.frameAudio)
+        self.label.setObjectName("label")
+        self.horizontalLayout_2.addWidget(self.label)
+        self.comboBox = QtWidgets.QComboBox(self.frameAudio)
+        self.comboBox.setObjectName("comboBox")
+        self.horizontalLayout_2.addWidget(self.comboBox)
+        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem9)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+        spacerItem10 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout_2.addItem(spacerItem10)
         self.verticalLayout_3.addWidget(self.frameAudio)
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setContentsMargins(-1, 0, -1, -1)
@@ -158,11 +170,11 @@ class Ui_settingsWindow(object):
         self.buttonApply.setDefault(True)
         self.buttonApply.setObjectName("buttonApply")
         self.horizontalLayout_4.addWidget(self.buttonApply)
-        spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_4.addItem(spacerItem10)
+        spacerItem11 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem11)
         self.verticalLayout_3.addLayout(self.horizontalLayout_4)
-        spacerItem11 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_3.addItem(spacerItem11)
+        spacerItem12 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem12)
 
         self.retranslateUi(settingsWindow)
         QtCore.QMetaObject.connectSlotsByName(settingsWindow)
@@ -177,6 +189,7 @@ class Ui_settingsWindow(object):
         self.labelKeystrokeSounds.setText(_translate("settingsWindow", "Keystroke sounds: "))
         self.radioKeystrokeOn.setText(_translate("settingsWindow", "On"))
         self.radioKeystrokeOff.setText(_translate("settingsWindow", "Off"))
+        self.label.setText(_translate("settingsWindow", "Select sound "))
         self.buttonMainMenu.setText(_translate("settingsWindow", "Main Menu"))
         self.buttonApply.setText(_translate("settingsWindow", "Apply"))
 
