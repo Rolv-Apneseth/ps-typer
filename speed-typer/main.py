@@ -8,6 +8,7 @@ from assets import highscores, settings
 
 
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
+SOUND_FOLDER = os.path.join(FILE_PATH, "assets", "sounds")
 
 
 class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
@@ -65,6 +66,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.settings_window.setStyleSheet(self.style_sheet)
         self.setStyleSheet(self.style_sheet)
 
+        self.set_key_sound(self.settings[1])
+
     # Helper Methods
     def make_mode_window(self, mode):
         self.mode_window = type_test.TypingWindow()
@@ -86,6 +89,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         )
         self.settings_window.buttonApply.clicked.connect(self.on_clicked_apply)
 
+        self.set_settings_sounds_options()
+
     def update_highscores(self):
         self.highscore.load_data()
         self.today_wpm, self.all_time_wpm = self.highscore.get_wpm()
@@ -93,8 +98,25 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.labelTodayScore.setText(f"{self.today_wpm} WPM")
         self.labelAlltimeScore.setText(f"{self.all_time_wpm} WPM")
 
-    def set_key_sound(self, sound_file):
-        self.key_sound_path = os.path.join(FILE_PATH, "assets", "sounds", sound_file)
+    def get_sounds_list(self) -> list:
+        """Returns a list of the sound files present in the sounds folder."""
+
+        return os.listdir(SOUND_FOLDER)
+
+    def set_settings_sounds_options(self):
+        """
+        Sets up options for the dropdown menu to select keystroke sounds in the
+        settings menu.
+        """
+
+        for sound_file in self.get_sounds_list():
+            # Add sound file name to dropdown menu
+            self.settings_window.comboSelectSound.addItem(sound_file)
+
+    def set_key_sound(self, sound_file: str) -> None:
+        """Sets the given sound file to a QSound object which will be played on each keystroke in the mode window."""
+
+        self.key_sound_path = os.path.join(SOUND_FOLDER, sound_file)
         self.key_sound = QSound(self.key_sound_path)
 
 

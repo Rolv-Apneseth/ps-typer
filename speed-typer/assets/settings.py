@@ -27,7 +27,12 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
         """Gets values entered by user for the different settings."""
 
         self.dark_mode = self.radioDarkMode.isChecked()  # False means light mode
-        self.key_sound = self.radioKeystrokeOn.isChecked()  # False means key sound off
+        self.play_key_sound = (
+            self.radioKeystrokeOn.isChecked()
+        )  # False means key sound off
+        self.key_sound = str(
+            self.comboSelectSound.currentText()
+        )  # Sound to play on keystroke
 
     def replace_colour(self, c1: str, c2: str) -> None:
         """Replaces a colour in the current stylesheet with another."""
@@ -67,7 +72,7 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
 
         self.get_values()
 
-        return [self.key_sound]
+        return [self.play_key_sound, self.key_sound]
 
 
 if __name__ == "__main__":
