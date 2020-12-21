@@ -1,6 +1,6 @@
 import os
 from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtMultimedia import QSound
+from PyQt5.QtMultimedia import QSoundEffect
 
 import type_test
 from source_ui import main_window
@@ -114,10 +114,18 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
             self.settings_window.comboSelectSound.addItem(sound_file)
 
     def set_key_sound(self, sound_file: str) -> None:
-        """Sets the given sound file to a QSound object which will be played on each keystroke in the mode window."""
+        """
+        Sets the given sound file to a QSoundEffect object which will be played on each
+        keystroke in the mode window.
+        """
 
         self.key_sound_path = os.path.join(SOUND_FOLDER, sound_file)
-        self.key_sound = QSound(self.key_sound_path)
+        self.key_sound_url = QtCore.QUrl.fromLocalFile(self.key_sound_path)
+
+        self.key_sound = QSoundEffect()
+        self.key_sound.setSource(self.key_sound_url)
+        self.key_sound.setVolume(0.5)
+        self.key_sound.setLoopCount(1)
 
 
 if __name__ == "__main__":
