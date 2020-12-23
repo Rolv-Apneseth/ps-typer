@@ -65,9 +65,6 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
     def set_key_sound(self, key_sound):
         self.key_sound = key_sound
 
-    def play_key_sound(self):
-        self.key_sound.play()
-
     def make_results_window(self):
         self.results_window = results.ResultsWindow()
 
@@ -125,8 +122,10 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         if not self.start_time:
             self.start_time = perf_counter()
 
-        if self.key_sound:
-            self.play_key_sound()
+        try:
+            self.key_sound.play()
+        except AttributeError:
+            pass
 
         typed_text = []
         rest_of_text = self.text[len(input_text) :]
