@@ -30,10 +30,11 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.style_sheet = self.styleSheet()
 
         # Default settings - items: 0. Play key sound
-        self.settings = [True]
+        #                           1. Name of sound file to play
+        self.settings = [False, "key_4.wav"]
 
-        # Sound played on keystroke, On by default
-        self.set_key_sound("key_1.wav")
+        # Sound played on keystroke, if sounds are turned on
+        self.set_key_sound(self.settings[1])
 
     # Button methods
     def on_clicked_start(self):
@@ -90,6 +91,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.settings_window.buttonApply.clicked.connect(self.on_clicked_apply)
 
         self.set_settings_sounds_options()
+        self.set_selected_sound_option(self.settings[1])
 
     def update_highscores(self):
         self.highscore.load_data()
@@ -112,6 +114,27 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         for sound_file in self.get_sounds_list():
             # Add sound file name to dropdown menu
             self.settings_window.comboSelectSound.addItem(sound_file)
+
+    def find_sound_file_index(self, sound_file: str) -> int:
+        """
+        Returns the index of the given file name within the settings window
+        comboSelectSound object.
+        """
+
+        return self.settings_window.comboSelectSound.findText(
+            sound_file, QtCore.Qt.MatchFixedString
+        )
+
+    def set_selected_sound_option(self, sound_file: str) -> None:
+        """
+        Sets the selected option for sound file from the settings window's
+        comboSelectSound object to the given sound file name.
+        """
+
+        index: int = self.find_sound_file_index(sound_file)
+
+        if index >= 0:
+            self.settings_window.comboSelectSound.setCurrentIndex(index)
 
     def set_key_sound(self, sound_file: str) -> None:
         """
