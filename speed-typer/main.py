@@ -1,4 +1,5 @@
 import os
+import json
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QSoundEffect
 
@@ -9,6 +10,7 @@ from assets import highscores, settings
 
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
 SOUND_FOLDER = os.path.join(FILE_PATH, "assets", "sounds")
+SETTINGS_FILE = os.path.join(FILE_PATH, "assets", "saved_settings.json")
 
 
 class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
@@ -99,6 +101,32 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.labelTodayScore.setText(f"{self.today_wpm} WPM")
         self.labelAlltimeScore.setText(f"{self.all_time_wpm} WPM")
+
+    def exists_settings_file(self) -> bool:
+        """Returns boolean value representing whether a saved settings file exists."""
+
+        return os.path.exists(SETTINGS_FILE)
+
+    def delete_settings(self):
+        """Deletes saved settings file in the assets folder."""
+
+        os.remove(SETTINGS_FILE)
+
+    def save_settings_to_file(self):
+        """Saves self.settings into a .json file in the assets folder."""
+
+        # Deletes file if it already exists
+        if self.exists_settings_file():
+            self.delete_settings()
+
+        with open(SETTINGS_FILE, "w") as settings_file:
+            settings_file.write(json.dumps(self.settings))
+
+    def load_settings_from_file(self):
+        """Sets self.settings to the values saved on the saved settings file."""
+
+        with open(SETTINGS_FILE, "r") as settings_file:
+            self.settings = json.load(settings_file)
 
     def get_sounds_list(self) -> list:
         """Returns a list of the sound files present in the sounds folder."""
