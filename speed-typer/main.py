@@ -31,9 +31,15 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         # Default stylesheet if settings are not changed
         self.style_sheet = self.styleSheet()
 
-        # Default settings - items: 0. Play key sound
-        #                           1. Name of sound file to play
-        self.settings = [False, "key_4.wav"]
+        # Settings - items: 0. Play key sound
+        #                   1. Name of sound file to play
+        #
+        # Load setings file from assets folder if it exists, otherwise
+        # set it to default settings
+        if self.exists_settings_file():
+            self.load_settings_from_file()
+        else:
+            self.settings = [False, "key_4.wav"]
 
         # Sound played on keystroke, if sounds are turned on
         self.set_key_sound(self.settings[1])
@@ -70,6 +76,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.setStyleSheet(self.style_sheet)
 
         self.set_key_sound(self.settings[1])
+
+        self.save_settings_to_file()
 
     # Helper Methods
     def make_mode_window(self, mode):
