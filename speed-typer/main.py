@@ -100,6 +100,11 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         )
         self.settings_window.buttonApply.clicked.connect(self.on_clicked_apply)
 
+        if self.settings[0]:
+            self.settings_window.radioKeystrokeOn.setChecked(True)
+        else:
+            self.settings_window.radioKeystrokeOff.setChecked(True)
+
         self.set_settings_sounds_options()
         self.set_selected_sound_option(self.settings[1])
 
