@@ -28,28 +28,28 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.highscore = highscores.Highscores()
         self.update_highscores()
 
-        # Default stylesheet if settings are not changed
-        self.style_sheet = self.styleSheet()
-
         # Settings - items: 0. Play key sound
         #                   1. Name of sound file to play
+        #                   2. Stylesheet for all windows
+        #                   3. Dark mode (True or False)
         #
         # Load setings file from assets folder if it exists, otherwise
         # set it to default settings
         if self.exists_settings_file():
             self.load_settings_from_file()
         else:
-            self.settings = [False, "key_4.wav"]
+            self.settings = [False, "key_4.wav", self.styleSheet(), True]
 
         # Sound played on keystroke, if sounds are turned on
         self.set_key_sound(self.settings[1])
+        # Stylesheet is set in the main program after instantiation
 
     # Button methods
     def on_clicked_start(self):
         self.make_mode_window(str(self.comboBoxSelectMode.currentText()))
 
         self.mode_window.show()
-        self.mode_window.setStyleSheet(self.style_sheet)
+        self.mode_window.setStyleSheet(self.settings[2])
 
         self.hide()
 
@@ -64,19 +64,21 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.make_settings_window()
 
         self.settings_window.show()
-        self.settings_window.setStyleSheet(self.style_sheet)
+        self.settings_window.setStyleSheet(self.settings[2])
 
         self.hide()
 
     def on_clicked_apply(self):
         self.settings = self.settings_window.get_settings()
-        self.style_sheet = self.settings_window.get_style_sheet()
 
-        self.settings_window.setStyleSheet(self.style_sheet)
-        self.setStyleSheet(self.style_sheet)
-
+        # Key sound
         self.set_key_sound(self.settings[1])
 
+        # Stylesheet
+        self.settings_window.setStyleSheet(self.settings[2])
+        self.setStyleSheet(self.settings[2])
+
+        # Save settings
         self.save_settings_to_file()
 
     # Helper Methods
@@ -100,10 +102,17 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         )
         self.settings_window.buttonApply.clicked.connect(self.on_clicked_apply)
 
+        # Sound radio buttons
         if self.settings[0]:
             self.settings_window.radioKeystrokeOn.setChecked(True)
         else:
             self.settings_window.radioKeystrokeOff.setChecked(True)
+
+        # Mode radio buttons
+        if self.settings[3]:
+            self.settings_window.radioDarkMode.setChecked(True)
+        else:
+            self.settings_window.radioLightMode.setChecked(True)
 
         self.set_settings_sounds_options()
         self.set_selected_sound_option(self.settings[1])
@@ -197,5 +206,8 @@ if __name__ == "__main__":
 
     window = MainWindow()
     window.show()
+
+    # Stylesheet must be changed after window is shown
+    window.setStyleSheet(window.settings[2])
 
     app.exec_()
