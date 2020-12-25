@@ -88,6 +88,9 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.hide()
         self.results_window.show()
 
+        # stylesheet for results window must be set after the window is shown
+        self.results_window.setStyleSheet(self.styleSheet())
+
     # Button Methods
     def on_clicked_restart(self):
         self.start_time = None
