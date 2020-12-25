@@ -51,14 +51,12 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
         self.replace_colour(DARK_BUTTON, LIGHT_BUTTON)
         self.replace_colour(DARK_TEXT, LIGHT_TEXT)
 
-    def get_style_sheet(self):
+    def get_style_sheet(self) -> str:
         """
         Changes the current_stylesheet variable and returns the new stylesheet.
 
-        This is to be used in main.py to set the styling for all windows.
+        The stylesheet returned is to be used in main.py to set the styling for all windows.
         """
-
-        self.get_values()
 
         if self.dark_mode:
             self.set_dark_mode()
@@ -72,7 +70,9 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
 
         self.get_values()
 
-        return [self.play_key_sound, self.key_sound]
+        self.style_sheet = self.get_style_sheet()
+
+        return [self.play_key_sound, self.key_sound, self.style_sheet, self.dark_mode]
 
 
 if __name__ == "__main__":
