@@ -14,27 +14,30 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_typingWindow(object):
     def setupUi(self, typingWindow):
         typingWindow.setObjectName("typingWindow")
-        typingWindow.resize(1534, 615)
+        typingWindow.resize(1534, 607)
         typingWindow.setStyleSheet("QWidget {\n"
 "    \n"
 "    background: rgb(50, 50, 50);\n"
 "    color: rgb(235, 235, 235);\n"
+"    font-size: 26px;\n"
 "}\n"
 "\n"
 "QFrame {    \n"
-"    \n"
-"    \n"
 "    border: 1px solid rgb(235, 235, 235);\n"
 "}\n"
 "\n"
-"QPushButton, QComboBox {\n"
-"    font-size: 18pt;\n"
+"QPushButton, QComboBox {    \n"
 "    background: rgb(70, 70, 70);\n"
+"    font-size: 18px;\n"
 "}\n"
 "\n"
 "QLabel {\n"
 "    background: transparent;\n"
 "    border: none;\n"
+"}\n"
+"\n"
+"QFrame[frameShape=\"4\"] {\n"
+"    background-color: rgb(235, 235, 235);\n"
 "}")
         self.verticalLayout = QtWidgets.QVBoxLayout(typingWindow)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -48,8 +51,11 @@ class Ui_typingWindow(object):
         self.labelTitle.setSizeIncrement(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setFamily("Sans Serif")
-        font.setPointSize(28)
+        font.setPointSize(-1)
+        font.setBold(True)
+        font.setWeight(75)
         self.labelTitle.setFont(font)
+        self.labelTitle.setStyleSheet("font-weight: bold; font-size: 34px;")
         self.labelTitle.setAlignment(QtCore.Qt.AlignCenter)
         self.labelTitle.setObjectName("labelTitle")
         self.verticalLayout.addWidget(self.labelTitle)
@@ -64,7 +70,7 @@ class Ui_typingWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.line.sizePolicy().hasHeightForWidth())
         self.line.setSizePolicy(sizePolicy)
-        self.line.setStyleSheet("background-color: rgb(235, 235, 235);")
+        self.line.setStyleSheet("")
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
@@ -81,9 +87,9 @@ class Ui_typingWindow(object):
         sizePolicy.setHeightForWidth(self.labelMainText.sizePolicy().hasHeightForWidth())
         self.labelMainText.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setPointSize(28)
+        font.setPointSize(-1)
         self.labelMainText.setFont(font)
-        self.labelMainText.setStyleSheet("padding: 50px 100px;")
+        self.labelMainText.setStyleSheet("padding: 50px 100px; font-size: 34px;")
         self.labelMainText.setTextFormat(QtCore.Qt.RichText)
         self.labelMainText.setWordWrap(True)
         self.labelMainText.setObjectName("labelMainText")
@@ -91,7 +97,7 @@ class Ui_typingWindow(object):
         self.lineInput = QtWidgets.QLineEdit(typingWindow)
         self.lineInput.setMinimumSize(QtCore.QSize(0, 0))
         self.lineInput.setMaximumSize(QtCore.QSize(0, 0))
-        self.lineInput.setMaxLength(50000)
+        self.lineInput.setMaxLength(100000)
         self.lineInput.setObjectName("lineInput")
         self.verticalLayout.addWidget(self.lineInput)
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)

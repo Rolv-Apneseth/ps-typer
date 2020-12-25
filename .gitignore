@@ -5,5 +5,6 @@ lib64
 *.cfg
 share/
 
-# pickle files for saving highscores
+# User files
 *.pkl
+*.json

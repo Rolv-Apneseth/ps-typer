@@ -14,99 +14,123 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_resultWindow(object):
     def setupUi(self, resultWindow):
         resultWindow.setObjectName("resultWindow")
-        resultWindow.resize(662, 307)
+        resultWindow.resize(718, 269)
         resultWindow.setAcceptDrops(True)
         resultWindow.setStyleSheet("QWidget {\n"
 "    \n"
 "    background: rgb(50, 50, 50);\n"
 "    color: rgb(235, 235, 235);\n"
+"    font-size: 26px;\n"
 "}\n"
 "\n"
 "QFrame {    \n"
-"    \n"
-"    \n"
 "    border: 1px solid rgb(235, 235, 235);\n"
 "}\n"
 "\n"
-"QPushButton, QComboBox {\n"
-"    \n"
-"    background: rgb(70, 70, 70)\n"
+"QPushButton, QComboBox {    \n"
+"    background: rgb(70, 70, 70);\n"
+"    font-size: 18px;\n"
 "}\n"
 "\n"
 "QLabel {\n"
 "    background: transparent;\n"
 "    border: none;\n"
+"}\n"
+"\n"
+"QFrame[frameShape=\"4\"] {\n"
+"    background-color: rgb(235, 235, 235);\n"
 "}")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(resultWindow)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_2.addItem(spacerItem)
+        self.frame = QtWidgets.QFrame(resultWindow)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.frame)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem1)
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
-        self.labelAccuracy = QtWidgets.QLabel(resultWindow)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_3.setContentsMargins(-1, 0, -1, -1)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.labelAccuracy = QtWidgets.QLabel(self.frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.labelAccuracy.sizePolicy().hasHeightForWidth())
         self.labelAccuracy.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setPointSize(28)
+        font.setPointSize(-1)
         self.labelAccuracy.setFont(font)
+        self.labelAccuracy.setStyleSheet("font-size: 30px;")
         self.labelAccuracy.setWordWrap(True)
         self.labelAccuracy.setObjectName("labelAccuracy")
-        self.verticalLayout.addWidget(self.labelAccuracy)
-        self.labelSpeed = QtWidgets.QLabel(resultWindow)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_3.addWidget(self.labelAccuracy)
+        self.labelSpeed = QtWidgets.QLabel(self.frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.labelSpeed.sizePolicy().hasHeightForWidth())
         self.labelSpeed.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setPointSize(28)
+        font.setPointSize(-1)
         self.labelSpeed.setFont(font)
+        self.labelSpeed.setStyleSheet("font-size: 30px;")
         self.labelSpeed.setWordWrap(True)
         self.labelSpeed.setObjectName("labelSpeed")
-        self.verticalLayout.addWidget(self.labelSpeed)
-        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
-        self.verticalLayout.addItem(spacerItem1)
-        self.labelHighscoreSet = QtWidgets.QLabel(resultWindow)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        self.verticalLayout_3.addWidget(self.labelSpeed)
+        self.verticalLayout.addLayout(self.verticalLayout_3)
+        self.labelHighscoreSet = QtWidgets.QLabel(self.frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.labelHighscoreSet.sizePolicy().hasHeightForWidth())
         self.labelHighscoreSet.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setPointSize(28)
+        font.setPointSize(-1)
+        font.setBold(True)
+        font.setWeight(75)
         self.labelHighscoreSet.setFont(font)
+        self.labelHighscoreSet.setStyleSheet("font-weight: bold; font-size: 30px;")
         self.labelHighscoreSet.setWordWrap(True)
         self.labelHighscoreSet.setObjectName("labelHighscoreSet")
         self.verticalLayout.addWidget(self.labelHighscoreSet)
         self.horizontalLayout_2.addLayout(self.verticalLayout)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem2)
-        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+        self.verticalLayout_4.addLayout(self.horizontalLayout_2)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
-        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem3)
-        self.buttonMainMenu = QtWidgets.QPushButton(resultWindow)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem2)
+        self.buttonMainMenu = QtWidgets.QPushButton(self.frame)
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(-1)
         self.buttonMainMenu.setFont(font)
         self.buttonMainMenu.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.buttonMainMenu.setObjectName("buttonMainMenu")
         self.horizontalLayout.addWidget(self.buttonMainMenu)
-        self.buttonNext = QtWidgets.QPushButton(resultWindow)
+        self.buttonNext = QtWidgets.QPushButton(self.frame)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.buttonNext.sizePolicy().hasHeightForWidth())
+        self.buttonNext.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setPointSize(18)
+        font.setPointSize(-1)
         self.buttonNext.setFont(font)
         self.buttonNext.setObjectName("buttonNext")
         self.horizontalLayout.addWidget(self.buttonNext)
-        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem4)
-        self.verticalLayout_2.addLayout(self.horizontalLayout)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem3)
+        self.verticalLayout_4.addLayout(self.horizontalLayout)
+        self.verticalLayout_2.addWidget(self.frame)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_2.addItem(spacerItem4)
 
         self.retranslateUi(resultWindow)
         QtCore.QMetaObject.connectSlotsByName(resultWindow)
