@@ -5,11 +5,12 @@ A program to test the speed at which you can type. Choose a mode, type out the t
 ## What I learned
 
 - Building GUI's using PyQt5 and Qt Designer
-- Making the GUI resizeable
-- Pickling of data to save, load and set new highscores
+- Making the GUI resizeable and configurable (settings specified by the user)
+- Using pickle files to save data, load it and set new highscores
+- Using .json files to save and load data for configuration of the program
 - Use of OOP to handle the use of different windows and functionality
 - Use of the time module to time actions/functions
-- Rich text manipulation so the text typed is coloured
+- Rich text manipulation so the text typed is coloured based on whether it is correct/incorrect
 
 ## Installation
 
