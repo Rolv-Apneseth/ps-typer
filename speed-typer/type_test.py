@@ -33,6 +33,8 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
     def set_mode(self, mode):
         self.mode = mode
 
+        self.labelTitle.setText(mode)
+
         if mode == "Common Phrases":
             self.labelMainText.setAlignment(QtCore.Qt.AlignCenter)
 
