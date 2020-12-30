@@ -44,7 +44,7 @@ class Highscores:
         with open(path, "rb") as data_pickle:
             self.data = pickle.load(data_pickle)
             # Add highscore line for current day if one does not exist
-            if self.data["daily-highscores"][-1].split()[0] == str(self.date):
+            if self.data["daily-highscores"][-1][:10] != str(self.date):
                 self.data["daily-highscores"].append(f"{self.date}: 0")
 
     def set_stats(self):
