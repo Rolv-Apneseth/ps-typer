@@ -4,12 +4,14 @@ from source_ui import settings_window
 
 
 # CONSTANTS
+# Note: Do not make any colours the same value
+# since these will be changed using a .replace method
 DARK_BUTTON = "rgb(70, 70, 70)"
 DARK_BACKGROUND = "rgb(50, 50, 50)"
 DARK_TEXT = "rgb(235, 235, 235)"
 
 LIGHT_BUTTON = "rgb(200, 200, 200)"
-LIGHT_BACKGROUND = "rbg(250, 250, 250)"
+LIGHT_BACKGROUND = "rgb(220, 220, 220)"
 LIGHT_TEXT = "rgb(0, 0, 0)"
 
 
