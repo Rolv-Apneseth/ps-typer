@@ -67,6 +67,33 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
     def set_key_sound(self, key_sound):
         self.key_sound = key_sound
 
+    def get_rich_text(self, input_text):
+        """
+        Returns the rich text to be displayed so characters typed correctly are
+        highlighted green while incorrect characters are highlighted red.
+        """
+
+        typed_text = []
+        rest_of_text = self.text[len(input_text) :]
+
+        for i, character in enumerate(input_text):
+            if self.text[i] == character:
+                typed_text.append(
+                    f'<span style="background-color:{GREEN};">{self.text[i]}</span>'
+                )
+            else:
+                typed_text.append(
+                    f'<span style="background-color:{RED};">{self.text[i]}</span>'
+                )
+
+        rich_text = (
+            "<html><head/><body><p>"
+            f'{"".join(typed_text)}'
+            f"{rest_of_text}</p></body></html>"
+        )
+
+        return rich_text
+
     def make_results_window(self):
         self.results_window = results.ResultsWindow()
 
@@ -142,26 +169,9 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         except AttributeError:
             pass
 
-        # Set up the rich text so characters typed correctly are highlighted green
-        # while incorrect characters are highlighted redk;lagsd
-        typed_text = []
-        rest_of_text = self.text[len(input_text) :]
-
-        for i, character in enumerate(input_text):
-            if self.text[i] == character:
-                typed_text.append(
-                    f'<span style="background-color:{GREEN};">{self.text[i]}</span>'
-                )
-            else:
-                typed_text.append(
-                    f'<span style="background-color:{RED};">{self.text[i]}</span>'
-                )
-
-        rich_text = (
-            "<html><head/><body><p>"
-            f'{"".join(typed_text)}'
-            f"{rest_of_text}</p></body></html>"
-        )
+        # Set label text to rich text so typed characters are highlighted
+        # based on whether they match self.text
+        rich_text = self.get_rich_text(input_text)
         self.labelMainText.setText(rich_text)
 
         if len(input_text) == len(self.text):
