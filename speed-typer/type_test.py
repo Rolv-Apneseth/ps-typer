@@ -121,17 +121,29 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.results_window.close()
 
     def on_input_text_changed(self, input_text: str) -> None:
-        """Updates background of each letter as user types and calls a function when
+        """
+        Updates background of each letter as user types and calls a function when
         the user is finished.
         """
+
+        # Break out of function if the text characters are exceeded
+        # This is required to avoid an error if the user spams keys
+        # right at the end of the text they are typing
+        if len(input_text) > len(self.text):
+            return None
+
+        # Start timer if it has not yet been started
         if not self.start_time:
             self.start_time = perf_counter()
 
+        # Try to play key sound effect, if it exists
         try:
             self.key_sound.play()
         except AttributeError:
             pass
 
+        # Set up the rich text so characters typed correctly are highlighted green
+        # while incorrect characters are highlighted redk;lagsd
         typed_text = []
         rest_of_text = self.text[len(input_text) :]
 
