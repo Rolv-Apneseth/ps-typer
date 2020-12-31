@@ -18,7 +18,7 @@
 	
 	background: rgb(50, 50, 50);
 	color: rgb(235, 235, 235);
-	font-size: 26px;
+	font-size: 24pt;
 }
 
 QFrame {	
@@ -27,7 +27,7 @@ QFrame {
 
 QPushButton, QComboBox {	
 	background: rgb(70, 70, 70);
-	font-size: 18px;
+	font-size: 16pt;
 }
 
 QLabel {
@@ -63,13 +63,13 @@ QFrame[frameShape=&quot;4&quot;] {
      <property name="font">
       <font>
        <family>Sans Serif</family>
-       <pointsize>-1</pointsize>
+       <pointsize>28</pointsize>
        <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">font-weight: bold; font-size: 34px;</string>
+      <string notr="true">font-weight: bold; font-size: 28pt;</string>
      </property>
      <property name="text">
       <string>Mode</string>
@@ -154,11 +154,11 @@ QFrame[frameShape=&quot;4&quot;] {
      </property>
      <property name="font">
       <font>
-       <pointsize>-1</pointsize>
+       <pointsize>28</pointsize>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">padding: 50px 100px; font-size: 34px;</string>
+      <string notr="true">padding: 50px 100px; font-size: 28pt;</string>
      </property>
      <property name="text">
       <string>Random text to type out blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</string>

@@ -19,7 +19,7 @@ class Ui_typingWindow(object):
 "    \n"
 "    background: rgb(50, 50, 50);\n"
 "    color: rgb(235, 235, 235);\n"
-"    font-size: 26px;\n"
+"    font-size: 24pt;\n"
 "}\n"
 "\n"
 "QFrame {    \n"
@@ -28,7 +28,7 @@ class Ui_typingWindow(object):
 "\n"
 "QPushButton, QComboBox {    \n"
 "    background: rgb(70, 70, 70);\n"
-"    font-size: 18px;\n"
+"    font-size: 16pt;\n"
 "}\n"
 "\n"
 "QLabel {\n"
@@ -51,11 +51,11 @@ class Ui_typingWindow(object):
         self.labelTitle.setSizeIncrement(QtCore.QSize(0, 0))
         font = QtGui.QFont()
         font.setFamily("Sans Serif")
-        font.setPointSize(-1)
+        font.setPointSize(28)
         font.setBold(True)
         font.setWeight(75)
         self.labelTitle.setFont(font)
-        self.labelTitle.setStyleSheet("font-weight: bold; font-size: 34px;")
+        self.labelTitle.setStyleSheet("font-weight: bold; font-size: 28pt;")
         self.labelTitle.setAlignment(QtCore.Qt.AlignCenter)
         self.labelTitle.setObjectName("labelTitle")
         self.verticalLayout.addWidget(self.labelTitle)
@@ -87,9 +87,9 @@ class Ui_typingWindow(object):
         sizePolicy.setHeightForWidth(self.labelMainText.sizePolicy().hasHeightForWidth())
         self.labelMainText.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(28)
         self.labelMainText.setFont(font)
-        self.labelMainText.setStyleSheet("padding: 50px 100px; font-size: 34px;")
+        self.labelMainText.setStyleSheet("padding: 50px 100px; font-size: 28pt;")
         self.labelMainText.setTextFormat(QtCore.Qt.RichText)
         self.labelMainText.setWordWrap(True)
         self.labelMainText.setObjectName("labelMainText")

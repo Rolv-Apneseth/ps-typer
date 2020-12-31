@@ -21,7 +21,7 @@
 	
 	background: rgb(50, 50, 50);
 	color: rgb(235, 235, 235);
-	font-size: 26px;
+	font-size: 24pt;
 }
 
 QFrame {	
@@ -30,7 +30,7 @@ QFrame {
 
 QPushButton, QComboBox {	
 	background: rgb(70, 70, 70);
-	font-size: 18px;
+	font-size: 16pt;
 }
 
 QLabel {
@@ -100,11 +100,11 @@ QFrame[frameShape=&quot;4&quot;] {
               </property>
               <property name="font">
                <font>
-                <pointsize>-1</pointsize>
+                <pointsize>24</pointsize>
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">font-size: 30px;</string>
+               <string notr="true">font-size: 24pt;</string>
               </property>
               <property name="text">
                <string>Your accuracy: 100%</string>
@@ -124,11 +124,11 @@ QFrame[frameShape=&quot;4&quot;] {
               </property>
               <property name="font">
                <font>
-                <pointsize>-1</pointsize>
+                <pointsize>24</pointsize>
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">font-size: 30px;</string>
+               <string notr="true">font-size: 24pt;</string>
               </property>
               <property name="text">
                <string>Your speed:      50wpm</string>
@@ -150,13 +150,13 @@ QFrame[frameShape=&quot;4&quot;] {
             </property>
             <property name="font">
              <font>
-              <pointsize>-1</pointsize>
+              <pointsize>24</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">font-weight: bold; font-size: 30px;</string>
+             <string notr="true">font-weight: bold; font-size: 24pt;</string>
             </property>
             <property name="text">
              <string>You set an all time highscore!</string>
@@ -192,7 +192,7 @@ QFrame[frameShape=&quot;4&quot;] {
          <widget class="QPushButton" name="buttonMainMenu">
           <property name="font">
            <font>
-            <pointsize>-1</pointsize>
+            <pointsize>16</pointsize>
            </font>
           </property>
           <property name="focusPolicy">
@@ -213,7 +213,7 @@ QFrame[frameShape=&quot;4&quot;] {
           </property>
           <property name="font">
            <font>
-            <pointsize>-1</pointsize>
+            <pointsize>16</pointsize>
            </font>
           </property>
           <property name="text">
