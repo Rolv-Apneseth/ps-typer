@@ -20,6 +20,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.lineInput.textChanged.connect(self.on_input_text_changed)
         self.buttonNewText.clicked.connect(self.on_clicked_new)
+        self.buttonRestart.clicked.connect(self.on_clicked_restart)
 
         # timer
         self.start_time = None
