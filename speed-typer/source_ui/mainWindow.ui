@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>739</width>
+    <width>841</width>
     <height>245</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
 	
 	background: rgb(50, 50, 50);
 	color: rgb(235, 235, 235);
-	font-size: 26px;
+	font-size: 24pt;
 }
 
 QFrame {	
@@ -27,7 +27,7 @@ QFrame {
 
 QPushButton, QComboBox {	
 	background: rgb(70, 70, 70);
-	font-size: 18px;
+	font-size: 16pt;
 }
 
 QLabel {
@@ -106,13 +106,13 @@ QFrame[frameShape=&quot;4&quot;] {
             </property>
             <property name="font">
              <font>
-              <pointsize>-1</pointsize>
+              <pointsize>28</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">font-weight: bold; font-size: 30px;</string>
+             <string notr="true">font-weight: bold; font-size: 28pt;</string>
             </property>
             <property name="text">
              <string>Main Menu</string>
@@ -160,7 +160,7 @@ QFrame[frameShape=&quot;4&quot;] {
               </property>
               <property name="font">
                <font>
-                <pointsize>-1</pointsize>
+                <pointsize>24</pointsize>
                 <underline>false</underline>
                </font>
               </property>
@@ -179,7 +179,7 @@ QFrame[frameShape=&quot;4&quot;] {
               </property>
               <property name="font">
                <font>
-                <pointsize>-1</pointsize>
+                <pointsize>16</pointsize>
                </font>
               </property>
               <property name="cursor">
@@ -261,7 +261,7 @@ QFrame[frameShape=&quot;4&quot;] {
               </property>
               <property name="font">
                <font>
-                <pointsize>-1</pointsize>
+                <pointsize>16</pointsize>
                </font>
               </property>
               <property name="cursor">
@@ -304,7 +304,7 @@ QFrame[frameShape=&quot;4&quot;] {
               </property>
               <property name="font">
                <font>
-                <pointsize>-1</pointsize>
+                <pointsize>16</pointsize>
                </font>
               </property>
               <property name="cursor">
@@ -376,14 +376,14 @@ QFrame[frameShape=&quot;4&quot;] {
             </property>
             <property name="font">
              <font>
-              <pointsize>-1</pointsize>
+              <pointsize>28</pointsize>
               <weight>75</weight>
               <bold>true</bold>
               <underline>false</underline>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">font-weight: bold; font-size: 30px;</string>
+             <string notr="true">font-weight: bold; font-size: 28pt;</string>
             </property>
             <property name="text">
              <string>Highscores</string>
@@ -422,7 +422,7 @@ QFrame[frameShape=&quot;4&quot;] {
              <widget class="QLabel" name="labelTodayTitle">
               <property name="font">
                <font>
-                <pointsize>-1</pointsize>
+                <pointsize>24</pointsize>
                </font>
               </property>
               <property name="text">
@@ -437,7 +437,7 @@ QFrame[frameShape=&quot;4&quot;] {
              <widget class="QLabel" name="labelTodayScore">
               <property name="font">
                <font>
-                <pointsize>-1</pointsize>
+                <pointsize>24</pointsize>
                 <italic>true</italic>
                </font>
               </property>
@@ -457,7 +457,7 @@ QFrame[frameShape=&quot;4&quot;] {
              <widget class="QLabel" name="labelAlltimeTitle">
               <property name="font">
                <font>
-                <pointsize>-1</pointsize>
+                <pointsize>24</pointsize>
                </font>
               </property>
               <property name="text">
@@ -472,7 +472,7 @@ QFrame[frameShape=&quot;4&quot;] {
              <widget class="QLabel" name="labelAlltimeScore">
               <property name="font">
                <font>
-                <pointsize>-1</pointsize>
+                <pointsize>24</pointsize>
                 <italic>true</italic>
                </font>
               </property>

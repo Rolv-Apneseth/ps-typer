@@ -20,7 +20,7 @@ class Ui_resultWindow(object):
 "    \n"
 "    background: rgb(50, 50, 50);\n"
 "    color: rgb(235, 235, 235);\n"
-"    font-size: 26px;\n"
+"    font-size: 24pt;\n"
 "}\n"
 "\n"
 "QFrame {    \n"
@@ -29,7 +29,7 @@ class Ui_resultWindow(object):
 "\n"
 "QPushButton, QComboBox {    \n"
 "    background: rgb(70, 70, 70);\n"
-"    font-size: 18px;\n"
+"    font-size: 16pt;\n"
 "}\n"
 "\n"
 "QLabel {\n"
@@ -66,9 +66,9 @@ class Ui_resultWindow(object):
         sizePolicy.setHeightForWidth(self.labelAccuracy.sizePolicy().hasHeightForWidth())
         self.labelAccuracy.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(24)
         self.labelAccuracy.setFont(font)
-        self.labelAccuracy.setStyleSheet("font-size: 30px;")
+        self.labelAccuracy.setStyleSheet("font-size: 24pt;")
         self.labelAccuracy.setWordWrap(True)
         self.labelAccuracy.setObjectName("labelAccuracy")
         self.verticalLayout_3.addWidget(self.labelAccuracy)
@@ -79,9 +79,9 @@ class Ui_resultWindow(object):
         sizePolicy.setHeightForWidth(self.labelSpeed.sizePolicy().hasHeightForWidth())
         self.labelSpeed.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(24)
         self.labelSpeed.setFont(font)
-        self.labelSpeed.setStyleSheet("font-size: 30px;")
+        self.labelSpeed.setStyleSheet("font-size: 24pt;")
         self.labelSpeed.setWordWrap(True)
         self.labelSpeed.setObjectName("labelSpeed")
         self.verticalLayout_3.addWidget(self.labelSpeed)
@@ -93,11 +93,11 @@ class Ui_resultWindow(object):
         sizePolicy.setHeightForWidth(self.labelHighscoreSet.sizePolicy().hasHeightForWidth())
         self.labelHighscoreSet.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(24)
         font.setBold(True)
         font.setWeight(75)
         self.labelHighscoreSet.setFont(font)
-        self.labelHighscoreSet.setStyleSheet("font-weight: bold; font-size: 30px;")
+        self.labelHighscoreSet.setStyleSheet("font-weight: bold; font-size: 24pt;")
         self.labelHighscoreSet.setWordWrap(True)
         self.labelHighscoreSet.setObjectName("labelHighscoreSet")
         self.verticalLayout.addWidget(self.labelHighscoreSet)
@@ -109,7 +109,7 @@ class Ui_resultWindow(object):
         self.horizontalLayout.addItem(spacerItem2)
         self.buttonMainMenu = QtWidgets.QPushButton(self.frame)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(16)
         self.buttonMainMenu.setFont(font)
         self.buttonMainMenu.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.buttonMainMenu.setObjectName("buttonMainMenu")
@@ -121,7 +121,7 @@ class Ui_resultWindow(object):
         sizePolicy.setHeightForWidth(self.buttonNext.sizePolicy().hasHeightForWidth())
         self.buttonNext.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(16)
         self.buttonNext.setFont(font)
         self.buttonNext.setObjectName("buttonNext")
         self.horizontalLayout.addWidget(self.buttonNext)

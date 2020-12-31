@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>674</width>
-    <height>443</height>
+    <width>730</width>
+    <height>424</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
 	
 	background: rgb(50, 50, 50);
 	color: rgb(235, 235, 235);
-	font-size: 26px;
+	font-size: 24pt;
 }
 
 QFrame {	
@@ -27,7 +27,7 @@ QFrame {
 
 QPushButton, QComboBox {	
 	background: rgb(70, 70, 70);
-	font-size: 18px;
+	font-size: 16pt;
 }
 
 QLabel {
@@ -69,13 +69,13 @@ QFrame[frameShape=&quot;4&quot;] {
        <widget class="QLabel" name="labelDisplay">
         <property name="font">
          <font>
-          <pointsize>-1</pointsize>
+          <pointsize>28</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">font-weight: bold; font-size: 30px;</string>
+         <string notr="true">font-weight: bold; font-size: 28pt;</string>
         </property>
         <property name="text">
          <string>Display</string>
@@ -111,7 +111,7 @@ QFrame[frameShape=&quot;4&quot;] {
          <widget class="QRadioButton" name="radioDarkMode">
           <property name="font">
            <font>
-            <pointsize>-1</pointsize>
+            <pointsize>24</pointsize>
            </font>
           </property>
           <property name="text">
@@ -145,7 +145,7 @@ QFrame[frameShape=&quot;4&quot;] {
          <widget class="QRadioButton" name="radioLightMode">
           <property name="font">
            <font>
-            <pointsize>-1</pointsize>
+            <pointsize>24</pointsize>
            </font>
           </property>
           <property name="text">
@@ -206,13 +206,13 @@ QFrame[frameShape=&quot;4&quot;] {
        <widget class="QLabel" name="labelAudio">
         <property name="font">
          <font>
-          <pointsize>-1</pointsize>
+          <pointsize>28</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">font-weight: bold; font-size: 30px;</string>
+         <string notr="true">font-weight: bold; font-size: 28pt;</string>
         </property>
         <property name="text">
          <string>Audio</string>
@@ -248,7 +248,7 @@ QFrame[frameShape=&quot;4&quot;] {
          <widget class="QLabel" name="labelKeystrokeSounds">
           <property name="font">
            <font>
-            <pointsize>-1</pointsize>
+            <pointsize>24</pointsize>
            </font>
           </property>
           <property name="text">
@@ -276,7 +276,7 @@ QFrame[frameShape=&quot;4&quot;] {
          <widget class="QRadioButton" name="radioKeystrokeOn">
           <property name="font">
            <font>
-            <pointsize>-1</pointsize>
+            <pointsize>24</pointsize>
            </font>
           </property>
           <property name="text">
@@ -307,7 +307,7 @@ QFrame[frameShape=&quot;4&quot;] {
          <widget class="QRadioButton" name="radioKeystrokeOff">
           <property name="font">
            <font>
-            <pointsize>-1</pointsize>
+            <pointsize>24</pointsize>
            </font>
           </property>
           <property name="text">

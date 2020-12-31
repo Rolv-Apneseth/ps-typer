@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\settingsWindow.ui'
+# Form implementation generated from reading ui file 'settingsWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -14,12 +14,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_settingsWindow(object):
     def setupUi(self, settingsWindow):
         settingsWindow.setObjectName("settingsWindow")
-        settingsWindow.resize(674, 443)
+        settingsWindow.resize(730, 424)
         settingsWindow.setStyleSheet("QWidget {\n"
 "    \n"
 "    background: rgb(50, 50, 50);\n"
 "    color: rgb(235, 235, 235);\n"
-"    font-size: 26px;\n"
+"    font-size: 24pt;\n"
 "}\n"
 "\n"
 "QFrame {    \n"
@@ -28,7 +28,7 @@ class Ui_settingsWindow(object):
 "\n"
 "QPushButton, QComboBox {    \n"
 "    background: rgb(70, 70, 70);\n"
-"    font-size: 18px;\n"
+"    font-size: 16pt;\n"
 "}\n"
 "\n"
 "QLabel {\n"
@@ -51,11 +51,11 @@ class Ui_settingsWindow(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.labelDisplay = QtWidgets.QLabel(self.frameDisplay)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(28)
         font.setBold(True)
         font.setWeight(75)
         self.labelDisplay.setFont(font)
-        self.labelDisplay.setStyleSheet("font-weight: bold; font-size: 30px;")
+        self.labelDisplay.setStyleSheet("font-weight: bold; font-size: 28pt;")
         self.labelDisplay.setObjectName("labelDisplay")
         self.verticalLayout.addWidget(self.labelDisplay)
         self.line = QtWidgets.QFrame(self.frameDisplay)
@@ -69,7 +69,7 @@ class Ui_settingsWindow(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.radioDarkMode = QtWidgets.QRadioButton(self.frameDisplay)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(24)
         self.radioDarkMode.setFont(font)
         self.radioDarkMode.setChecked(True)
         self.radioDarkMode.setAutoExclusive(True)
@@ -79,7 +79,7 @@ class Ui_settingsWindow(object):
         self.horizontalLayout.addItem(spacerItem2)
         self.radioLightMode = QtWidgets.QRadioButton(self.frameDisplay)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(24)
         self.radioLightMode.setFont(font)
         self.radioLightMode.setAutoExclusive(True)
         self.radioLightMode.setObjectName("radioLightMode")
@@ -98,11 +98,11 @@ class Ui_settingsWindow(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.labelAudio = QtWidgets.QLabel(self.frameAudio)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(28)
         font.setBold(True)
         font.setWeight(75)
         self.labelAudio.setFont(font)
-        self.labelAudio.setStyleSheet("font-weight: bold; font-size: 30px;")
+        self.labelAudio.setStyleSheet("font-weight: bold; font-size: 28pt;")
         self.labelAudio.setObjectName("labelAudio")
         self.verticalLayout_2.addWidget(self.labelAudio)
         self.line_2 = QtWidgets.QFrame(self.frameAudio)
@@ -116,7 +116,7 @@ class Ui_settingsWindow(object):
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.labelKeystrokeSounds = QtWidgets.QLabel(self.frameAudio)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(24)
         self.labelKeystrokeSounds.setFont(font)
         self.labelKeystrokeSounds.setObjectName("labelKeystrokeSounds")
         self.horizontalLayout_3.addWidget(self.labelKeystrokeSounds)
@@ -124,7 +124,7 @@ class Ui_settingsWindow(object):
         self.horizontalLayout_3.addItem(spacerItem6)
         self.radioKeystrokeOn = QtWidgets.QRadioButton(self.frameAudio)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(24)
         self.radioKeystrokeOn.setFont(font)
         self.radioKeystrokeOn.setChecked(True)
         self.radioKeystrokeOn.setObjectName("radioKeystrokeOn")
@@ -133,7 +133,7 @@ class Ui_settingsWindow(object):
         self.horizontalLayout_3.addItem(spacerItem7)
         self.radioKeystrokeOff = QtWidgets.QRadioButton(self.frameAudio)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setPointSize(24)
         self.radioKeystrokeOff.setFont(font)
         self.radioKeystrokeOff.setObjectName("radioKeystrokeOff")
         self.horizontalLayout_3.addWidget(self.radioKeystrokeOff)
