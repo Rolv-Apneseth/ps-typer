@@ -22,13 +22,16 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.buttonNewText.clicked.connect(self.on_clicked_new)
         self.buttonRestart.clicked.connect(self.on_clicked_restart)
 
-        # timer
-        self.start_time = None
+        # time and timer
+        self.timer = QtCore.QTimer(self)
+        self.timer.timeout.connect(self.update_time)
+        self.timer.setInterval(100)
+        self.reset_time()
 
         # Object to handle saving and updating of highscore values
         self.highscore = highscores.Highscores()
 
-        self.key_sound = False
+        self.key_sound = None
 
     # Helper Methods
     def set_mode(self, mode):
@@ -95,6 +98,18 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         return rich_text
 
+    def update_time(self):
+        """Updates the displayed time on self.labelTime in seconds since self.start_time."""
+
+        self.labelTime.setText(str(int(perf_counter() - self.start_time)))
+
+    def reset_time(self):
+        """Resets self.timer, self.start_time and self.labelTime."""
+
+        self.start_time = None
+        self.timer.stop()
+        self.labelTime.setText("0")
+
     def make_results_window(self):
         self.results_window = results.ResultsWindow()
 
@@ -123,8 +138,8 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
     # Button Methods
     def on_clicked_restart(self):
-        self.start_time = None
         self.lineInput.clear()
+        self.reset_time()
 
     def on_clicked_new(self):
         self.on_clicked_restart()
@@ -160,8 +175,9 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         if len(input_text) > len(self.text):
             return None
 
-        # Start timer if it has not yet been started
+        # Update displayed time or start timer
         if not self.start_time:
+            self.timer.start()
             self.start_time = perf_counter()
 
         # Try to play key sound effect, if it exists
