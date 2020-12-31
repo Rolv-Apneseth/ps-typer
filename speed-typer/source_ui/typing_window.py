@@ -139,8 +139,16 @@ class Ui_typingWindow(object):
         self.buttonNewText.setFocusPolicy(QtCore.Qt.NoFocus)
         self.buttonNewText.setObjectName("buttonNewText")
         self.horizontalLayoutButtons.addWidget(self.buttonNewText)
-        spacerItem7 = QtWidgets.QSpacerItem(80, 40, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        spacerItem7 = QtWidgets.QSpacerItem(30, 40, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayoutButtons.addItem(spacerItem7)
+        self.labelTime = QtWidgets.QLabel(typingWindow)
+        self.labelTime.setObjectName("labelTime")
+        self.horizontalLayoutButtons.addWidget(self.labelTime)
+        self.labelUnit = QtWidgets.QLabel(typingWindow)
+        self.labelUnit.setObjectName("labelUnit")
+        self.horizontalLayoutButtons.addWidget(self.labelUnit)
+        spacerItem8 = QtWidgets.QSpacerItem(80, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayoutButtons.addItem(spacerItem8)
         self.verticalLayout.addLayout(self.horizontalLayoutButtons)
 
         self.retranslateUi(typingWindow)
@@ -154,6 +162,8 @@ class Ui_typingWindow(object):
         self.buttonMainMenu.setText(_translate("typingWindow", "Main Menu"))
         self.buttonRestart.setText(_translate("typingWindow", "Restart"))
         self.buttonNewText.setText(_translate("typingWindow", "New Text"))
+        self.labelTime.setText(_translate("typingWindow", "1000"))
+        self.labelUnit.setText(_translate("typingWindow", "s"))
 
 
 if __name__ == "__main__":
