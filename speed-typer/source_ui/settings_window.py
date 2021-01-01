@@ -14,9 +14,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_settingsWindow(object):
     def setupUi(self, settingsWindow):
         settingsWindow.setObjectName("settingsWindow")
-        settingsWindow.resize(730, 424)
+        settingsWindow.resize(730, 437)
         settingsWindow.setStyleSheet("QWidget {\n"
-"    \n"
 "    background: rgb(50, 50, 50);\n"
 "    color: rgb(235, 235, 235);\n"
 "    font-size: 24pt;\n"
@@ -29,6 +28,10 @@ class Ui_settingsWindow(object):
 "QPushButton, QComboBox {    \n"
 "    background: rgb(70, 70, 70);\n"
 "    font-size: 16pt;\n"
+"}\n"
+"\n"
+"QPushButton::hover, QComboBox::hover {\n"
+"    background: rgb(90, 90, 90)\n"
 "}\n"
 "\n"
 "QLabel {\n"
