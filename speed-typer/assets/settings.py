@@ -7,10 +7,12 @@ from source_ui import settings_window
 # Note: Do not make any colours the same value
 # since these will be changed using a .replace method
 DARK_BUTTON = "rgb(70, 70, 70)"
+DARK_BUTTON_HOVER = "rgb(90, 90, 90)"
 DARK_BACKGROUND = "rgb(50, 50, 50)"
 DARK_TEXT = "rgb(235, 235, 235)"
 
 LIGHT_BUTTON = "rgb(200, 200, 200)"
+LIGHT_BUTTON_HOVER = "rgb(215, 215, 215)"
 LIGHT_BACKGROUND = "rgb(220, 220, 220)"
 LIGHT_TEXT = "rgb(0, 0, 0)"
 
@@ -42,15 +44,19 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
         self.current_stylesheet = self.current_stylesheet.replace(c1, c2)
 
     def set_dark_mode(self):
-        """Sets the stylesheet to be in dark mode (changes colours)."""
+        """Sets the style sheet to be in dark mode (changes colours)."""
 
         self.replace_colour(LIGHT_BACKGROUND, DARK_BACKGROUND)
         self.replace_colour(LIGHT_BUTTON, DARK_BACKGROUND)
+        self.replace_colour(LIGHT_BUTTON_HOVER, DARK_BUTTON_HOVER)
         self.replace_colour(LIGHT_TEXT, DARK_TEXT)
 
     def set_light_mode(self):
+        """Sets the style sheet to be in light mode (changes colours)."""
+
         self.replace_colour(DARK_BACKGROUND, LIGHT_BACKGROUND)
         self.replace_colour(DARK_BUTTON, LIGHT_BUTTON)
+        self.replace_colour(DARK_BUTTON_HOVER, LIGHT_BUTTON_HOVER)
         self.replace_colour(DARK_TEXT, LIGHT_TEXT)
 
     def get_style_sheet(self) -> str:
