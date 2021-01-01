@@ -16,7 +16,6 @@ class Ui_mainWindow(object):
         mainWindow.setObjectName("mainWindow")
         mainWindow.resize(841, 245)
         mainWindow.setStyleSheet("QWidget {\n"
-"    \n"
 "    background: rgb(50, 50, 50);\n"
 "    color: rgb(235, 235, 235);\n"
 "    font-size: 24pt;\n"
@@ -29,6 +28,10 @@ class Ui_mainWindow(object):
 "QPushButton, QComboBox {    \n"
 "    background: rgb(70, 70, 70);\n"
 "    font-size: 16pt;\n"
+"}\n"
+"\n"
+"QPushButton::hover, QComboBox::hover {\n"
+"    background: rgb(90, 90, 90)\n"
 "}\n"
 "\n"
 "QLabel {\n"
