@@ -1,5 +1,22 @@
 import random
-from nltk.corpus import brown
+
+# Nltk corpora for 'random' texts
+CORPORA = ["brown"]
+# Loops twice so if the import fails, it will download
+# then try to import again
+for _ in range(2):
+    try:
+        # Import nltk corpora
+        from nltk.corpus import brown
+
+        break
+
+    except ImportError:
+        # Download nltk corpora
+        from nltk import download
+
+        for corpus in CORPORA:
+            download(corpus)
 
 
 COMMON_PHRASES = [
