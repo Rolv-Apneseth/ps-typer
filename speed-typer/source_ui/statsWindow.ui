@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>StatsWindow</class>
- <widget class="QWidget" name="StatsWindow">
+ <class>statsWindow</class>
+ <widget class="QWidget" name="statsWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1081</width>
-    <height>725</height>
+    <width>1078</width>
+    <height>723</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -104,7 +104,7 @@ QFrame[frameShape=&quot;4&quot;] {
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QLabel" name="label_7">
+           <widget class="QLabel" name="labelCurrentHighscores">
             <property name="styleSheet">
              <string notr="true">font-weight: bold; font-size: 28pt;</string>
             </property>
@@ -142,7 +142,7 @@ QFrame[frameShape=&quot;4&quot;] {
              <number>10</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_3">
+             <widget class="QLabel" name="labelToday">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                 <horstretch>1</horstretch>
@@ -158,7 +158,7 @@ QFrame[frameShape=&quot;4&quot;] {
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_4">
+             <widget class="QLabel" name="labelTodayScore">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
                 <horstretch>6</horstretch>
@@ -200,7 +200,7 @@ QFrame[frameShape=&quot;4&quot;] {
              <number>10</number>
             </property>
             <item>
-             <widget class="QLabel" name="label_5">
+             <widget class="QLabel" name="labelAllTIme">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                 <horstretch>1</horstretch>
@@ -216,7 +216,7 @@ QFrame[frameShape=&quot;4&quot;] {
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_6">
+             <widget class="QLabel" name="labelAllTimeScore">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                 <horstretch>6</horstretch>
@@ -295,7 +295,7 @@ QFrame[frameShape=&quot;4&quot;] {
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="labelGraphTitle">
           <property name="styleSheet">
            <string notr="true">font-weight: bold; font-size: 28pt;</string>
           </property>
@@ -368,7 +368,7 @@ QFrame[frameShape=&quot;4&quot;] {
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="buttonMainMenu">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -387,7 +387,7 @@ QFrame[frameShape=&quot;4&quot;] {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="buttonResetAll">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
@@ -400,7 +400,7 @@ QFrame[frameShape=&quot;4&quot;] {
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="buttonResetAllTime">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
            <horstretch>0</horstretch>
