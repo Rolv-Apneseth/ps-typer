@@ -282,7 +282,7 @@ QUOTES = [
     "The unleashed power of the atom has changed everything save our modes of thinking, and we thus drift toward unparalleled catastrophes. - Albert Einstein",
     "If the brain were so simple we could understand it, we would be so simple we couldn't. - Lyall Watson",
     "Wherever we look, the work of the chemist has raised the level of our civilization and has increased the productive capacity of our nation. - Calvin Coolidge",
-    "Better is bread with a happy heart than wealth with vexation. -Amenemope",
+    "Better is bread with a happy heart than wealth with vexation. - Amenemope",
     "As soon as men decide that all means are permitted to fight an evil, then their good becomes indistinguishable from the evil that they set out to destroy. - Christopher Dawson",
     "Is it a fact - or have I dreamt it - that, by means of electricity, the world of matter has become a great nerve, vibrating thousands of miles in a breathless point of time? - Nathaniel Hawthorne",
     "The day when two army corps can annihilate each other in one second, all civilized nations, it is to be hoped, will recoil from war and discharge their troops. - Alfred Nobel",
