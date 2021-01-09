@@ -93,9 +93,22 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.hide()
 
     def on_clicked_reset_all_time(self):
-        """Executed when Reset all-time highscore is pressed in the stats window."""
+        """
+        To be executed when 'Reset all-time highscore' is pressed in the stats window.
+        """
 
         self.delete_all_time_highscore()
+
+        # Update highscores to match
+        self.update_highscores()
+        self.update_stats_highscores()
+
+    def on_clicked_reset_all(self):
+        """
+        To be executed when 'Reset all highscores' is pressed in the stats window.
+        """
+
+        self.delete_all_highscores()
 
         # Update highscores to match
         self.update_highscores()
@@ -148,6 +161,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.stats_window.buttonResetAllTime.clicked.connect(
             self.on_clicked_reset_all_time
         )
+        self.stats_window.buttonResetAll.clicked.connect(self.on_clicked_reset_all)
 
     def update_highscores(self):
         self.highscore.load_data()
@@ -242,6 +256,13 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         """Deletes the current all-time highscore."""
 
         self.highscore.data["all-time-highscore"] = f"{self.highscore.date}: 0"
+        self.highscore.save_data()
+
+    def delete_all_highscores(self):
+        """Deletes all daily highscore and all-time highscore data."""
+
+        self.highscore.data["all-time-highscore"] = f"{self.highscore.date}: 0"
+        self.highscore.data["daily-highscores"] = [f"{self.highscore.date}: 0"]
         self.highscore.save_data()
 
 
