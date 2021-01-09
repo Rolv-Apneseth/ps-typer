@@ -370,7 +370,7 @@ QFrame[frameShape=&quot;4&quot;] {
        <item>
         <widget class="QPushButton" name="buttonMainMenu">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -389,7 +389,7 @@ QFrame[frameShape=&quot;4&quot;] {
        <item>
         <widget class="QPushButton" name="buttonResetAll">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -402,7 +402,7 @@ QFrame[frameShape=&quot;4&quot;] {
        <item>
         <widget class="QPushButton" name="buttonResetAllTime">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>

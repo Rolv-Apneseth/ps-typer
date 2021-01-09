@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'source_ui/statsWindow.ui'
+# Form implementation generated from reading ui file 'statsWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -168,7 +168,7 @@ class Ui_statsWindow(object):
         spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem8)
         self.buttonMainMenu = QtWidgets.QPushButton(statsWindow)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.buttonMainMenu.sizePolicy().hasHeightForWidth())
@@ -177,7 +177,7 @@ class Ui_statsWindow(object):
         self.buttonMainMenu.setObjectName("buttonMainMenu")
         self.horizontalLayout.addWidget(self.buttonMainMenu)
         self.buttonResetAll = QtWidgets.QPushButton(statsWindow)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.buttonResetAll.sizePolicy().hasHeightForWidth())
@@ -185,7 +185,7 @@ class Ui_statsWindow(object):
         self.buttonResetAll.setObjectName("buttonResetAll")
         self.horizontalLayout.addWidget(self.buttonResetAll)
         self.buttonResetAllTime = QtWidgets.QPushButton(statsWindow)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.buttonResetAllTime.sizePolicy().hasHeightForWidth())
