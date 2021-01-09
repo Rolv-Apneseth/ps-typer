@@ -131,6 +131,9 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     def make_stats_window(self):
         self.stats_window = statistics.StatsWindow()
 
+        self.stats_window.labelTodayScore.setText(f"{self.today_wpm} WPM")
+        self.stats_window.labelAllTimeScore.setText(f"{self.all_time_wpm} WPM")
+
         self.stats_window.buttonMainMenu.clicked.connect(
             lambda: self.on_clicked_main_menu(self.stats_window)
         )
