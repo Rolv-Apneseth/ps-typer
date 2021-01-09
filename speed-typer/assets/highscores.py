@@ -63,11 +63,22 @@ class Highscores:
 
         return self.today_wpm, self.all_time_wpm
 
-    def make_backup(self):
-        """Turns current pickle file into a backup file, and deletes old backup."""
+    def delete_pickle(self):
+        """Deletes the main pickle file, if it exists."""
+
+        if self.exists_pickle():
+            os.remove(PICKLE_PATH)
+
+    def delete_backup(self):
+        """Deletes the backup pickle file, if it exists."""
 
         if self.exists_backup():
             os.remove(BACKUP_PATH)
+
+    def make_backup(self):
+        """Turns current pickle file into a backup file, and deletes old backup."""
+
+        self.delete_backup()
 
         os.rename(PICKLE_PATH, BACKUP_PATH)
 
