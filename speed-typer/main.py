@@ -92,6 +92,15 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.hide()
 
+    def on_clicked_reset_all_time(self):
+        """Executed when Reset all-time highscore is pressed in the stats window."""
+
+        self.delete_all_time_highscore()
+
+        # Update highscores to match
+        self.update_highscores()
+        self.update_stats_highscores()
+
     # Helper Methods
     def make_mode_window(self, mode):
         self.mode_window = type_test.TypingWindow()
@@ -131,11 +140,13 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     def make_stats_window(self):
         self.stats_window = statistics.StatsWindow()
 
-        self.stats_window.labelTodayScore.setText(f"{self.today_wpm} WPM")
-        self.stats_window.labelAllTimeScore.setText(f"{self.all_time_wpm} WPM")
+        self.update_stats_highscores()
 
         self.stats_window.buttonMainMenu.clicked.connect(
             lambda: self.on_clicked_main_menu(self.stats_window)
+        )
+        self.stats_window.buttonResetAllTime.clicked.connect(
+            self.on_clicked_reset_all_time
         )
 
     def update_highscores(self):
@@ -220,6 +231,18 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.key_sound.setSource(self.key_sound_url)
         self.key_sound.setVolume(0.5)
         self.key_sound.setLoopCount(1)
+
+    def update_stats_highscores(self):
+        """Updates highscores displayed in the stats window."""
+
+        self.stats_window.labelTodayScore.setText(f"{self.today_wpm} WPM")
+        self.stats_window.labelAllTimeScore.setText(f"{self.all_time_wpm} WPM")
+
+    def delete_all_time_highscore(self):
+        """Deletes the current all-time highscore."""
+
+        self.highscore.data["all-time-highscore"] = f"{self.highscore.date}: 0"
+        self.highscore.save_data()
 
 
 if __name__ == "__main__":
