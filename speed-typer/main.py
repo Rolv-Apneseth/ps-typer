@@ -5,7 +5,7 @@ from PyQt5.QtMultimedia import QSoundEffect
 
 import type_test
 from source_ui import main_window
-from assets import highscores, settings
+from assets import highscores, settings, statistics
 
 
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -23,6 +23,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.buttonStart.clicked.connect(self.on_clicked_start)
         self.buttonSettings.clicked.connect(self.on_clicked_settings)
+        self.buttonStatistics.clicked.connect(self.on_clicked_statistics)
 
         # Initialize highscores handler
         self.highscore = highscores.Highscores()
@@ -69,6 +70,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.hide()
 
     def on_clicked_apply(self):
+        """Executed when apply button in settings window is clicked."""
+
         self.settings = self.settings_window.get_settings()
 
         # Key sound
@@ -80,6 +83,14 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         # Save settings
         self.save_settings_to_file()
+
+    def on_clicked_statistics(self):
+        self.make_stats_window()
+
+        self.stats_window.show()
+        self.stats_window.setStyleSheet(self.settings[2])
+
+        self.hide()
 
     # Helper Methods
     def make_mode_window(self, mode):
@@ -116,6 +127,13 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.set_settings_sounds_options()
         self.set_selected_sound_option(self.settings[1])
+
+    def make_stats_window(self):
+        self.stats_window = statistics.StatsWindow()
+
+        self.stats_window.buttonMainMenu.clicked.connect(
+            lambda: self.on_clicked_main_menu(self.stats_window)
+        )
 
     def update_highscores(self):
         self.highscore.load_data()
