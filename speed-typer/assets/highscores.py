@@ -11,8 +11,8 @@ BACKUP_PATH = os.path.join(FILE_PATH, "backup_highscores.pkl")
 
 class Highscores:
     def __init__(self):
-        self.date = str(datetime.datetime.today().date())
-        self.day = datetime.datetime.today().date().day
+        self.today = datetime.datetime.today()
+        self.date = str(self.today.date())
 
         self.load_data()
 
@@ -130,6 +130,32 @@ class Highscores:
 
         self.data["daily-highscores"] = [f"{self.date}: 0"]
         self.delete_all_time_highscore()
+
+    def get_datetime_object(self, date: str) -> datetime.datetime:
+        """
+        Returns a datetime object from a given string.
+        The string must be in the format yyyy-mm-dd.
+        """
+
+        # Convert string into a list of integers
+        numerical_date: list = list(map(int, date.split("-")))
+
+        return datetime.datetime(
+            numerical_date[0], numerical_date[1], numerical_date[2]
+        )
+
+    def days_since_set(self) -> int:
+        """Returns the number of days since the all-time highscore was set."""
+
+        # Get the date section from the all-time highscore
+        # then get a datetime object for that date
+        string_date: str = self.data["all-time-highscore"].split(":")[0]
+        date_set: datetime.datetime = self.get_datetime_object(string_date)
+
+        # Get a timedelta object representing the time between today and date_set
+        difference: datetime.timedelta = self.today - date_set
+
+        return difference.days
 
     # Main
     def update(self, score: int) -> str:
