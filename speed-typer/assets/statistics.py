@@ -9,6 +9,12 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
 
         self.setupUi(self)
 
+    # helper methods
+    def update_days_ago(self, days_ago: int):
+        """Updates labelDaysAgo with a given number of days."""
+
+        self.labelDaysAgo.setText(f"-Set {days_ago} days ago")
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
