@@ -92,6 +92,16 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.hide()
 
+    def on_clicked_reset_daily(self):
+        """
+        To be executed when 'Reset today's highscore' is pressed in the stats window.
+        """
+
+        self.highscore.delete_daily_highscore()
+
+        self.update_highscores()
+        self.update_stats_highscores()
+
     def on_clicked_reset_all_time(self):
         """
         To be executed when 'Reset all-time highscore' is pressed in the stats window.
@@ -99,7 +109,6 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.highscore.delete_all_time_highscore()
 
-        # Update highscores to match
         self.update_highscores()
         self.update_stats_highscores()
 
@@ -110,7 +119,6 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.highscore.delete_all_highscores()
 
-        # Update highscores to match
         self.update_highscores()
         self.update_stats_highscores()
 
@@ -158,6 +166,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.stats_window.buttonMainMenu.clicked.connect(
             lambda: self.on_clicked_main_menu(self.stats_window)
         )
+        self.stats_window.buttonResetDaily.clicked.connect(self.on_clicked_reset_daily)
         self.stats_window.buttonResetAllTime.clicked.connect(
             self.on_clicked_reset_all_time
         )
