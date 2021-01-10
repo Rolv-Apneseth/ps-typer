@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1032</width>
+    <width>1034</width>
     <height>952</height>
    </rect>
   </property>
@@ -222,7 +222,7 @@ QFrame[frameShape=&quot;4&quot;] {
              <widget class="QLabel" name="labelAllTimeScore">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                <horstretch>6</horstretch>
+                <horstretch>2</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
@@ -234,6 +234,28 @@ QFrame[frameShape=&quot;4&quot;] {
               </property>
               <property name="text">
                <string>0 WPM</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelDaysAgo">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                <horstretch>6</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>24</pointsize>
+                <italic>true</italic>
+               </font>
+              </property>
+              <property name="text">
+               <string>-Set 0 days ago</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>

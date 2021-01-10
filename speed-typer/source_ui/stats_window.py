@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_statsWindow(object):
     def setupUi(self, statsWindow):
         statsWindow.setObjectName("statsWindow")
-        statsWindow.resize(1032, 952)
+        statsWindow.resize(1034, 952)
         statsWindow.setStyleSheet("QWidget {\n"
 "    background: rgb(50, 50, 50);\n"
 "    color: rgb(235, 235, 235);\n"
@@ -118,7 +118,7 @@ class Ui_statsWindow(object):
         self.horizontalLayout_3.addWidget(self.labelAllTIme)
         self.labelAllTimeScore = QtWidgets.QLabel(self.frameCurrent)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
-        sizePolicy.setHorizontalStretch(6)
+        sizePolicy.setHorizontalStretch(2)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.labelAllTimeScore.sizePolicy().hasHeightForWidth())
         self.labelAllTimeScore.setSizePolicy(sizePolicy)
@@ -128,6 +128,19 @@ class Ui_statsWindow(object):
         self.labelAllTimeScore.setFont(font)
         self.labelAllTimeScore.setObjectName("labelAllTimeScore")
         self.horizontalLayout_3.addWidget(self.labelAllTimeScore)
+        self.labelDaysAgo = QtWidgets.QLabel(self.frameCurrent)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(6)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.labelDaysAgo.sizePolicy().hasHeightForWidth())
+        self.labelDaysAgo.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setPointSize(24)
+        font.setItalic(True)
+        self.labelDaysAgo.setFont(font)
+        self.labelDaysAgo.setAlignment(QtCore.Qt.AlignCenter)
+        self.labelDaysAgo.setObjectName("labelDaysAgo")
+        self.horizontalLayout_3.addWidget(self.labelDaysAgo)
         self.verticalLayout_3.addLayout(self.horizontalLayout_3)
         spacerItem4 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         self.verticalLayout_3.addItem(spacerItem4)
@@ -263,6 +276,7 @@ class Ui_statsWindow(object):
         self.labelTodayScore.setText(_translate("statsWindow", "0 WPM"))
         self.labelAllTIme.setText(_translate("statsWindow", "All-time: "))
         self.labelAllTimeScore.setText(_translate("statsWindow", "0 WPM"))
+        self.labelDaysAgo.setText(_translate("statsWindow", "-Set 0 days ago"))
         self.labelGraphTitle.setText(_translate("statsWindow", "Graph of Daily Highscores"))
         self.labelResetTitle.setText(_translate("statsWindow", "Reset highscore(s)"))
         self.buttonResetDaily.setText(_translate("statsWindow", "Today\'s"))
