@@ -120,17 +120,19 @@ class Highscores:
         self.data["all-time-highscore"] = f"{self.date}: {score}"
 
     def delete_all_time_highscore(self):
-        """Deletes the current all-time highscore."""
+        """
+        Deletes the current all-time highscore, and also
+        today's highscore if it is greater than 0.
+        """
 
-        self.data["all-time-highscore"] = f"{self.date}: 0"
+        self.add_all_time_highscore(0)
         self.save_data()
 
     def delete_all_highscores(self):
         """Deletes all daily highscore and all-time highscore data."""
 
-        self.data["all-time-highscore"] = f"{self.date}: 0"
         self.data["daily-highscores"] = [f"{self.date}: 0"]
-        self.save_data()
+        self.delete_all_time_highscore()
 
     # Main
     def update(self, score: int) -> str:
