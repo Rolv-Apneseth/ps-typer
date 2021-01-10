@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1043</width>
-    <height>747</height>
+    <width>1094</width>
+    <height>771</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -360,7 +360,7 @@ QFrame[frameShape=&quot;4&quot;] {
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
+          <enum>QSizePolicy::Expanding</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -387,10 +387,13 @@ QFrame[frameShape=&quot;4&quot;] {
          <property name="text">
           <string>Main Menu</string>
          </property>
+         <property name="default">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="buttonResetAll">
+        <widget class="QPushButton" name="buttonResetDaily">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
            <horstretch>0</horstretch>
@@ -399,12 +402,12 @@ QFrame[frameShape=&quot;4&quot;] {
          </property>
          <property name="minimumSize">
           <size>
-           <width>240</width>
+           <width>280</width>
            <height>40</height>
           </size>
          </property>
          <property name="text">
-          <string>Reset all highscores</string>
+          <string>Reset today's highscore</string>
          </property>
         </widget>
        </item>
@@ -424,6 +427,25 @@ QFrame[frameShape=&quot;4&quot;] {
          </property>
          <property name="text">
           <string>Reset all-time highscore</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="buttonResetAll">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>240</width>
+           <height>40</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Reset all highscores</string>
          </property>
         </widget>
        </item>
