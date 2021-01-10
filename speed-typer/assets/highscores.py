@@ -119,6 +119,20 @@ class Highscores:
 
         self.data["all-time-highscore"] = f"{self.date}: {score}"
 
+    def delete_all_time_highscore(self):
+        """Deletes the current all-time highscore."""
+
+        self.data["all-time-highscore"] = f"{self.date}: 0"
+        self.save_data()
+
+    def delete_all_highscores(self):
+        """Deletes all daily highscore and all-time highscore data."""
+
+        self.data["all-time-highscore"] = f"{self.date}: 0"
+        self.data["daily-highscores"] = [f"{self.date}: 0"]
+        self.save_data()
+
+    # Main
     def update(self, score: int) -> str:
         """Main function, checks if a given score is a highscore then saves that
         value to self.data and to a pickle file.

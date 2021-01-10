@@ -97,7 +97,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         To be executed when 'Reset all-time highscore' is pressed in the stats window.
         """
 
-        self.delete_all_time_highscore()
+        self.highscore.delete_all_time_highscore()
 
         # Update highscores to match
         self.update_highscores()
@@ -108,7 +108,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         To be executed when 'Reset all highscores' is pressed in the stats window.
         """
 
-        self.delete_all_highscores()
+        self.highscore.delete_all_highscores()
 
         # Update highscores to match
         self.update_highscores()
@@ -251,19 +251,6 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.stats_window.labelTodayScore.setText(f"{self.today_wpm} WPM")
         self.stats_window.labelAllTimeScore.setText(f"{self.all_time_wpm} WPM")
-
-    def delete_all_time_highscore(self):
-        """Deletes the current all-time highscore."""
-
-        self.highscore.data["all-time-highscore"] = f"{self.highscore.date}: 0"
-        self.highscore.save_data()
-
-    def delete_all_highscores(self):
-        """Deletes all daily highscore and all-time highscore data."""
-
-        self.highscore.data["all-time-highscore"] = f"{self.highscore.date}: 0"
-        self.highscore.data["daily-highscores"] = [f"{self.highscore.date}: 0"]
-        self.highscore.save_data()
 
 
 if __name__ == "__main__":
