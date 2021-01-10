@@ -161,8 +161,11 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     def make_stats_window(self):
         self.stats_window = statistics.StatsWindow()
 
+        # Update labels
         self.update_stats_highscores()
+        self.update_stats_days_ago()
 
+        # Connect buttons
         self.stats_window.buttonMainMenu.clicked.connect(
             lambda: self.on_clicked_main_menu(self.stats_window)
         )
@@ -260,6 +263,14 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.stats_window.labelTodayScore.setText(f"{self.today_wpm} WPM")
         self.stats_window.labelAllTimeScore.setText(f"{self.all_time_wpm} WPM")
+
+    def update_stats_days_ago(self):
+        """
+        Updates the labelDaysAgo element in the stats window with the
+        number of days since the all-time highscore was set.
+        """
+
+        self.stats_window.update_days_ago(self.highscore.days_since_set())
 
 
 if __name__ == "__main__":
