@@ -63,12 +63,6 @@ class Highscores:
 
         return self.today_wpm, self.all_time_wpm
 
-    def delete_pickle(self):
-        """Deletes the main pickle file, if it exists."""
-
-        if self.exists_pickle():
-            os.remove(PICKLE_PATH)
-
     def delete_backup(self):
         """Deletes the backup pickle file, if it exists."""
 
@@ -119,11 +113,14 @@ class Highscores:
 
         self.data["all-time-highscore"] = f"{self.date}: {score}"
 
+    def delete_daily_highscore(self):
+        """Deletes current daily highscore."""
+
+        self.add_daily_highscore(0)
+        self.save_data()
+
     def delete_all_time_highscore(self):
-        """
-        Deletes the current all-time highscore, and also
-        today's highscore if it is greater than 0.
-        """
+        """Deletes the current all-time highscore, and also today's highscore."""
 
         self.add_all_time_highscore(0)
         self.save_data()
