@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1034</width>
+    <width>832</width>
     <height>952</height>
    </rect>
   </property>
@@ -308,7 +308,7 @@ QFrame[frameShape=&quot;4&quot;] {
        </property>
        <property name="minimumSize">
         <size>
-         <width>1000</width>
+         <width>800</width>
          <height>400</height>
         </size>
        </property>

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_statsWindow(object):
     def setupUi(self, statsWindow):
         statsWindow.setObjectName("statsWindow")
-        statsWindow.resize(1034, 952)
+        statsWindow.resize(832, 952)
         statsWindow.setStyleSheet("QWidget {\n"
 "    background: rgb(50, 50, 50);\n"
 "    color: rgb(235, 235, 235);\n"
@@ -154,7 +154,7 @@ class Ui_statsWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frameGraphs.sizePolicy().hasHeightForWidth())
         self.frameGraphs.setSizePolicy(sizePolicy)
-        self.frameGraphs.setMinimumSize(QtCore.QSize(1000, 400))
+        self.frameGraphs.setMinimumSize(QtCore.QSize(800, 400))
         self.frameGraphs.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frameGraphs.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frameGraphs.setObjectName("frameGraphs")
