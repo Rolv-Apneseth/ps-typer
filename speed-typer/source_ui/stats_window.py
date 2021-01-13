@@ -171,9 +171,9 @@ class Ui_statsWindow(object):
         self.verticalLayout_6.addWidget(self.line_2)
         spacerItem6 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_6.addItem(spacerItem6)
-        self.graphicsView = QtWidgets.QGraphicsView(self.frameGraphs)
-        self.graphicsView.setObjectName("graphicsView")
-        self.verticalLayout_6.addWidget(self.graphicsView)
+        self.graphView = PlotWidget(self.frameGraphs)
+        self.graphView.setObjectName("graphView")
+        self.verticalLayout_6.addWidget(self.graphView)
         self.verticalLayout_4.addWidget(self.frameGraphs)
         spacerItem7 = QtWidgets.QSpacerItem(20, 15, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         self.verticalLayout_4.addItem(spacerItem7)
@@ -283,6 +283,7 @@ class Ui_statsWindow(object):
         self.buttonResetAllTime.setText(_translate("statsWindow", "All-time and today\'s"))
         self.buttonResetAll.setText(_translate("statsWindow", "All (includes all previous dailies)"))
         self.buttonMainMenu.setText(_translate("statsWindow", "Main Menu"))
+from pyqtgraph import PlotWidget
 
 
 if __name__ == "__main__":

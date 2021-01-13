@@ -353,7 +353,7 @@ QFrame[frameShape=&quot;4&quot;] {
          </spacer>
         </item>
         <item>
-         <widget class="QGraphicsView" name="graphicsView"/>
+         <widget class="PlotWidget" name="graphView"/>
         </item>
        </layout>
       </widget>
@@ -613,6 +613,13 @@ QFrame[frameShape=&quot;4&quot;] {
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QGraphicsView</extends>
+   <header>pyqtgraph</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
