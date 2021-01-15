@@ -1,6 +1,7 @@
 import os
 import pickle
 import datetime
+from typing import List
 
 
 # CONSTANTS
@@ -177,6 +178,14 @@ class Highscores:
 
         else:
             return "none"
+
+    def get_stats_dailies(self) -> List[str]:
+        """
+        Returns self.data["daily-highscores"] as raw data to be used
+        in the plotting of a graph.
+        """
+
+        return self.data["daily-highscores"]
 
 
 if __name__ == "__main__":
