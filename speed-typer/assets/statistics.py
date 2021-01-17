@@ -20,6 +20,7 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
         self.labelDaysAgo.setText(f"- Set {str(days_ago)} days ago")
 
     def set_up_graph(self, data: List[str]):
+        """Sets up the graphView wpm over time graph."""
 
         self.set_data(data)
 
@@ -31,16 +32,24 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
         self.update_graph()
 
     def update_graph(self):
+        """Updates self.curve with the data set in self.set_data."""
+
         x = self.dates
         y = self.wpms
 
         self.curve.setData(x=x, y=y)
 
     def get_time_stamp(self, datetime_object):
+        """Returns a timestamp (int) from a given datetime object."""
 
         return int(time.mktime(datetime_object.timetuple()))
 
     def clean_date(self, date_str):
+        """
+        Takes a string in the format yyyy-mm-dd and returns a timestamp
+        representing that date.
+        """
+
         raw_date: List[int] = list(map(int, date_str.replace(":", "").split("-")))
         raw_datetime: datetime.datetime = datetime.datetime(
             raw_date[0], raw_date[1], raw_date[2]
