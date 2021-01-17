@@ -165,6 +165,9 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.update_stats_highscores()
         self.update_stats_days_ago()
 
+        # Set up graph
+        self.stats_window.set_up_graph(self.highscore.get_stats_dailies())
+
         # Connect buttons
         self.stats_window.buttonMainMenu.clicked.connect(
             lambda: self.on_clicked_main_menu(self.stats_window)
