@@ -20,7 +20,7 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
         self.labelDaysAgo.setText(f"- Set {str(days_ago)} days ago")
 
     def set_up_graph(self, data: List[str]):
-        """Sets up the graphView wpm over time graph."""
+        """Sets up the graphView wpm over time graph with the given data."""
 
         self.set_data(data)
 
@@ -37,32 +37,37 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
         return int(time.mktime(datetime_object.timetuple()))
 
     def get_datetime_object(self, date_str: str) -> datetime.datetime:
-        """Takes a string in the format yyyy-mm-dd and returns a datetime object."""
+        """Takes a string in the format yyyy-mm-dd: and returns a datetime object."""
 
         raw_date: List[str] = date_str.replace(":", "").split("-")
-
         date_ints: List[int] = list(map(int, raw_date))
 
         return datetime.datetime(date_ints[0], date_ints[1], date_ints[2])
+
+    def clean_date(self, date_str: str) -> int:
+        """
+        Takes a string in thr format 'yyyy-mm-dd:' and returns a
+        usable timestamp representation.
+        """
+
+        return self.get_time_stamp(self.get_datetime_object(date_str))
 
     def set_data(self, data: List[str]):
         """
         Sets self.dates and self.wpms from the given data for
         daily highscores.
 
-        Strings in the data list should be in the format 'yyyy-mm-dd WPM'.
+        Strings in the data list should be in the format 'yyyy-mm-dd: WPM'.
         """
 
         self.dates: List[int] = []
         self.wpms: List[int] = []
 
-        # Add data for each day (data point) to 2 seperate lists
+        # Add data for each day (data point) to 2 seperate lists (2 axes)
         for day in data:
             split_day: List[str] = day.split()
 
-            self.dates.append(
-                self.get_time_stamp(self.get_datetime_object(split_day[0]))
-            )
+            self.dates.append(self.clean_date(split_day[0]))
             self.wpms.append(int(split_day[1]))
 
     def update_graph(self):
