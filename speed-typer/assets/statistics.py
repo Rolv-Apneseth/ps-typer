@@ -31,32 +31,19 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
 
         self.update_graph()
 
-    def update_graph(self):
-        """Updates self.curve with the data set in self.set_data."""
-
-        x = self.dates
-        y = self.wpms
-
-        self.curve.setData(x=x, y=y)
-
-    def get_time_stamp(self, datetime_object):
+    def get_time_stamp(self, datetime_object: datetime.datetime) -> int:
         """Returns a timestamp (int) from a given datetime object."""
 
         return int(time.mktime(datetime_object.timetuple()))
 
-    def clean_date(self, date_str):
-        """
-        Takes a string in the format yyyy-mm-dd and returns a timestamp
-        representing that date.
-        """
+    def get_datetime_object(self, date_str: str) -> datetime.datetime:
+        """Takes a string in the format yyyy-mm-dd and returns a datetime object."""
 
-        raw_date: List[int] = list(map(int, date_str.replace(":", "").split("-")))
-        raw_datetime: datetime.datetime = datetime.datetime(
-            raw_date[0], raw_date[1], raw_date[2]
-        )
-        time_stamp = self.get_time_stamp(raw_datetime)
+        raw_date: List[str] = date_str.replace(":", "").split("-")
 
-        return time_stamp
+        date_ints: List[int] = list(map(int, raw_date))
+
+        return datetime.datetime(date_ints[0], date_ints[1], date_ints[2])
 
     def set_data(self, data: List[str]):
         """
@@ -66,15 +53,22 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
         Strings in the data list should be in the format 'yyyy-mm-dd WPM'.
         """
 
-        self.dates: List[str] = []
+        self.dates: List[int] = []
         self.wpms: List[int] = []
 
         # Add data for each day (data point) to 2 seperate lists
         for day in data:
             split_day: List[str] = day.split()
 
+            self.dates.append(
+                self.get_time_stamp(self.get_datetime_object(split_day[0]))
+            )
             self.wpms.append(int(split_day[1]))
-            self.dates.append(self.clean_date(split_day[0]))
+
+    def update_graph(self):
+        """Updates self.curve with the data set in self.set_data."""
+
+        self.curve.setData(x=self.dates, y=self.wpms)
 
 
 class DateAxisItem(pyqtgraph.AxisItem):
@@ -87,17 +81,24 @@ class DateAxisItem(pyqtgraph.AxisItem):
 
         super().__init__(*args, **kwargs)
 
+        # Set up label for axis
         self.setLabel(text="Day Set", units=None)
         self.enableAutoSIPrefix(False)
 
     def get_string(self, time_stamp: int) -> str:
         """Gets the string value which is to replace the given time_stamp value."""
 
-        list_from_time = (
-            datetime.datetime.fromtimestamp(time_stamp).strftime(f"%m %d").split()
-        )
+        # types
+        datetime_object: datetime.datetime
+        list_from_time: List[str]
+        month_name: str
 
-        return " ".join([month_abbr[int(list_from_time[0])], list_from_time[1]])
+        datetime_object = datetime.datetime.fromtimestamp(time_stamp)
+        list_from_time = datetime_object.strftime("%m %d").split()
+
+        month_name = month_abbr[int(list_from_time[0])]
+
+        return " ".join((month_name, list_from_time[1]))
 
     def tickStrings(self, values, scale, spacing):
         """
