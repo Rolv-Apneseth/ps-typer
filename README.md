@@ -1,6 +1,6 @@
 # speed-typer
 
-A program to test the speed at which you can type. Choose a mode, type out the text and be told your average w.p.m. and your accuracy. The program can also keep track of your daily and all-time highscores.
+A program to test the speed at which you can type. Choose a mode, type out the text and be told your average w.p.m. and your accuracy. The program can also keep track of your daily and all-time highscores. Have a look at the statistics window after a couple of days and see on a graph how you're progressing in terms of wpm.
 
 ## What I learned
 
@@ -8,9 +8,10 @@ A program to test the speed at which you can type. Choose a mode, type out the t
 - Making the GUI resizeable and configurable (settings specified by the user)
 - Using pickle files to save data, load it and set new highscores
 - Using .json files to save and load data for configuration of the program
-- Use of OOP to handle the use of different windows and functionality
+- Use of OOP to handle the use of different windows and functionality for each window
 - Use of the time module to time actions/functions
 - Rich text manipulation so the text typed is coloured based on whether it is correct/incorrect
+- Plotting data with pyqtgraph, and styling of the graph so it has the desired layout and appearance
 
 ## Installation
 
@@ -48,4 +49,8 @@ Select one of the following options to choose what you will be typing out:
 
 Your typing speed is measured by your average wpm. Wpm is calculated as words per minute (w.p.m) using `(characters typed/5)/minutes` This gives a more fair w.p.m calculation since longer words would be worth more than short words.
 
+## Statistics
+
 Highscores can be set both daily or as an all-time highscore. Both values are displayed in the main menu and saved for future sessions.
+
+The program will save all of the users daily highscores. This data is then visualised in the statistics window using a graph of wpm over time so the user can get a sense of how they're progressing.
