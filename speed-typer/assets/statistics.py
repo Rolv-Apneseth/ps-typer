@@ -27,6 +27,7 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
         self.set_graph_background_colour((20, 20, 20))
         self.graphView.setLabel("left", "WPM")
         self.graphView.setAxisItems({"bottom": DateAxisItem(orientation="bottom")})
+        self.set_axes_colour((225, 225, 225))
 
         self.curve = self.graphView.plot()
         self.set_curve_colour((0, 170, 0))
@@ -42,6 +43,18 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
         """Sets curve's colour to the provided tuple (rgb)."""
 
         self.curve.setPen(colour)
+
+    def set_axes_colour(self, colour: tuple) -> None:
+        """Sets the graph's axes colours to the provided tuple (rgb)."""
+
+        left_axis: pyqtgraph.AxisItem = self.graphView.getAxis("left")
+        bottom_axis: pyqtgraph.AxisItem = self.graphView.getAxis("bottom")
+
+        left_axis.setTextPen(colour)
+        left_axis.setPen(colour)
+
+        bottom_axis.setTextPen(colour)
+        bottom_axis.setPen(colour)
 
     def get_time_stamp(self, datetime_object: datetime.datetime) -> int:
         """Returns a timestamp (int) from a given datetime object."""
