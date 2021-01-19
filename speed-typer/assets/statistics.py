@@ -11,6 +11,9 @@ from source_ui import stats_window
 AXIS_WIDTH = 1.5
 CURVE_WIDTH = 2
 GRID_ALPHA = 90
+DEFAULT_BACKGROUND = (20, 20, 20)
+DEFAULT_CURVE = (0, 170, 0)
+DEFAULT_AXES = (225, 225, 225)
 
 
 class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
@@ -27,23 +30,25 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
     def set_up_graph(self, data: List[str]):
         """Sets up the graphView wpm over time graph with the given data."""
 
-        self.set_data(data)
-
-        self.set_graph_background_colour((20, 20, 20))
+        # Set up axes
         self.graphView.setLabel("left", "WPM")
-        # self.graphView.showGrid(y=True)
         self.graphView.setAxisItems({"bottom": DateAxisItem(orientation="bottom")})
 
-        # Set axes items so they can be easily modified
+        # Set axes items to instance variables so they can be easily modified
         self.left_axis = self.graphView.getAxis("left")
         self.bottom_axis = self.graphView.getAxis("bottom")
 
-        self.set_axes_colour((225, 225, 225))
+        # Set the default colours for the graph
+        self.set_graph_background_colour(DEFAULT_BACKGROUND)
+        self.set_axes_colour(DEFAULT_AXES)
         self.set_grid_alpha(GRID_ALPHA)
 
+        # Set up curve of wpm against date set and colour it
         self.curve = self.graphView.plot()
-        self.set_curve_colour((0, 170, 0))
+        self.set_curve_colour(DEFAULT_CURVE)
 
+        # Give the curve data and update the graph
+        self.set_data(data)
         self.update_graph()
 
     def set_graph_background_colour(self, colour: tuple) -> None:
