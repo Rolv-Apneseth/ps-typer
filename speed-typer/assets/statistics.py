@@ -10,6 +10,7 @@ from source_ui import stats_window
 # CONSTANTS
 AXIS_WIDTH = 1.5
 CURVE_WIDTH = 2
+GRID_ALPHA = 90
 
 
 class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
@@ -30,8 +31,15 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
 
         self.set_graph_background_colour((20, 20, 20))
         self.graphView.setLabel("left", "WPM")
+        # self.graphView.showGrid(y=True)
         self.graphView.setAxisItems({"bottom": DateAxisItem(orientation="bottom")})
+
+        # Set axes items so they can be easily modified
+        self.left_axis = self.graphView.getAxis("left")
+        self.bottom_axis = self.graphView.getAxis("bottom")
+
         self.set_axes_colour((225, 225, 225))
+        self.set_grid_alpha(GRID_ALPHA)
 
         self.curve = self.graphView.plot()
         self.set_curve_colour((0, 170, 0))
@@ -51,14 +59,20 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
     def set_axes_colour(self, colour: tuple) -> None:
         """Sets the graph's axes colours to the provided tuple (rgb)."""
 
-        left_axis: pyqtgraph.AxisItem = self.graphView.getAxis("left")
-        bottom_axis: pyqtgraph.AxisItem = self.graphView.getAxis("bottom")
+        self.left_axis.setTextPen(color=colour)
+        self.left_axis.setPen(color=colour, width=AXIS_WIDTH)
 
-        left_axis.setTextPen(color=colour)
-        left_axis.setPen(color=colour, width=AXIS_WIDTH)
+        self.bottom_axis.setTextPen(color=colour)
+        self.bottom_axis.setPen(color=colour, width=AXIS_WIDTH)
 
-        bottom_axis.setTextPen(color=colour)
-        bottom_axis.setPen(color=colour, width=AXIS_WIDTH)
+    def set_grid_alpha(self, alpha: int) -> None:
+        """
+        Sets the alpha values (and turns on, if they are off) the grid
+        lines for both x and y axes on the graph.
+        """
+
+        self.left_axis.setGrid(alpha)
+        self.bottom_axis.setGrid(alpha)
 
     def get_time_stamp(self, datetime_object: datetime.datetime) -> int:
         """Returns a timestamp (int) from a given datetime object."""
