@@ -1,6 +1,7 @@
 import os
 import pickle
 import datetime
+from typing import List
 
 
 # CONSTANTS
@@ -11,8 +12,8 @@ BACKUP_PATH = os.path.join(FILE_PATH, "backup_highscores.pkl")
 
 class Highscores:
     def __init__(self):
-        self.date = str(datetime.datetime.today().date())
-        self.day = datetime.datetime.today().date().day
+        self.today = datetime.datetime.today()
+        self.date = str(self.today.date())
 
         self.load_data()
 
@@ -63,11 +64,16 @@ class Highscores:
 
         return self.today_wpm, self.all_time_wpm
 
-    def make_backup(self):
-        """Turns current pickle file into a backup file, and deletes old backup."""
+    def delete_backup(self):
+        """Deletes the backup pickle file, if it exists."""
 
         if self.exists_backup():
             os.remove(BACKUP_PATH)
+
+    def make_backup(self):
+        """Turns current pickle file into a backup file, and deletes old backup."""
+
+        self.delete_backup()
 
         os.rename(PICKLE_PATH, BACKUP_PATH)
 
@@ -108,6 +114,51 @@ class Highscores:
 
         self.data["all-time-highscore"] = f"{self.date}: {score}"
 
+    def delete_daily_highscore(self):
+        """Deletes current daily highscore."""
+
+        self.add_daily_highscore(0)
+        self.save_data()
+
+    def delete_all_time_highscore(self):
+        """Deletes the current all-time highscore, and also today's highscore."""
+
+        self.add_all_time_highscore(0)
+        self.save_data()
+
+    def delete_all_highscores(self):
+        """Deletes all daily highscore and all-time highscore data."""
+
+        self.data["daily-highscores"] = [f"{self.date}: 0"]
+        self.delete_all_time_highscore()
+
+    def get_datetime_object(self, date: str) -> datetime.datetime:
+        """
+        Returns a datetime object from a given string.
+        The string must be in the format yyyy-mm-dd.
+        """
+
+        # Convert string into a list of integers
+        numerical_date: list = list(map(int, date.split("-")))
+
+        return datetime.datetime(
+            numerical_date[0], numerical_date[1], numerical_date[2]
+        )
+
+    def days_since_set(self) -> int:
+        """Returns the number of days since the all-time highscore was set."""
+
+        # Get the date section from the all-time highscore
+        # then get a datetime object for that date
+        string_date: str = self.data["all-time-highscore"].split(":")[0]
+        date_set: datetime.datetime = self.get_datetime_object(string_date)
+
+        # Get a timedelta object representing the time between today and date_set
+        difference: datetime.timedelta = self.today - date_set
+
+        return difference.days
+
+    # Main
     def update(self, score: int) -> str:
         """Main function, checks if a given score is a highscore then saves that
         value to self.data and to a pickle file.
@@ -127,6 +178,14 @@ class Highscores:
 
         else:
             return "none"
+
+    def get_stats_dailies(self) -> List[str]:
+        """
+        Returns self.data["daily-highscores"] as raw data to be used
+        in the plotting of a graph.
+        """
+
+        return self.data["daily-highscores"]
 
 
 if __name__ == "__main__":

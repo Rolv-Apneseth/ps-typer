@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>841</width>
-    <height>245</height>
+    <width>787</width>
+    <height>239</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,6 +43,19 @@ QFrame[frameShape=&quot;4&quot;] {
 }</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <spacer name="horizontalSpacer_6">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <property name="leftMargin">
@@ -241,13 +254,29 @@ QFrame[frameShape=&quot;4&quot;] {
             <property name="sizeHint" stdset="0">
              <size>
               <width>20</width>
-              <height>75</height>
+              <height>60</height>
              </size>
             </property>
            </spacer>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
             <item>
              <widget class="QPushButton" name="buttonStart">
               <property name="sizePolicy">
@@ -285,7 +314,7 @@ QFrame[frameShape=&quot;4&quot;] {
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>40</width>
+                <width>10</width>
                 <height>20</height>
                </size>
               </property>
@@ -324,11 +353,46 @@ QFrame[frameShape=&quot;4&quot;] {
                <enum>Qt::Horizontal</enum>
               </property>
               <property name="sizeType">
-               <enum>QSizePolicy::Preferred</enum>
+               <enum>QSizePolicy::Fixed</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>40</width>
+                <width>10</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonStatistics">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>120</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Statistics</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
                 <height>20</height>
                </size>
               </property>
@@ -508,6 +572,19 @@ QFrame[frameShape=&quot;4&quot;] {
       </spacer>
      </item>
     </layout>
+   </item>
+   <item>
+    <spacer name="horizontalSpacer_7">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
    </item>
   </layout>
  </widget>

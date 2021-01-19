@@ -306,8 +306,8 @@ QUOTES = [
 
 
 def get_random_choice(lst: list) -> str:
-    """Returns a random string from a list of strings with whitespaces.
-
+    """
+    Returns a random string from a list of strings with whitespaces.
     Text is also stripped of trailing and leading whitespaces.
     """
 

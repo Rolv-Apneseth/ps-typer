@@ -5,7 +5,7 @@ from PyQt5.QtMultimedia import QSoundEffect
 
 import type_test
 from source_ui import main_window
-from assets import highscores, settings
+from assets import highscores, settings, statistics
 
 
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -23,6 +23,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.buttonStart.clicked.connect(self.on_clicked_start)
         self.buttonSettings.clicked.connect(self.on_clicked_settings)
+        self.buttonStatistics.clicked.connect(self.on_clicked_statistics)
 
         # Initialize highscores handler
         self.highscore = highscores.Highscores()
@@ -32,13 +33,20 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         #                   1. Name of sound file to play
         #                   2. Stylesheet for all windows
         #                   3. Dark mode (True or False)
+        #                   4. Colours for graph (dict)
         #
         # Load setings file from assets folder if it exists, otherwise
         # set it to default settings
         if self.exists_settings_file():
             self.load_settings_from_file()
         else:
-            self.settings = [False, "key_4.wav", self.styleSheet(), True]
+            self.settings = [
+                False,
+                "key_4.wav",
+                self.styleSheet(),
+                True,
+                settings.DARK_GRAPH,
+            ]
 
         # Sound played on keystroke, if sounds are turned on
         self.set_key_sound(self.settings[1])
@@ -69,6 +77,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.hide()
 
     def on_clicked_apply(self):
+        """Executed when apply button in settings window is clicked."""
+
         self.settings = self.settings_window.get_settings()
 
         # Key sound
@@ -80,6 +90,44 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         # Save settings
         self.save_settings_to_file()
+
+    def on_clicked_statistics(self):
+        self.make_stats_window()
+
+        self.stats_window.show()
+        self.stats_window.setStyleSheet(self.settings[2])
+
+        self.hide()
+
+    def on_clicked_reset_daily(self):
+        """
+        To be executed when 'Reset today's highscore' is pressed in the stats window.
+        """
+
+        self.highscore.delete_daily_highscore()
+
+        self.update_highscores()
+        self.update_stats_highscores()
+
+    def on_clicked_reset_all_time(self):
+        """
+        To be executed when 'Reset all-time highscore' is pressed in the stats window.
+        """
+
+        self.highscore.delete_all_time_highscore()
+
+        self.update_highscores()
+        self.update_stats_highscores()
+
+    def on_clicked_reset_all(self):
+        """
+        To be executed when 'Reset all highscores' is pressed in the stats window.
+        """
+
+        self.highscore.delete_all_highscores()
+
+        self.update_highscores()
+        self.update_stats_highscores()
 
     # Helper Methods
     def make_mode_window(self, mode):
@@ -116,6 +164,29 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.set_settings_sounds_options()
         self.set_selected_sound_option(self.settings[1])
+
+    def make_stats_window(self):
+        self.stats_window = statistics.StatsWindow()
+
+        # Update labels
+        self.update_stats_highscores()
+        self.update_stats_days_ago()
+
+        # Set up graph
+        self.stats_window.set_up_graph(self.highscore.get_stats_dailies())
+        self.stats_window.set_axes_colour(self.settings[4]["axes"])
+        self.stats_window.set_graph_background_colour(self.settings[4]["background"])
+        self.stats_window.set_curve_colour(self.settings[4]["curve"])
+
+        # Connect buttons
+        self.stats_window.buttonMainMenu.clicked.connect(
+            lambda: self.on_clicked_main_menu(self.stats_window)
+        )
+        self.stats_window.buttonResetDaily.clicked.connect(self.on_clicked_reset_daily)
+        self.stats_window.buttonResetAllTime.clicked.connect(
+            self.on_clicked_reset_all_time
+        )
+        self.stats_window.buttonResetAll.clicked.connect(self.on_clicked_reset_all)
 
     def update_highscores(self):
         self.highscore.load_data()
@@ -199,6 +270,20 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.key_sound.setSource(self.key_sound_url)
         self.key_sound.setVolume(0.5)
         self.key_sound.setLoopCount(1)
+
+    def update_stats_highscores(self):
+        """Updates highscores displayed in the stats window."""
+
+        self.stats_window.labelTodayScore.setText(f"{self.today_wpm} WPM")
+        self.stats_window.labelAllTimeScore.setText(f"{self.all_time_wpm} WPM")
+
+    def update_stats_days_ago(self):
+        """
+        Updates the labelDaysAgo element in the stats window with the
+        number of days since the all-time highscore was set.
+        """
+
+        self.stats_window.update_days_ago(self.highscore.days_since_set())
 
 
 if __name__ == "__main__":
