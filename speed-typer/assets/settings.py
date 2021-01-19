@@ -1,4 +1,4 @@
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtWidgets
 
 from source_ui import settings_window
 
@@ -11,10 +11,24 @@ DARK_BUTTON_HOVER = "rgb(90, 90, 90)"
 DARK_BACKGROUND = "rgb(50, 50, 50)"
 DARK_TEXT = "rgb(235, 235, 235)"
 
+
 LIGHT_BUTTON = "rgb(200, 200, 200)"
 LIGHT_BUTTON_HOVER = "rgb(215, 215, 215)"
 LIGHT_BACKGROUND = "rgb(220, 220, 220)"
 LIGHT_TEXT = "rgb(0, 0, 0)"
+
+# Graph colours
+DARK_GRAPH = {
+    "background": (20, 20, 20),
+    "axes": (235, 235, 235),
+    "curve": (0, 170, 0),
+}
+
+LIGHT_GRAPH = {
+    "background": (170, 190, 220),
+    "axes": (20, 20, 20),
+    "curve": (24, 135, 92),
+}
 
 
 class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
@@ -31,9 +45,13 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
         """Gets values entered by user for the different settings."""
 
         self.dark_mode = self.radioDarkMode.isChecked()  # False means light mode
+
+        self.graph_colours = DARK_GRAPH if self.dark_mode else LIGHT_GRAPH
+
         self.play_key_sound = (
             self.radioKeystrokeOn.isChecked()
         )  # False means key sound off
+
         self.key_sound = str(
             self.comboSelectSound.currentText()
         )  # Sound to play on keystroke
@@ -80,7 +98,13 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
 
         self.style_sheet = self.get_style_sheet()
 
-        return [self.play_key_sound, self.key_sound, self.style_sheet, self.dark_mode]
+        return [
+            self.play_key_sound,
+            self.key_sound,
+            self.style_sheet,
+            self.dark_mode,
+            self.graph_colours,
+        ]
 
 
 if __name__ == "__main__":
