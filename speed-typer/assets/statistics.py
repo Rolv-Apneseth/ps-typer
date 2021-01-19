@@ -9,6 +9,7 @@ from source_ui import stats_window
 
 # CONSTANTS
 AXIS_WIDTH = 1.5
+CURVE_WIDTH = 2
 
 
 class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
@@ -45,7 +46,7 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
     def set_curve_colour(self, colour: tuple) -> None:
         """Sets curve's colour to the provided tuple (rgb)."""
 
-        self.curve.setPen(colour)
+        self.curve.setPen(color=colour, width=CURVE_WIDTH)
 
     def set_axes_colour(self, colour: tuple) -> None:
         """Sets the graph's axes colours to the provided tuple (rgb)."""
@@ -53,11 +54,11 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
         left_axis: pyqtgraph.AxisItem = self.graphView.getAxis("left")
         bottom_axis: pyqtgraph.AxisItem = self.graphView.getAxis("bottom")
 
-        left_axis.setTextPen(colour)
+        left_axis.setTextPen(color=colour)
         left_axis.setPen(color=colour, width=AXIS_WIDTH)
 
-        bottom_axis.setTextPen(colour)
-        bottom_axis.setPen(colour, width=AXIS_WIDTH)
+        bottom_axis.setTextPen(color=colour)
+        bottom_axis.setPen(color=colour, width=AXIS_WIDTH)
 
     def get_time_stamp(self, datetime_object: datetime.datetime) -> int:
         """Returns a timestamp (int) from a given datetime object."""
