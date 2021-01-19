@@ -7,6 +7,9 @@ from calendar import month_abbr
 
 from source_ui import stats_window
 
+# CONSTANTS
+AXIS_WIDTH = 1.5
+
 
 class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
     def __init__(self, *args, **kwargs):
@@ -51,10 +54,10 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
         bottom_axis: pyqtgraph.AxisItem = self.graphView.getAxis("bottom")
 
         left_axis.setTextPen(colour)
-        left_axis.setPen(colour)
+        left_axis.setPen(color=colour, width=AXIS_WIDTH)
 
         bottom_axis.setTextPen(colour)
-        bottom_axis.setPen(colour)
+        bottom_axis.setPen(colour, width=AXIS_WIDTH)
 
     def get_time_stamp(self, datetime_object: datetime.datetime) -> int:
         """Returns a timestamp (int) from a given datetime object."""
