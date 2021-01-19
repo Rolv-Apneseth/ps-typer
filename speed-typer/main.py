@@ -33,13 +33,20 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         #                   1. Name of sound file to play
         #                   2. Stylesheet for all windows
         #                   3. Dark mode (True or False)
+        #                   4. Colours for graph (dict)
         #
         # Load setings file from assets folder if it exists, otherwise
         # set it to default settings
         if self.exists_settings_file():
             self.load_settings_from_file()
         else:
-            self.settings = [False, "key_4.wav", self.styleSheet(), True]
+            self.settings = [
+                False,
+                "key_4.wav",
+                self.styleSheet(),
+                True,
+                settings.DARK_GRAPH,
+            ]
 
         # Sound played on keystroke, if sounds are turned on
         self.set_key_sound(self.settings[1])
@@ -167,6 +174,9 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         # Set up graph
         self.stats_window.set_up_graph(self.highscore.get_stats_dailies())
+        self.stats_window.set_axes_colour(self.settings[4]["axes"])
+        self.stats_window.set_graph_background_colour(self.settings[4]["background"])
+        self.stats_window.set_curve_colour(self.settings[4]["curve"])
 
         # Connect buttons
         self.stats_window.buttonMainMenu.clicked.connect(
