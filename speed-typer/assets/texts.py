@@ -102,7 +102,7 @@ COMMON_PHRASES = [
 FACTS = [
     "There are more possible iterations of a game of chess than there are atoms in the known universe. There are also more ways to arrange a deck of cards than atoms in the known universe.",
     "Cleopatra lived closer in time to the Moon landing than to the construction of the Great Pyramid of Giza.",
-    "It can take a photon 40,000 years to travel from the core of the sun to the surface, but only 8 minutes to travel the rest of the way to earth.",
+    "It can take a photon 100,000 years to travel from the core of the sun to the surface, but only 8 minutes to travel the rest of the way to earth. This is due to the extreme density of the core of the Sun (150 times that of water).",
     "It would take 1,200,000 mosquitoes, each sucking once, to completely drain the average human of blood.",
     "Written language was invented independently by the Egyptians, Sumerians, Chinese, and Mayans.",
     "If you were to remove all of the empty space from the atoms that make up every human on earth, the entire world population could fit into an apple. ",
