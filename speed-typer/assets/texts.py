@@ -104,7 +104,7 @@ FACTS = [
     "Cleopatra lived closer in time to the Moon landing than to the construction of the Great Pyramid of Giza.",
     "It can take a photon 100,000 years to travel from the core of the sun to the surface, but only 8 minutes to travel the rest of the way to earth. This is due to the extreme density of the core of the Sun (150 times that of water).",
     "It would take roughly 1.1 million mosquitoes, all sucking at once, to completely drain the average human of blood. The average human has 1.75 square metres of skin, so this would mean about 63 mosquitoes per square centimeter of your skin.",
-    "Written language was invented independently by the Egyptians, Sumerians, Chinese, and Mayans.",
+    "Written language was developed independently by the Egyptians, Mesopotamians (the Sumer language), Chinese, and Mesoamericans (such as the Olmecs and Zapotecs). There is also evidence of possible forms of writing developed in other regions, such as Polynesia.",
     "If you were to remove all of the empty space from the atoms that make up every human on earth, the entire world population could fit into an apple. ",
     "Honey does not spoil. You could feasibly eat 3000 year old honey. It does, however, crystallise with time, but all you have to do is put it in water and warm it until it's back to its original state and you can eat it.",
     "If you somehow found a way to extract all of the gold from the bubbling core of our lovely little planet, you would be able to cover all of the land in a layer of gold up to your knees.",
