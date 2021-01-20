@@ -103,7 +103,7 @@ FACTS = [
     "There are more possible iterations of a game of chess than there are atoms in the known universe. There are also more ways to arrange a deck of cards than atoms in the known universe.",
     "Cleopatra lived closer in time to the Moon landing than to the construction of the Great Pyramid of Giza.",
     "It can take a photon 100,000 years to travel from the core of the sun to the surface, but only 8 minutes to travel the rest of the way to earth. This is due to the extreme density of the core of the Sun (150 times that of water).",
-    "It would take 1,200,000 mosquitoes, each sucking once, to completely drain the average human of blood.",
+    "It would take roughly 1.1 million mosquitoes, all sucking at once, to completely drain the average human of blood. The average human has 1.75 square metres of skin, so this would mean about 63 mosquitoes per square centimeter of your skin.",
     "Written language was invented independently by the Egyptians, Sumerians, Chinese, and Mayans.",
     "If you were to remove all of the empty space from the atoms that make up every human on earth, the entire world population could fit into an apple. ",
     "Honey does not spoil. You could feasibly eat 3000 year old honey. It does, however, crystallise with time, but all you have to do is put it in water and warm it until it's back to its original state and you can eat it.",
