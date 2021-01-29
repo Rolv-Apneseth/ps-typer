@@ -349,33 +349,35 @@ def remove_from_text(raw_text: str, symbols: list) -> str:
 
 
 def get_random_text() -> str:
-    """Returns a string of randomly generated text. Text from Brown corpus is formatted
-    slightly to make it easier to type.
+    """
+    Generator which yields a string of randomly selected text from the Brown corpus.
+
+    The text is formatted slightly to make it easier to type.
     """
 
-    LENGTH = 60
+    while True:
+        LENGTH = 80
 
-    random_int = random.randint(1, 100000)
+        random_int = int(random.random() * 250000)
 
-    raw_list = brown.words()[random_int : random_int + LENGTH]
+        raw_list = brown.words()[random_int : random_int + LENGTH]
 
-    raw_text = " ".join(raw_list)
+        raw_text = " ".join(raw_list)
 
-    raw_text = replace_from_text(
-        raw_text,
-        {
-            " ,": ",",
-            " .": ".",
-            " ?": "?",
-            "( ": "(",
-            " )": ")",
-            " ;": ";",
-        },
-    )
+        raw_text = replace_from_text(
+            raw_text,
+            {
+                " ,": ",",
+                " .": ".",
+                " ?": "?",
+                "( ": "(",
+                " )": ")",
+                " ;": ";",
+            },
+        )
 
-    text = remove_from_text(raw_text, [" ''", " ``", " '", "``"])
-
-    return text
+        text = remove_from_text(raw_text, [" ''", " ``", " '", "``"])
+        yield text
 
 
 _translate = {
@@ -383,5 +385,5 @@ _translate = {
     "Facts": lambda: get_random_choice(FACTS),
     "Famous Literature Excerpts": lambda: get_random_choice(LITERATURE_EXCERPTS),
     "Famous Quotes": lambda: get_random_choice(QUOTES),
-    "Randomly Generated Text": lambda: get_random_text(),
+    "Randomly Generated Text": get_random_text,
 }
