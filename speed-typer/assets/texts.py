@@ -313,11 +313,14 @@ QUOTES = [
 
 def get_random_choice(lst: list) -> str:
     """
-    Returns a random string from a list of strings with whitespaces.
+    Generator which shuffles a list of strings and yields one string at a time.
     Text is also stripped of trailing and leading whitespaces.
     """
 
-    return random.choice(lst).strip()
+    random.shuffle(lst)
+
+    for text in lst:
+        yield text.strip()
 
 
 def replace_from_text(raw_text: str, symbols: dict) -> str:
@@ -376,9 +379,9 @@ def get_random_text() -> str:
 
 
 _translate = {
-    "Common Phrases": lambda: get_random_choice(COMMON_PHRASES),
-    "Facts": lambda: get_random_choice(FACTS),
-    "Famous Literature Excerpts": lambda: get_random_choice(LITERATURE_EXCERPTS),
-    "Famous Quotes": lambda: get_random_choice(QUOTES),
+    "Common Phrases": lambda: next(get_random_choice(COMMON_PHRASES)),
+    "Facts": lambda: next(get_random_choice(FACTS)),
+    "Famous Literature Excerpts": lambda: next(get_random_choice(LITERATURE_EXCERPTS)),
+    "Famous Quotes": lambda: next(get_random_choice(QUOTES)),
     "Randomly Generated Text": lambda: get_random_text(),
 }
