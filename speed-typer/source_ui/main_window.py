@@ -265,7 +265,7 @@ class Ui_mainWindow(object):
         self.labelSelectMode.setText(_translate("mainWindow", "Mode:"))
         self.comboBoxSelectMode.setItemText(0, _translate("mainWindow", "Common Phrases"))
         self.comboBoxSelectMode.setItemText(1, _translate("mainWindow", "Facts"))
-        self.comboBoxSelectMode.setItemText(2, _translate("mainWindow", "Famous Novel Excerpts"))
+        self.comboBoxSelectMode.setItemText(2, _translate("mainWindow", "Famous Literature Excerpts"))
         self.comboBoxSelectMode.setItemText(3, _translate("mainWindow", "Famous Quotes"))
         self.comboBoxSelectMode.setItemText(4, _translate("mainWindow", "Randomly Generated Text"))
         self.buttonStart.setText(_translate("mainWindow", "Begin"))

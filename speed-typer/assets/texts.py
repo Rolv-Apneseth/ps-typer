@@ -186,7 +186,7 @@ FACTS = [
     r"In Monopoly, when a player throws doubles (both dice land on the same number) he may take another turn. However, if he throws doubles three times in one turn, then he is considered to be 'speeding' and must go to jail. There is an approximately 0.46% chance of this happening. However, a monopoly game lasts about 20-25 turns, so according to Wolfram Alpha that's about a 7% chance of rolling three doubles in the whole game.",
 ]
 
-NOVEL_EXCERPTS = [
+LITERATURE_EXCERPTS = [
     "The Ministry of Truth, which concerned itself with news, entertainment, education and the fine arts. The Ministry of Peace, which concerned itself with war. The Ministry of Love, which maintained law and order. And the Ministry of Plenty, which was responsible for economic affairs. Their names, in Newspeak: Minitrue, Minipax, Miniluv and Miniplenty. - George Orwell, 1984",
     "He found himself understanding the wearisomeness of this life, where every path was an improvisation and a considerable part of one's waking life was spent watching one's feet. - William Golding, Lord of the Flies",
     "Vonnegut could not help looking back, despite the danger of being turned metaphorically into a pillar of salt, into an emblem of the death that comes to those who cannot let go of the past. - Kurt Vonnegut, Slaughterhouse-Five",
@@ -378,7 +378,7 @@ def get_random_text() -> str:
 _translate = {
     "Common Phrases": lambda: get_random_choice(COMMON_PHRASES),
     "Facts": lambda: get_random_choice(FACTS),
-    "Famous Novel Excerpts": lambda: get_random_choice(NOVEL_EXCERPTS),
+    "Famous Literature Excerpts": lambda: get_random_choice(LITERATURE_EXCERPTS),
     "Famous Quotes": lambda: get_random_choice(QUOTES),
     "Randomly Generated Text": lambda: get_random_text(),
 }
