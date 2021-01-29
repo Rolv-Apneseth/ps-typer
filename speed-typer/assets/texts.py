@@ -379,9 +379,9 @@ def get_random_text() -> str:
 
 
 _translate = {
-    "Common Phrases": lambda: next(get_random_choice(COMMON_PHRASES)),
-    "Facts": lambda: next(get_random_choice(FACTS)),
-    "Famous Literature Excerpts": lambda: next(get_random_choice(LITERATURE_EXCERPTS)),
-    "Famous Quotes": lambda: next(get_random_choice(QUOTES)),
+    "Common Phrases": lambda: get_random_choice(COMMON_PHRASES),
+    "Facts": lambda: get_random_choice(FACTS),
+    "Famous Literature Excerpts": lambda: get_random_choice(LITERATURE_EXCERPTS),
+    "Famous Quotes": lambda: get_random_choice(QUOTES),
     "Randomly Generated Text": lambda: get_random_text(),
 }

@@ -42,7 +42,23 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         if mode == "Common Phrases":
             self.labelMainText.setAlignment(QtCore.Qt.AlignCenter)
 
-        self.text = texts._translate[mode]()
+        self.text_generator = texts._translate[mode]()
+        self.set_main_text()
+
+    def set_main_text(self):
+        """
+        Sets the text to be typed out by the user by getting a value
+        from self.text_generator.
+
+        If the list of strings from self.text_generator is already
+        exhausted, a default warning string is set instead.
+        """
+
+        try:
+            self.text = next(self.text_generator)
+        except StopIteration:
+            self.text = "You have typed all the texts in this category!"
+
         self.labelMainText.setText(self.text)
 
     def set_stats(self, input_text):
@@ -143,7 +159,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
     def on_clicked_new(self):
         self.on_clicked_restart()
-        self.set_mode(self.mode)
+        self.set_main_text()
 
     def on_clicked_next(self):
         self.show()
