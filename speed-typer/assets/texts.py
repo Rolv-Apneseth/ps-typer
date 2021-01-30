@@ -324,10 +324,12 @@ def get_random_choice(lst: list) -> str:
 
 
 def replace_from_text(raw_text: str, symbols: dict) -> str:
-    """Replace every symbol/character in the keys of the symbols dictionary
+    """
+    Replace every symbol/character in the keys of the symbols dictionary
     with the corresponding value for each key.
 
-    For use with get_random_text()."""
+    For use with get_random_text().
+    """
 
     for symbol in symbols:
         raw_text = raw_text.replace(symbol, symbols[symbol])
@@ -336,7 +338,8 @@ def replace_from_text(raw_text: str, symbols: dict) -> str:
 
 
 def remove_from_text(raw_text: str, symbols: list) -> str:
-    """Removes every symbol/character in the symbols list from a given string,
+    """
+    Removes every symbol/character in the symbols list from a given string,
     raw_text.
 
     For use with get_random_text().
@@ -368,13 +371,16 @@ def get_random_text() -> str:
             raw_text,
             {
                 " ,": ",",
+                ",,": ",",
                 " .": ".",
                 " ?": "?",
+                "??": "?",
                 "( ": "(",
                 " )": ")",
                 " ;": ";",
-                " ;;": ";",
+                ";;": ";",
                 " :": ":",
+                " -- ": "--",
             },
         )
 
