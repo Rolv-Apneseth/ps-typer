@@ -1,3 +1,4 @@
+from typing import List
 import random
 
 # Nltk corpora for 'random' texts
@@ -351,6 +352,22 @@ def remove_from_text(raw_text: str, symbols: list) -> str:
     return raw_text
 
 
+def sentence_slice(raw_list: List[str]):
+    """
+    Slices the provided list of text into full sentences only.
+
+    This is acomplished by slicing the list to only the indexes between
+    the first and the last full-stops.
+    """
+
+    indexes = []
+    for i, word in enumerate(raw_list):
+        if word == ".":
+            indexes.append(i)
+
+    return raw_list[indexes[0] + 1 : indexes[-1] + 1]
+
+
 def get_random_text() -> str:
     """
     Generator which yields a string of randomly selected text from the Brown corpus.
@@ -359,15 +376,24 @@ def get_random_text() -> str:
     """
 
     while True:
-        LENGTH = 80
+        LENGTH = 100
+        rand_int = int(random.random() * 250000)
 
-        random_int = int(random.random() * 250000)
+        # Get a list of words from the brown corpus
+        raw_list = brown.words()[rand_int : rand_int + LENGTH]
+        # Slice the list so the text begins and ends
+        # at a full sentence
+        sliced_list = sentence_slice(raw_list)
 
-        raw_list = brown.words()[random_int : random_int + LENGTH]
+        # Try to generate new text if no full sentences were
+        # available
+        if not sliced_list:
+            continue
 
-        raw_text = " ".join(raw_list)
-
-        raw_text = replace_from_text(
+        # Join list into one string
+        raw_text = " ".join(sliced_list)
+        # Replace symbols, fix spacing
+        half_clean_text = replace_from_text(
             raw_text,
             {
                 " ,": ",",
@@ -383,9 +409,10 @@ def get_random_text() -> str:
                 " -- ": "--",
             },
         )
+        # Remove unwanted symbols
+        clean_text = remove_from_text(half_clean_text, [" ''", " ``", " '", "``"])
 
-        text = remove_from_text(raw_text, [" ''", " ``", " '", "``"])
-        yield text
+        yield clean_text
 
 
 _translate = {
