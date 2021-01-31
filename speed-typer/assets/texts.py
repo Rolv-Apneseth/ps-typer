@@ -20,6 +20,31 @@ for _ in range(2):
             download(corpus)
 
 
+# CONSTANTS
+RANDOM_TEXT_SENTENCES = 3
+
+REPLACE_SYMBOLS = {
+    " ,": ",",
+    ",,": ",",
+    " .": ".",
+    " ?": "?",
+    "??": "?",
+    "( ": "(",
+    " )": ")",
+    " ;": ";",
+    ";;": ";",
+    " :": ":",
+    " -- ": "--",
+}
+
+REMOVE_SYMBOLS = [
+    " ''",
+    " ``",
+    " '",
+    "``",
+]
+
+# TEXTS
 COMMON_PHRASES = [
     "A bird in the hand is worth two in the bush.",
     "A penny for your thoughts.",
@@ -312,6 +337,7 @@ QUOTES = [
 ]
 
 
+# FUNCTIONS
 def get_random_choice(lst: list) -> str:
     """
     Generator which shuffles a list of strings and yields one string at a time.
@@ -352,20 +378,19 @@ def remove_from_text(raw_text: str, symbols: list) -> str:
     return raw_text
 
 
-def sentence_slice(raw_list: List[str]):
+def clean_text(raw_text: str) -> str:
     """
-    Slices the provided list of text into full sentences only.
+    Takes a raw string from having joined words from an nltk corpus
+    using, for example " ".join(words), and returns a more cleaned
+    version of the text.
 
-    This is acomplished by slicing the list to only the indexes between
-    the first and the last full-stops.
+    This is achieved by replacing and removing certain symbols so that
+    the text reads more like normal written English.
     """
 
-    indexes = []
-    for i, word in enumerate(raw_list):
-        if word == ".":
-            indexes.append(i)
-
-    return raw_list[indexes[0] + 1 : indexes[-1] + 1]
+    return remove_from_text(
+        replace_from_text(raw_text, REPLACE_SYMBOLS), REMOVE_SYMBOLS
+    )
 
 
 def get_random_text() -> str:
@@ -376,43 +401,18 @@ def get_random_text() -> str:
     """
 
     while True:
-        LENGTH = 100
-        rand_int = int(random.random() * 250000)
+        rand_int = int(random.random() * 30000)
 
-        # Get a list of words from the brown corpus
-        raw_list = brown.words()[rand_int : rand_int + LENGTH]
-        # Slice the list so the text begins and ends
-        # at a full sentence
-        sliced_list = sentence_slice(raw_list)
+        # Get a list of sentences from the brown corpus
+        raw_sentences_lists = brown.sents()[rand_int : rand_int + RANDOM_TEXT_SENTENCES]
 
-        # Try to generate new text if no full sentences were
-        # available
-        if not sliced_list:
-            continue
-
-        # Join list into one string
-        raw_text = " ".join(sliced_list)
-        # Replace symbols, fix spacing
-        half_clean_text = replace_from_text(
-            raw_text,
-            {
-                " ,": ",",
-                ",,": ",",
-                " .": ".",
-                " ?": "?",
-                "??": "?",
-                "( ": "(",
-                " )": ")",
-                " ;": ";",
-                ";;": ";",
-                " :": ":",
-                " -- ": "--",
-            },
+        # Join words from every sentence with a space between
+        raw_text = " ".join(
+            word for sentence in raw_sentences_lists for word in sentence
         )
-        # Remove unwanted symbols
-        clean_text = remove_from_text(half_clean_text, [" ''", " ``", " '", "``"])
 
-        yield clean_text
+        # Yield the text after it has been processed
+        yield clean_text(raw_text)
 
 
 _translate = {
