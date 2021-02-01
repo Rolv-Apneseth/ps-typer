@@ -1,13 +1,14 @@
-from typing import List
 import random
 
 # Nltk corpora for 'random' texts
-CORPORA = ["brown"]
+CORPORA = ["brown", "webtext", "gutenberg"]
 try:
     # Check if nltk corpora are downloaded
     from nltk import corpus
 
     corpus.brown.ensure_loaded()
+    corpus.webtext.ensure_loaded()
+    corpus.gutenberg.ensure_loaded()
 
 except LookupError:
     # Download nltk corpora
@@ -16,9 +17,14 @@ except LookupError:
     for corpus in CORPORA:
         download(corpus)
 
+    # Used for splitting texts into sentences
+    download("punkt")
+
 finally:
     # Import corpora
     from nltk.corpus import brown
+    from nltk.corpus import webtext
+    from nltk.corpus import gutenberg
 
 
 # CONSTANTS
@@ -396,7 +402,7 @@ def clean_text(raw_text: str) -> str:
     )
 
 
-def get_random_text() -> str:
+def get_random_text(corpus: corpus.util.LazyCorpusLoader) -> str:
     """
     Generator which yields a string of randomly selected text from the Brown corpus.
 
@@ -406,8 +412,10 @@ def get_random_text() -> str:
     while True:
         rand_int = int(random.random() * 30000)
 
-        # Get a list of sentences from the brown corpus
-        raw_sentences_lists = brown.sents()[rand_int : rand_int + RANDOM_TEXT_SENTENCES]
+        # Get a list of sentences from the corpus
+        raw_sentences_lists = corpus.sents()[
+            rand_int : rand_int + RANDOM_TEXT_SENTENCES
+        ]
 
         # Join words from every sentence with a space between
         raw_text = " ".join(
@@ -423,5 +431,7 @@ _translate = {
     "Facts": lambda: get_random_choice(FACTS),
     "Famous Literature Excerpts": lambda: get_random_choice(LITERATURE_EXCERPTS),
     "Famous Quotes": lambda: get_random_choice(QUOTES),
-    "Randomly Generated Text": get_random_text,
+    "Random Text: Brown": lambda: get_random_text(brown),
+    "Random Text: Gutenberg": lambda: get_random_text(gutenberg),
+    "Random Text: Webtext": lambda: get_random_text(webtext),
 }
