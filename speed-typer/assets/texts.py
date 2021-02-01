@@ -3,21 +3,22 @@ import random
 
 # Nltk corpora for 'random' texts
 CORPORA = ["brown"]
-# Loops twice so if the import fails, it will download
-# then try to import again
-for _ in range(2):
-    try:
-        # Import nltk corpora
-        from nltk.corpus import brown
+try:
+    # Check if nltk corpora are downloaded
+    from nltk import corpus
 
-        break
+    corpus.brown.ensure_loaded()
 
-    except ImportError:
-        # Download nltk corpora
-        from nltk import download
+except LookupError:
+    # Download nltk corpora
+    from nltk import download
 
-        for corpus in CORPORA:
-            download(corpus)
+    for corpus in CORPORA:
+        download(corpus)
+
+finally:
+    # Import corpora
+    from nltk.corpus import brown
 
 
 # CONSTANTS
