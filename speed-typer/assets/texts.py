@@ -362,14 +362,13 @@ def get_random_choice(lst: list) -> str:
 
 def replace_from_text(raw_text: str, symbols: dict) -> str:
     """
-    Replace every symbol/character in the keys of the symbols dictionary
-    with the corresponding value for each key.
-
-    For use with get_random_text().
+    Replace every symbol/character in the keys of the given symbols dictionary
+    with the corresponding value for each key, from the given string raw_text.
     """
 
     for symbol in symbols:
-        raw_text = raw_text.replace(symbol, symbols[symbol])
+        if symbol in raw_text:
+            raw_text = raw_text.replace(symbol, symbols[symbol])
 
     return raw_text
 
