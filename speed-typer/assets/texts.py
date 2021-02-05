@@ -1,3 +1,4 @@
+from typing import Optional
 import random
 import re
 
@@ -29,7 +30,8 @@ finally:
 
 
 # CONSTANTS
-RANDOM_TEXT_SENTENCES = 3
+TOO_LONG = 900  # Max length of typeable text
+RANDOM_TEXT_SENTENCES = 3  # Number of sentences to be selected for random texts
 
 REPLACE_SYMBOLS = {
     " ,": ",",
@@ -53,6 +55,7 @@ REMOVE_SYMBOLS = [
     " ``",
     "``",
 ]
+
 
 # TEXTS
 COMMON_PHRASES = [
@@ -417,7 +420,11 @@ def get_random_text(corpus) -> str:
             word for sentence in raw_sentences_lists for word in sentence
         )
 
-        # Yield the text after it has been processed
+        # If text is too long or equates to False, try again
+        if not raw_text or len(raw_text) > TOO_LONG:
+            continue
+
+        # Process raw text and yield it
         yield clean_text(raw_text)
 
 
