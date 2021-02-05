@@ -402,7 +402,7 @@ def clean_text(raw_text: str) -> str:
 
 def get_random_text(corpus) -> str:
     """
-    Generator which yields a string of randomly selected text from the Brown corpus.
+    Generator which yields a string of randomly selected text from the given corpus.
 
     The text is formatted slightly to make it easier to type.
     """
