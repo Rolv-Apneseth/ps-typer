@@ -1,4 +1,5 @@
 import random
+import re
 
 # Nltk corpora for 'random' texts
 CORPORA = ["brown", "webtext", "gutenberg"]
@@ -375,16 +376,11 @@ def replace_from_text(raw_text: str, symbols: dict) -> str:
 
 def remove_from_text(raw_text: str, symbols: list) -> str:
     """
-    Removes every symbol/character in the symbols list from a given string,
+    Removes every symbol/character in the given symbols list from a given string,
     raw_text.
-
-    For use with get_random_text().
     """
 
-    for symbol in symbols:
-        raw_text = raw_text.replace(symbol, "")
-
-    return raw_text
+    return re.sub("|".join(symbols), "", raw_text)
 
 
 def clean_text(raw_text: str) -> str:
