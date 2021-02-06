@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'mainWindow.ui'
+# Form implementation generated from reading ui file '.\mainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -16,12 +16,13 @@ class Ui_mainWindow(object):
         mainWindow.setObjectName("mainWindow")
         mainWindow.resize(789, 239)
         mainWindow.setStyleSheet("QWidget {\n"
-"    background: rgb(50, 50, 50);\n"
-"    color: rgb(235, 235, 235);\n"
+"    background: rgb(18,18,18);\n"
+"    color: rgb(230, 230, 230);\n"
 "    font-size: 24pt;\n"
 "}\n"
 "\n"
 "QFrame {    \n"
+"   background: rgb(31, 26, 31);\n"
 "    border: 1px solid rgb(235, 235, 235);\n"
 "}\n"
 "\n"

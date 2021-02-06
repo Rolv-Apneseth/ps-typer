@@ -15,12 +15,13 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget {
-	background: rgb(50, 50, 50);
-	color: rgb(235, 235, 235);
+	background: rgb(18,18,18);
+	color: rgb(230, 230, 230);
 	font-size: 24pt;
 }
 
 QFrame {	
+   background: rgb(31, 26, 31);
 	border: 1px solid rgb(235, 235, 235);
 }
 
