@@ -40,7 +40,8 @@ QLabel, QRadioButton {
 }
 
 QFrame[frameShape=&quot;4&quot;] {
-    background-color: rgb(235, 235, 235);
+    background-color: rgb(230, 230, 230);
+    border-color: rgb(230, 230, 230);
 }</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">

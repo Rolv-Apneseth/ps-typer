@@ -41,7 +41,8 @@ class Ui_mainWindow(object):
 "}\n"
 "\n"
 "QFrame[frameShape=\"4\"] {\n"
-"    background-color: rgb(235, 235, 235);\n"
+"    background-color: rgb(230, 230, 230);\n"
+"    border-color: rgb(230, 230, 230);\n"
 "}")
         self.horizontalLayout = QtWidgets.QHBoxLayout(mainWindow)
         self.horizontalLayout.setObjectName("horizontalLayout")
