@@ -42,10 +42,8 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
 
         self.setupUi(self)
 
-        self.DEFAULT_STYLE = self.styleSheet()
-        self.current_stylesheet = self.styleSheet()
-
     # Helper methods
+
     def get_values(self):
         """Gets values entered by user for the different settings."""
 
@@ -69,12 +67,14 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
     def set_dark_mode(self):
         """Sets the style sheet to be in dark mode (changes colours)."""
 
+        self.current_stylesheet = self.styleSheet()
         for option in LIGHT_COLOURS:
             self.replace_colour(LIGHT_COLOURS[option], DARK_COLOURS[option])
 
     def set_light_mode(self):
         """Sets the style sheet to be in light mode (changes colours)."""
 
+        self.current_stylesheet = self.styleSheet()
         for option in DARK_COLOURS:
             self.replace_colour(DARK_COLOURS[option], LIGHT_COLOURS[option])
 
