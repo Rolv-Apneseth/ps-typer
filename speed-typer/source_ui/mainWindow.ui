@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>787</width>
+    <width>789</width>
     <height>239</height>
    </rect>
   </property>
@@ -223,7 +223,17 @@ QFrame[frameShape=&quot;4&quot;] {
               </item>
               <item>
                <property name="text">
-                <string>Randomly Generated Text</string>
+                <string>Random Text: Brown</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Random Text: Gutenberg</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Random Text: Webtext</string>
                </property>
               </item>
              </widget>

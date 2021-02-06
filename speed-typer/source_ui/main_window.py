@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_mainWindow(object):
     def setupUi(self, mainWindow):
         mainWindow.setObjectName("mainWindow")
-        mainWindow.resize(787, 239)
+        mainWindow.resize(789, 239)
         mainWindow.setStyleSheet("QWidget {\n"
 "    background: rgb(50, 50, 50);\n"
 "    color: rgb(235, 235, 235);\n"
@@ -116,6 +116,8 @@ class Ui_mainWindow(object):
         self.comboBoxSelectMode.setFont(font)
         self.comboBoxSelectMode.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.comboBoxSelectMode.setObjectName("comboBoxSelectMode")
+        self.comboBoxSelectMode.addItem("")
+        self.comboBoxSelectMode.addItem("")
         self.comboBoxSelectMode.addItem("")
         self.comboBoxSelectMode.addItem("")
         self.comboBoxSelectMode.addItem("")
@@ -267,7 +269,9 @@ class Ui_mainWindow(object):
         self.comboBoxSelectMode.setItemText(1, _translate("mainWindow", "Facts"))
         self.comboBoxSelectMode.setItemText(2, _translate("mainWindow", "Famous Literature Excerpts"))
         self.comboBoxSelectMode.setItemText(3, _translate("mainWindow", "Famous Quotes"))
-        self.comboBoxSelectMode.setItemText(4, _translate("mainWindow", "Randomly Generated Text"))
+        self.comboBoxSelectMode.setItemText(4, _translate("mainWindow", "Random Text: Brown"))
+        self.comboBoxSelectMode.setItemText(5, _translate("mainWindow", "Random Text: Gutenberg"))
+        self.comboBoxSelectMode.setItemText(6, _translate("mainWindow", "Random Text: Webtext"))
         self.buttonStart.setText(_translate("mainWindow", "Begin"))
         self.buttonSettings.setText(_translate("mainWindow", "Settings"))
         self.buttonStatistics.setText(_translate("mainWindow", "Statistics"))

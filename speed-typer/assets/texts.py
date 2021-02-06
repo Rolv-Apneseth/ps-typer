@@ -1,24 +1,63 @@
+from typing import Optional
 import random
+import re
 
 # Nltk corpora for 'random' texts
-CORPORA = ["brown"]
-# Loops twice so if the import fails, it will download
-# then try to import again
-for _ in range(2):
-    try:
-        # Import nltk corpora
-        from nltk.corpus import brown
+CORPORA = ["brown", "webtext", "gutenberg"]
+try:
+    # Check if nltk corpora are downloaded
+    from nltk import corpus
 
-        break
+    corpus.brown.ensure_loaded()
+    corpus.webtext.ensure_loaded()
+    corpus.gutenberg.ensure_loaded()
 
-    except ImportError:
-        # Download nltk corpora
-        from nltk import download
+except LookupError:
+    # Download nltk corpora
+    from nltk import download
 
-        for corpus in CORPORA:
-            download(corpus)
+    for corpus in CORPORA:
+        download(corpus)
+
+    # Used for splitting texts into sentences
+    download("punkt")
+
+finally:
+    # Import corpora
+    from nltk.corpus import brown
+    from nltk.corpus import webtext
+    from nltk.corpus import gutenberg
 
 
+# CONSTANTS
+TOO_LONG = 900  # Max length of typeable text
+RANDOM_TEXT_SENTENCES = 3  # Number of sentences to be selected for random texts
+
+REPLACE_SYMBOLS = {
+    " ,": ",",
+    ",,": ",",
+    " .": ".",
+    " ?": "?",
+    "??": "?",
+    "( ": "(",
+    " )": ")",
+    " ;": ";",
+    ";;": ";",
+    " :": ":",
+    " -- ": "--",
+    " !": "!",
+    "!!": "!",
+    " ' ": "'",
+}
+
+REMOVE_SYMBOLS = [
+    " ''",
+    " ``",
+    "``",
+]
+
+
+# TEXTS
 COMMON_PHRASES = [
     "A bird in the hand is worth two in the bush.",
     "A penny for your thoughts.",
@@ -311,6 +350,7 @@ QUOTES = [
 ]
 
 
+# FUNCTIONS
 def get_random_choice(lst: list) -> str:
     """
     Generator which shuffles a list of strings and yields one string at a time.
@@ -324,60 +364,68 @@ def get_random_choice(lst: list) -> str:
 
 
 def replace_from_text(raw_text: str, symbols: dict) -> str:
-    """Replace every symbol/character in the keys of the symbols dictionary
-    with the corresponding value for each key.
-
-    For use with get_random_text()."""
+    """
+    Replace every symbol/character in the keys of the given symbols dictionary
+    with the corresponding value for each key, from the given string raw_text.
+    """
 
     for symbol in symbols:
-        raw_text = raw_text.replace(symbol, symbols[symbol])
+        if symbol in raw_text:
+            raw_text = raw_text.replace(symbol, symbols[symbol])
 
     return raw_text
 
 
 def remove_from_text(raw_text: str, symbols: list) -> str:
-    """Removes every symbol/character in the symbols list from a given string,
+    """
+    Removes every symbol/character in the given symbols list from a given string,
     raw_text.
-
-    For use with get_random_text().
     """
 
-    for symbol in symbols:
-        raw_text = raw_text.replace(symbol, "")
-
-    return raw_text
+    return re.sub("|".join(symbols), "", raw_text)
 
 
-def get_random_text() -> str:
+def clean_text(raw_text: str) -> str:
     """
-    Generator which yields a string of randomly selected text from the Brown corpus.
+    Takes a raw string from having joined words from an nltk corpus
+    using, for example " ".join(words), and returns a more cleaned
+    version of the text.
+
+    This is achieved by replacing and removing certain symbols so that
+    the text reads more like normal written English.
+    """
+
+    return remove_from_text(
+        replace_from_text(raw_text, REPLACE_SYMBOLS), REMOVE_SYMBOLS
+    )
+
+
+def get_random_text(corpus) -> str:
+    """
+    Generator which yields a string of randomly selected text from the given corpus.
 
     The text is formatted slightly to make it easier to type.
     """
 
     while True:
-        LENGTH = 80
+        rand_int = int(random.random() * 30000)
 
-        random_int = int(random.random() * 250000)
+        # Get a list of sentences from the corpus
+        raw_sentences_lists = corpus.sents()[
+            rand_int : rand_int + RANDOM_TEXT_SENTENCES
+        ]
 
-        raw_list = brown.words()[random_int : random_int + LENGTH]
-
-        raw_text = " ".join(raw_list)
-
-        raw_text = replace_from_text(
-            raw_text,
-            {
-                " ,": ",",
-                " .": ".",
-                " ?": "?",
-                "( ": "(",
-                " )": ")",
-                " ;": ";",
-            },
+        # Join words from every sentence with a space between
+        raw_text = " ".join(
+            word for sentence in raw_sentences_lists for word in sentence
         )
 
-        text = remove_from_text(raw_text, [" ''", " ``", " '", "``"])
-        yield text
+        # If text is too long or equates to False, try again
+        if not raw_text or len(raw_text) > TOO_LONG:
+            continue
+
+        # Process raw text and yield it
+        yield clean_text(raw_text)
 
 
 _translate = {
@@ -385,5 +433,7 @@ _translate = {
     "Facts": lambda: get_random_choice(FACTS),
     "Famous Literature Excerpts": lambda: get_random_choice(LITERATURE_EXCERPTS),
     "Famous Quotes": lambda: get_random_choice(QUOTES),
-    "Randomly Generated Text": get_random_text,
+    "Random Text: Brown": lambda: get_random_text(brown),
+    "Random Text: Gutenberg": lambda: get_random_text(gutenberg),
+    "Random Text: Webtext": lambda: get_random_text(webtext),
 }
