@@ -15,7 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QWidget {
-	background: rgb(18,18,18);
+	background: rgb(18, 18, 18);
 	color: rgb(230, 230, 230);
 	font-size: 24pt;
 }
@@ -34,7 +34,7 @@ QPushButton::hover, QComboBox::hover {
 	background: rgb(90, 90, 90)
 }
 
-QLabel {
+QLabel, QRadioButton {
 	background: transparent;
 	border: none;
 }

@@ -16,7 +16,7 @@ class Ui_mainWindow(object):
         mainWindow.setObjectName("mainWindow")
         mainWindow.resize(789, 239)
         mainWindow.setStyleSheet("QWidget {\n"
-"    background: rgb(18,18,18);\n"
+"    background: rgb(18, 18, 18);\n"
 "    color: rgb(230, 230, 230);\n"
 "    font-size: 24pt;\n"
 "}\n"
@@ -35,7 +35,7 @@ class Ui_mainWindow(object):
 "    background: rgb(90, 90, 90)\n"
 "}\n"
 "\n"
-"QLabel {\n"
+"QLabel, QRadioButton {\n"
 "    background: transparent;\n"
 "    border: none;\n"
 "}\n"
