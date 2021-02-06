@@ -6,16 +6,21 @@ from source_ui import settings_window
 # CONSTANTS
 # Note: Do not make any colours the same value
 # since these will be changed using a .replace method
-DARK_BUTTON = "rgb(70, 70, 70)"
-DARK_BUTTON_HOVER = "rgb(90, 90, 90)"
-DARK_BACKGROUND = "rgb(50, 50, 50)"
-DARK_TEXT = "rgb(235, 235, 235)"
+DARK_COLOURS = {
+    "button": "rgb(70, 70, 70)",
+    "hover": "rgb(90, 90, 90)",
+    "background": "rgb(18, 18, 18)",
+    "frame": "rgb(31, 26, 31)",
+    "text": "rgb(235, 235, 235)",
+}
 
-
-LIGHT_BUTTON = "rgb(200, 200, 200)"
-LIGHT_BUTTON_HOVER = "rgb(215, 215, 215)"
-LIGHT_BACKGROUND = "rgb(220, 220, 220)"
-LIGHT_TEXT = "rgb(0, 0, 0)"
+LIGHT_COLOURS = {
+    "button": "rgb(200, 200, 200)",
+    "hover": "rgb(215, 215, 215)",
+    "background": "rgb(220, 220, 220)",
+    "frame": "rgb(210, 210, 210)",
+    "text": "rgb(0, 0, 0)",
+}
 
 # Graph colours
 DARK_GRAPH = {
@@ -64,24 +69,21 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
     def set_dark_mode(self):
         """Sets the style sheet to be in dark mode (changes colours)."""
 
-        self.replace_colour(LIGHT_BACKGROUND, DARK_BACKGROUND)
-        self.replace_colour(LIGHT_BUTTON, DARK_BACKGROUND)
-        self.replace_colour(LIGHT_BUTTON_HOVER, DARK_BUTTON_HOVER)
-        self.replace_colour(LIGHT_TEXT, DARK_TEXT)
+        for option in LIGHT_COLOURS:
+            self.replace_colour(LIGHT_COLOURS[option], DARK_COLOURS[option])
 
     def set_light_mode(self):
         """Sets the style sheet to be in light mode (changes colours)."""
 
-        self.replace_colour(DARK_BACKGROUND, LIGHT_BACKGROUND)
-        self.replace_colour(DARK_BUTTON, LIGHT_BUTTON)
-        self.replace_colour(DARK_BUTTON_HOVER, LIGHT_BUTTON_HOVER)
-        self.replace_colour(DARK_TEXT, LIGHT_TEXT)
+        for option in DARK_COLOURS:
+            self.replace_colour(DARK_COLOURS[option], LIGHT_COLOURS[option])
 
     def get_style_sheet(self) -> str:
         """
         Changes the current_stylesheet variable and returns the new stylesheet.
 
-        The stylesheet returned is to be used in main.py to set the styling for all windows.
+        The stylesheet returned is to be used in main.py to set the
+        styling for all windows.
         """
 
         if self.dark_mode:
