@@ -34,6 +34,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         #                   2. Stylesheet for all windows
         #                   3. Dark mode (True or False)
         #                   4. Colours for graph (dict)
+        #                   5. Rich text colours (dict[list])
         #
         # Load setings file from assets folder if it exists, otherwise
         # set it to default settings
@@ -46,6 +47,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
                 self.styleSheet(),
                 True,
                 settings.DARK_GRAPH,
+                settings.RICH_TEXT_COLOURS[True],
             ]
 
         # Sound played on keystroke, if sounds are turned on
@@ -58,6 +60,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.mode_window.show()
         self.mode_window.setStyleSheet(self.settings[2])
+        self.mode_window.set_colours(self.settings[5])
 
         self.hide()
 
