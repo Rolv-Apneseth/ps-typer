@@ -4,7 +4,7 @@ from source_ui import settings_window
 
 
 # CONSTANTS
-# Note: Do not make any colours the same value
+# Note: Do not make any colours in these 2 dictionaries the same value
 # since these will be changed using a .replace method
 DARK_COLOURS = {
     "button": "rgb(70, 70, 70)",
@@ -20,6 +20,12 @@ LIGHT_COLOURS = {
     "background": "#94f0ff",
     "frame": "#e2f3f5",
     "text": "#0e153a",
+}
+
+# Colours for rich text highlighting
+RICH_TEXT_COLOURS = {
+    True: ["rgb(0, 100, 0)", "rgb(100, 0, 0)"],
+    False: ["rgb(0, 215, 0)", "rgb(230, 0, 0)"],
 }
 
 # Graph colours
@@ -50,6 +56,10 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
         self.dark_mode = self.radioDarkMode.isChecked()  # False means light mode
 
         self.graph_colours = DARK_GRAPH if self.dark_mode else LIGHT_GRAPH
+
+        self.rich_text_colours = (
+            RICH_TEXT_COLOURS[True] if self.dark_mode else RICH_TEXT_COLOURS[False]
+        )
 
         self.play_key_sound = (
             self.radioKeystrokeOn.isChecked()
@@ -106,6 +116,7 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
             self.style_sheet,
             self.dark_mode,
             self.graph_colours,
+            self.rich_text_colours,
         ]
 
 
