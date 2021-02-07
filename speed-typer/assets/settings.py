@@ -11,15 +11,15 @@ DARK_COLOURS = {
     "hover": "rgb(90, 90, 90)",
     "background": "rgb(18, 18, 18)",
     "frame": "rgb(31, 26, 31)",
-    "text": "rgb(235, 235, 235)",
+    "text": "rgb(230, 230, 230)",
 }
 
 LIGHT_COLOURS = {
-    "button": "rgb(200, 200, 200)",
-    "hover": "rgb(215, 215, 215)",
-    "background": "rgb(220, 220, 220)",
-    "frame": "rgb(210, 210, 210)",
-    "text": "rgb(0, 0, 0)",
+    "button": "#cfe3e6",
+    "hover": "#defaff",
+    "background": "#94f0ff",
+    "frame": "#e2f3f5",
+    "text": "#0e153a",
 }
 
 # Graph colours
