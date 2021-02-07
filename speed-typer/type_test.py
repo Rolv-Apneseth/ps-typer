@@ -6,7 +6,7 @@ from source_ui import typing_window
 from assets import texts, results, highscores
 
 # Constants
-DEFAULT_COLOURS = ["rgb(0, 100, 0)", "rgb(125, 0, 0)"]
+DEFAULT_COLOURS = ["rgb(0, 100, 0)", "rgb(100, 0, 0)"]
 
 
 class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
