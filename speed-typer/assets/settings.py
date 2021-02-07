@@ -24,7 +24,7 @@ LIGHT_COLOURS = {
 
 # Colours for rich text highlighting
 RICH_TEXT_COLOURS = {
-    True: ["rgb(0, 100, 0)", "rgb(100, 0, 0)"],
+    True: ["rgb(0, 100, 0)", "rgb(140, 0, 0)"],
     False: ["rgb(0, 215, 0)", "rgb(230, 0, 0)"],
 }
 
@@ -36,9 +36,9 @@ DARK_GRAPH = {
 }
 
 LIGHT_GRAPH = {
-    "background": (170, 190, 220),
-    "axes": (20, 20, 20),
-    "curve": (24, 135, 92),
+    "background": (34, 209, 238),
+    "axes": (14, 21, 58),
+    "curve": (12, 153, 28),
 }
 
 
