@@ -1,13 +1,12 @@
 from PyQt5 import QtCore, QtWidgets
 from time import perf_counter
+from typing import List
 
 from source_ui import typing_window
 from assets import texts, results, highscores
 
-
 # Constants
-GREEN = "rgb(0, 75, 0)"
-RED = "rgb(125, 0, 0)"
+DEFAULT_COLOURS = ["rgb(0, 100, 0)", "rgb(100, 0, 0)"]
 
 
 class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
@@ -31,7 +30,9 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         # Object to handle saving and updating of highscore values
         self.highscore = highscores.Highscores()
 
+        # Defaults
         self.key_sound = None
+        self.set_colours(DEFAULT_COLOURS)
 
     # Helper Methods
     def set_mode(self, mode):
@@ -44,6 +45,16 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.text_generator = texts._translate[mode]()
         self.set_main_text()
+
+    def set_colours(self, colours: List[str]) -> None:
+        """
+        Sets the colours to be used for rich text formatting.
+
+        Dictionary provided should be in the order:
+            [green_colour, red_colour]
+        """
+
+        self.colours = colours
 
     def set_main_text(self):
         """
@@ -99,11 +110,11 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         for i, character in enumerate(input_text):
             if self.text[i] == character:
                 typed_text.append(
-                    f'<span style="background-color:{GREEN};">{self.text[i]}</span>'
+                    f'<span style="background-color:{self.colours[0]};">{self.text[i]}</span>'
                 )
             else:
                 typed_text.append(
-                    f'<span style="background-color:{RED};">{self.text[i]}</span>'
+                    f'<span style="background-color:{self.colours[1]};">{self.text[i]}</span>'
                 )
 
         rich_text = (
@@ -115,7 +126,10 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         return rich_text
 
     def update_time(self):
-        """Updates the displayed time on self.labelTime in seconds since self.start_time."""
+        """
+        Updates the displayed time on self.labelTime in
+        seconds since self.start_time.
+        """
 
         self.labelTime.setText(str(int(perf_counter() - self.start_time)))
 

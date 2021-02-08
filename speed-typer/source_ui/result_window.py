@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'resultWindow.ui'
+# Form implementation generated from reading ui file '.\resultWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -16,33 +16,6 @@ class Ui_resultWindow(object):
         resultWindow.setObjectName("resultWindow")
         resultWindow.resize(803, 322)
         resultWindow.setAcceptDrops(True)
-        resultWindow.setStyleSheet("QWidget {\n"
-"    background: rgb(50, 50, 50);\n"
-"    color: rgb(235, 235, 235);\n"
-"    font-size: 24pt;\n"
-"}\n"
-"\n"
-"QFrame {    \n"
-"    border: 1px solid rgb(235, 235, 235);\n"
-"}\n"
-"\n"
-"QPushButton, QComboBox {    \n"
-"    background: rgb(70, 70, 70);\n"
-"    font-size: 16pt;\n"
-"}\n"
-"\n"
-"QPushButton::hover, QComboBox::hover {\n"
-"    background: rgb(90, 90, 90)\n"
-"}\n"
-"\n"
-"QLabel {\n"
-"    background: transparent;\n"
-"    border: none;\n"
-"}\n"
-"\n"
-"QFrame[frameShape=\"4\"] {\n"
-"    background-color: rgb(235, 235, 235);\n"
-"}")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(resultWindow)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)

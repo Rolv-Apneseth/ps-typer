@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'typingWindow.ui'
+# Form implementation generated from reading ui file '.\typingWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -15,33 +15,6 @@ class Ui_typingWindow(object):
     def setupUi(self, typingWindow):
         typingWindow.setObjectName("typingWindow")
         typingWindow.resize(1534, 607)
-        typingWindow.setStyleSheet("QWidget {\n"
-"    background: rgb(50, 50, 50);\n"
-"    color: rgb(235, 235, 235);\n"
-"    font-size: 24pt;\n"
-"}\n"
-"\n"
-"QFrame {    \n"
-"    border: 1px solid rgb(235, 235, 235);\n"
-"}\n"
-"\n"
-"QPushButton, QComboBox {    \n"
-"    background: rgb(70, 70, 70);\n"
-"    font-size: 16pt;\n"
-"}\n"
-"\n"
-"QPushButton::hover, QComboBox::hover {\n"
-"    background: rgb(90, 90, 90)\n"
-"}\n"
-"\n"
-"QLabel {\n"
-"    background: transparent;\n"
-"    border: none;\n"
-"}\n"
-"\n"
-"QFrame[frameShape=\"4\"] {\n"
-"    background-color: rgb(235, 235, 235);\n"
-"}")
         self.verticalLayout = QtWidgets.QVBoxLayout(typingWindow)
         self.verticalLayout.setObjectName("verticalLayout")
         self.labelTitle = QtWidgets.QLabel(typingWindow)
