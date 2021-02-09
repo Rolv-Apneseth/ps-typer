@@ -176,10 +176,9 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.update_stats_days_ago()
 
         # Set up graph
-        self.stats_window.set_up_graph(self.highscore.get_stats_dailies())
-        self.stats_window.set_axes_colour(self.settings[4]["axes"])
-        self.stats_window.set_graph_background_colour(self.settings[4]["background"])
-        self.stats_window.set_curve_colour(self.settings[4]["curve"])
+        self.stats_window.set_up_graph(
+            self.highscore.get_stats_dailies(), self.settings[4]
+        )
 
         # Connect buttons
         self.stats_window.buttonMainMenu.clicked.connect(
