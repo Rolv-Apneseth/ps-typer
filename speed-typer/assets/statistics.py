@@ -11,9 +11,11 @@ from source_ui import stats_window
 AXIS_WIDTH = 1.5
 CURVE_WIDTH = 2
 GRID_ALPHA = 90
-DEFAULT_BACKGROUND = (20, 20, 20)
-DEFAULT_CURVE = (0, 170, 0)
-DEFAULT_AXES = (225, 225, 225)
+DEFAULT_COLOURS = {
+    "background": (20, 20, 20),
+    "curve": (0, 170, 0),
+    "axes": (225, 225, 225),
+}
 
 
 class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
@@ -27,57 +29,42 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
 
         self.labelDaysAgo.setText(f"- Set {str(days_ago)} days ago")
 
-    def set_up_graph(self, data: List[str]):
+    def set_up_graph(self, data: List[str], colours: dict = DEFAULT_COLOURS):
         """Sets up the graphView wpm over time graph with the given data."""
+
+        self.colours = colours
 
         # Set up axes
         self.graphView.setLabel("left", "WPM")
         self.graphView.setAxisItems({"bottom": DateAxisItem(orientation="bottom")})
 
-        # Set axes items to instance variables so they can be easily modified
+        # Save axes items to instance variables so they can be easily modified
         self.left_axis = self.graphView.getAxis("left")
         self.bottom_axis = self.graphView.getAxis("bottom")
 
-        # Set the default colours for the graph
-        self.set_graph_background_colour(DEFAULT_BACKGROUND)
-        self.set_axes_colour(DEFAULT_AXES)
-        self.set_grid_alpha(GRID_ALPHA)
+        # Set the colours for the graph
+        self.graphView.setBackground(background=self.colours["background"])
+        self.set_axes_style(self.colours["axes"])
 
-        # Set up curve of wpm against date set and colour it
+        # Set up curve of wpm against date
         self.curve = self.graphView.plot()
-        self.set_curve_colour(DEFAULT_CURVE)
-
-        # Give the curve data and update the graph
         self.set_data(data)
         self.update_graph()
 
-    def set_graph_background_colour(self, colour: tuple) -> None:
-        """Sets the graph's background colour to the provided tuple (rgb)."""
-
-        self.graphView.setBackground(background=colour)
-
-    def set_curve_colour(self, colour: tuple) -> None:
-        """Sets curve's colour to the provided tuple (rgb)."""
-
-        self.curve.setPen(color=colour, width=CURVE_WIDTH)
-
-    def set_axes_colour(self, colour: tuple) -> None:
-        """Sets the graph's axes colours to the provided tuple (rgb)."""
+    def set_axes_style(
+        self, colour: tuple, width=AXIS_WIDTH, grid_alpha=GRID_ALPHA
+    ) -> None:
+        """
+        Sets the graph's axes colours to the provided tuple (rgb) and sets their alpha value.
+        """
 
         self.left_axis.setTextPen(color=colour)
-        self.left_axis.setPen(color=colour, width=AXIS_WIDTH)
+        self.left_axis.setPen(color=colour, width=width)
+        self.left_axis.setGrid(grid_alpha)
 
         self.bottom_axis.setTextPen(color=colour)
-        self.bottom_axis.setPen(color=colour, width=AXIS_WIDTH)
-
-    def set_grid_alpha(self, alpha: int) -> None:
-        """
-        Sets the alpha values (and turns on, if they are off) the grid
-        lines for both x and y axes on the graph.
-        """
-
-        self.left_axis.setGrid(alpha)
-        self.bottom_axis.setGrid(alpha)
+        self.bottom_axis.setPen(color=colour, width=width)
+        self.bottom_axis.setGrid(grid_alpha)
 
     def get_time_stamp(self, datetime_object: datetime.datetime) -> int:
         """Returns a timestamp (int) from a given datetime object."""
@@ -94,7 +81,7 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
 
     def clean_date(self, date_str: str) -> int:
         """
-        Takes a string in thr format 'yyyy-mm-dd:' and returns a
+        Takes a string in the format 'yyyy-mm-dd:' and returns a
         usable timestamp representation.
         """
 
@@ -118,10 +105,14 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
             self.dates.append(self.clean_date(split_day[0]))
             self.wpms.append(int(split_day[1]))
 
-    def update_graph(self):
+    def update_graph(self, curve_width=CURVE_WIDTH):
         """Updates self.curve with the data set in self.set_data."""
 
-        self.curve.setData(x=self.dates, y=self.wpms)
+        self.curve.setData(
+            x=self.dates,
+            y=self.wpms,
+            pen=pyqtgraph.mkPen(color=self.colours["curve"], width=curve_width),
+        )
 
 
 class DateAxisItem(pyqtgraph.AxisItem):
