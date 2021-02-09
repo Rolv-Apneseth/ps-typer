@@ -33,12 +33,14 @@ DARK_GRAPH = {
     "background": (20, 20, 20),
     "axes": (235, 235, 235),
     "curve": (0, 170, 0),
+    "symbols": (170, 0, 170),
 }
 
 LIGHT_GRAPH = {
     "background": (34, 209, 238),
     "axes": (14, 21, 58),
     "curve": (12, 153, 28),
+    "symbols": (238, 63, 34),
 }
 
 
