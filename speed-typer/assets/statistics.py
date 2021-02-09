@@ -15,6 +15,7 @@ DEFAULT_COLOURS = {
     "background": (20, 20, 20),
     "curve": (0, 170, 0),
     "axes": (225, 225, 225),
+    "symbols": (170, 0, 170),
 }
 
 
@@ -112,6 +113,7 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
             x=self.dates,
             y=self.wpms,
             pen=pyqtgraph.mkPen(color=self.colours["curve"], width=curve_width),
+            symbolBrush=pyqtgraph.mkBrush(color=self.colours["symbols"]),
         )
 
 
