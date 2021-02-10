@@ -140,7 +140,7 @@ class Ui_settingsWindow(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.frame)
-        self.horizontalLayout_6.setContentsMargins(9, 9, 27, 9)
+        self.horizontalLayout_6.setContentsMargins(9, 12, 12, 12)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.buttonMainMenu = QtWidgets.QPushButton(self.frame)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
