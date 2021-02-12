@@ -4,6 +4,7 @@ lib/
 lib64
 *.cfg
 share/
+.DS_Store
 
 # User files
 *.pkl
