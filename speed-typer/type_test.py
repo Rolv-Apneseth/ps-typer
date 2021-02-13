@@ -72,16 +72,31 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.labelMainText.setText(self.text)
 
-    def set_stats(self, input_text):
-        correct = 0
+    def calculate_score(self, accuracy: int) -> int:
+        """Returns wpm score after calculations including accuracy."""
+
+        seconds = perf_counter() - self.start_time
+        return int(
+            ((len(self.text) / 5) / (seconds / 60)) * accuracy / 100
+            )
+
+    def calculate_accuracy(self, input_text: str) -> int:
+        """Returns accuracy as an int between 1-100 representing a percentage."""
+
+        correct: int = 0
         for i, character in enumerate(input_text):
             if character == self.text[i]:
                 correct += 1
 
-        self.accuracy = int(correct / len(self.text) * 100)
+        return int(
+            correct / len(self.text) * 100
+            )
 
-        seconds = perf_counter() - self.start_time
-        self.wpm = int((len(self.text) / 5) / (seconds / 60))
+    def set_stats(self, input_text: str) -> None:
+        """Sets instance variables for wpm score and accuracy."""
+
+        self.accuracy = self.calculate_accuracy(input_text)
+        self.wpm = self.calculate_score(self.accuracy)
 
     def display_highscore_result(self):
         _translate_result = {
