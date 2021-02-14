@@ -7,6 +7,11 @@ from assets import texts, results, highscores
 
 # Constants
 DEFAULT_COLOURS = ["rgb(0, 100, 0)", "rgb(100, 0, 0)"]
+_TRANSLATE_RESULT = {
+            "all-time": "New all-time highscore set! Congratulations!",
+            "daily": "New daily highscore set! Good job!",
+            "none": "No new highscore set. Don't give up!",
+        }
 
 
 class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
@@ -103,15 +108,9 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.wpm = self.calculate_score(self.accuracy)
 
     def display_highscore_result(self):
-        _translate_result = {
-            "all-time": "New all-time highscore set! Congratulations!",
-            "daily": "New daily highscore set! Good job!",
-            "none": "No new highscore set. Don't give up!",
-        }
-
         self.highscore_result = self.highscore.update(self.wpm)
         self.results_window.labelHighscoreSet.setText(
-            _translate_result[self.highscore_result]
+            _TRANSLATE_RESULT[self.highscore_result]
         )
 
     def set_key_sound(self, key_sound):
