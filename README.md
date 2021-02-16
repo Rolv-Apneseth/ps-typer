@@ -51,7 +51,11 @@ Select one of the following options to choose what you will be typing out:
 
 ## W.P.M.
 
-Your typing speed is measured by your average wpm. Wpm is calculated as words per minute (w.p.m) using `(characters typed/5)/minutes` This gives a more fair w.p.m calculation since longer words would be worth more than short words.
+Your typing speed is measured by your average wpm, multiplied by your accuracy.
+
+Wpm is calculated as words per minute (w.p.m) using `(characters typed/5)/minutes` This gives a more fair w.p.m calculation since longer words would be worth more than short words. This figure is then multiplied by your accuracy percentage.
+
+Accuracy is taken into account to incentivise you to type all the text out correctly and not enforce bad habits.
 
 ## Statistics
 

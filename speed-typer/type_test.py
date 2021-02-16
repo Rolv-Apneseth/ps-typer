@@ -7,6 +7,11 @@ from assets import texts, results, highscores
 
 # Constants
 DEFAULT_COLOURS = ["rgb(0, 100, 0)", "rgb(100, 0, 0)"]
+_TRANSLATE_RESULT = {
+    "all-time": "New all-time highscore set! Congratulations!",
+    "daily": "New daily highscore set! Good job!",
+    "none": "No new highscore set. Don't give up!",
+}
 
 
 class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
@@ -72,27 +77,32 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.labelMainText.setText(self.text)
 
-    def set_stats(self, input_text):
-        correct = 0
+    def calculate_score(self, accuracy: int) -> int:
+        """Returns wpm score after calculations including accuracy."""
+
+        seconds: float = perf_counter() - self.start_time
+        return int(((len(self.text) / 5) / (seconds / 60)) * accuracy / 100)
+
+    def calculate_accuracy(self, input_text: str) -> int:
+        """Returns accuracy as an int between 1-100 representing a percentage."""
+
+        correct: int = 0
         for i, character in enumerate(input_text):
             if character == self.text[i]:
                 correct += 1
 
-        self.accuracy = int(correct / len(self.text) * 100)
+        return int(correct / len(self.text) * 100)
 
-        seconds = perf_counter() - self.start_time
-        self.wpm = int((len(self.text) / 5) / (seconds / 60))
+    def set_stats(self, input_text: str) -> None:
+        """Sets instance variables for wpm score and accuracy."""
+
+        self.accuracy = self.calculate_accuracy(input_text)
+        self.wpm = self.calculate_score(self.accuracy)
 
     def display_highscore_result(self):
-        _translate_result = {
-            "all-time": "New all-time highscore set! Congratulations!",
-            "daily": "New daily highscore set! Good job!",
-            "none": "No new highscore set. Don't give up!",
-        }
-
         self.highscore_result = self.highscore.update(self.wpm)
         self.results_window.labelHighscoreSet.setText(
-            _translate_result[self.highscore_result]
+            _TRANSLATE_RESULT[self.highscore_result]
         )
 
     def set_key_sound(self, key_sound):
@@ -144,7 +154,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.results_window = results.ResultsWindow()
 
         self.results_window.labelAccuracy.setText(f"Accuracy: {str(self.accuracy)}%")
-        self.results_window.labelSpeed.setText(f"Speed:    {str(self.wpm)}wpm!")
+        self.results_window.labelSpeed.setText(f"Speed:    {str(self.wpm)} wpm!")
         self.display_highscore_result()
 
         self.results_window.buttonNext.clicked.connect(self.on_clicked_next)
