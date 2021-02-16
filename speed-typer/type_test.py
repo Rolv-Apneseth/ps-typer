@@ -8,10 +8,10 @@ from assets import texts, results, highscores
 # Constants
 DEFAULT_COLOURS = ["rgb(0, 100, 0)", "rgb(100, 0, 0)"]
 _TRANSLATE_RESULT = {
-            "all-time": "New all-time highscore set! Congratulations!",
-            "daily": "New daily highscore set! Good job!",
-            "none": "No new highscore set. Don't give up!",
-        }
+    "all-time": "New all-time highscore set! Congratulations!",
+    "daily": "New daily highscore set! Good job!",
+    "none": "No new highscore set. Don't give up!",
+}
 
 
 class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
@@ -80,14 +80,8 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
     def calculate_score(self, accuracy: int) -> int:
         """Returns wpm score after calculations including accuracy."""
 
-        
-        if accuracy < 50:
-            return 0
-
         seconds: float = perf_counter() - self.start_time
-        return int(
-            ((len(self.text) / 5) / (seconds / 60)) * accuracy / 100
-            )
+        return int(((len(self.text) / 5) / (seconds / 60)) * accuracy / 100)
 
     def calculate_accuracy(self, input_text: str) -> int:
         """Returns accuracy as an int between 1-100 representing a percentage."""
@@ -97,9 +91,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
             if character == self.text[i]:
                 correct += 1
 
-        return int(
-            correct / len(self.text) * 100
-            )
+        return int(correct / len(self.text) * 100)
 
     def set_stats(self, input_text: str) -> None:
         """Sets instance variables for wpm score and accuracy."""
