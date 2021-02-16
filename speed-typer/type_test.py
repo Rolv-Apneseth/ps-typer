@@ -154,7 +154,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.results_window = results.ResultsWindow()
 
         self.results_window.labelAccuracy.setText(f"Accuracy: {str(self.accuracy)}%")
-        self.results_window.labelSpeed.setText(f"Speed:    {str(self.wpm)}wpm!")
+        self.results_window.labelSpeed.setText(f"Speed:    {str(self.wpm)} wpm!")
         self.display_highscore_result()
 
         self.results_window.buttonNext.clicked.connect(self.on_clicked_next)
