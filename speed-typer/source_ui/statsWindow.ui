@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>832</width>
-    <height>971</height>
+    <width>868</width>
+    <height>931</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -346,11 +346,11 @@
       </spacer>
      </item>
      <item>
-      <widget class="QFrame" name="frame">
+      <widget class="QFrame" name="frameResetHighscores">
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>190</height>
+         <height>150</height>
         </size>
        </property>
        <property name="frameShape">
@@ -447,13 +447,6 @@
               </property>
              </widget>
             </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_6">
-            <property name="topMargin">
-             <number>0</number>
-            </property>
             <item>
              <widget class="QPushButton" name="buttonResetAll">
               <property name="sizePolicy">
@@ -469,7 +462,7 @@
                </size>
               </property>
               <property name="text">
-               <string>All (includes all previous dailies)</string>
+               <string>All recorded highscores</string>
               </property>
              </widget>
             </item>
@@ -499,7 +492,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QFrame" name="frame_2">
+        <widget class="QFrame" name="frameButtons">
          <property name="minimumSize">
           <size>
            <width>350</width>
