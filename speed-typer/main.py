@@ -142,6 +142,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.mode_window = type_test.TypingWindow()
         self.mode_window.set_mode(mode)
 
+        self.mode_window.setWindowIcon(self.ICON)
+
         self.mode_window.buttonMainMenu.clicked.connect(
             lambda: self.on_clicked_main_menu(self.mode_window)
         )
@@ -152,6 +154,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
     def make_settings_window(self):
         self.settings_window = settings.SettingsWindow()
+
+        self.settings_window.setWindowIcon(self.ICON)
 
         self.settings_window.buttonMainMenu.clicked.connect(
             lambda: self.on_clicked_main_menu(self.settings_window)
@@ -175,6 +179,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
     def make_stats_window(self):
         self.stats_window = statistics.StatsWindow()
+
+        self.stats_window.setWindowIcon(self.ICON)
 
         # Update labels
         self.update_stats_highscores()
