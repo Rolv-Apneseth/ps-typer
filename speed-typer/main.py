@@ -2,6 +2,7 @@ import os
 import json
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QSoundEffect
+from PyQt5.QtGui import QIcon
 
 import type_test
 from source_ui import main_window
@@ -9,6 +10,7 @@ from assets import highscores, settings, statistics
 
 
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
+ICON_PATH = os.path.join(FILE_PATH, "assets", "icon.png")
 SOUND_FOLDER = os.path.join(FILE_PATH, "assets", "sounds")
 SETTINGS_FILE = os.path.join(FILE_PATH, "assets", "saved_settings.json")
 
@@ -20,6 +22,9 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         # Multiple inheritance allows us to have the ui and window together so
         # setupui can be given self in for a window
         self.setupUi(self)
+
+        self.ICON = QIcon(ICON_PATH)
+        self.setWindowIcon(self.ICON)
 
         self.buttonStart.clicked.connect(self.on_clicked_start)
         self.buttonSettings.clicked.connect(self.on_clicked_settings)
@@ -137,6 +142,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.mode_window = type_test.TypingWindow()
         self.mode_window.set_mode(mode)
 
+        self.mode_window.setWindowIcon(self.ICON)
+
         self.mode_window.buttonMainMenu.clicked.connect(
             lambda: self.on_clicked_main_menu(self.mode_window)
         )
@@ -147,6 +154,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
     def make_settings_window(self):
         self.settings_window = settings.SettingsWindow()
+
+        self.settings_window.setWindowIcon(self.ICON)
 
         self.settings_window.buttonMainMenu.clicked.connect(
             lambda: self.on_clicked_main_menu(self.settings_window)
@@ -170,6 +179,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
     def make_stats_window(self):
         self.stats_window = statistics.StatsWindow()
+
+        self.stats_window.setWindowIcon(self.ICON)
 
         # Update labels
         self.update_stats_highscores()

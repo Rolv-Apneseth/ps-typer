@@ -153,6 +153,8 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
     def make_results_window(self):
         self.results_window = results.ResultsWindow()
 
+        self.results_window.setWindowIcon(self.windowIcon())
+
         self.results_window.labelAccuracy.setText(f"Accuracy: {str(self.accuracy)}%")
         self.results_window.labelSpeed.setText(f"Speed:    {str(self.wpm)} wpm!")
         self.display_highscore_result()
