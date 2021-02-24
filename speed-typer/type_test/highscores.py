@@ -5,9 +5,10 @@ from typing import List
 
 
 # CONSTANTS
-FILE_PATH = os.path.dirname(os.path.abspath(__file__))
-PICKLE_PATH = os.path.join(FILE_PATH, "highscores.pkl")
-BACKUP_PATH = os.path.join(FILE_PATH, "backup_highscores.pkl")
+BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_PATH = os.path.join(BASE_PATH, "data")
+PICKLE_PATH = os.path.join(DATA_PATH, "highscores.pkl")
+BACKUP_PATH = os.path.join(DATA_PATH, "backup_highscores.pkl")
 
 
 class Highscores:

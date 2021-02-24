@@ -4,15 +4,14 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QSoundEffect
 from PyQt5.QtGui import QIcon
 
-import type_test
 from source_ui import main_window
-from assets import highscores, settings, statistics
+from type_test import highscores, settings, statistics, type_test
 
 
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
 ICON_PATH = os.path.join(FILE_PATH, "assets", "icon.png")
 SOUND_FOLDER = os.path.join(FILE_PATH, "assets", "sounds")
-SETTINGS_FILE = os.path.join(FILE_PATH, "assets", "saved_settings.json")
+SETTINGS_FILE = os.path.join(FILE_PATH, "data", "saved_settings.json")
 
 
 class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
@@ -41,7 +40,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         #                   4. Colours for graph (dict)
         #                   5. Rich text colours (dict[list])
         #
-        # Load setings file from assets folder if it exists, otherwise
+        # Load setings file from data folder if it exists, otherwise
         # set it to default settings
         if self.exists_settings_file():
             self.load_settings_from_file()
@@ -214,12 +213,12 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         return os.path.exists(SETTINGS_FILE)
 
     def delete_settings(self):
-        """Deletes saved settings file in the assets folder."""
+        """Deletes saved settings file in the data folder."""
 
         os.remove(SETTINGS_FILE)
 
     def save_settings_to_file(self):
-        """Saves self.settings into a .json file in the assets folder."""
+        """Saves self.settings into a .json file in the data folder."""
 
         # Deletes file if it already exists
         if self.exists_settings_file():

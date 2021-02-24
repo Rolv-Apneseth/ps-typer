@@ -3,7 +3,7 @@ from time import perf_counter
 from typing import List
 
 from source_ui import typing_window
-from assets import texts, results, highscores
+from type_test import texts, results, highscores
 
 # Constants
 DEFAULT_COLOURS = ["rgb(0, 100, 0)", "rgb(100, 0, 0)"]
