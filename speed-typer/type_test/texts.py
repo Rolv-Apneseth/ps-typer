@@ -423,8 +423,12 @@ def get_random_text(corpus) -> str:
         if not raw_text or len(raw_text) > TOO_LONG:
             continue
 
-        # Process raw text and yield it
-        yield clean_text(raw_text)
+        # Process raw text
+        cleaned_text = clean_text(raw_text)
+        # Ensure first letter is always capitalised
+        cleaned_text = f"{cleaned_text[0].upper()}{cleaned_text[1:]}"
+
+        yield cleaned_text
 
 
 _translate = {
