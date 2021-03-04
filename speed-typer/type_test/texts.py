@@ -51,6 +51,7 @@ REPLACE_SYMBOLS = {
 
 REMOVE_SYMBOLS = [
     " ''",
+    "'' ",
     " ``",
     "``",
 ]
