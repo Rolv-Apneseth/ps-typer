@@ -2,16 +2,16 @@ import os
 import pickle
 import datetime
 from typing import List
-
-
-# CONSTANTS
-BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_PATH = os.path.join(BASE_PATH, "data")
-PICKLE_PATH = os.path.join(DATA_PATH, "highscores.pkl")
-BACKUP_PATH = os.path.join(DATA_PATH, "backup_highscores.pkl")
+from pathlib import Path
 
 
 class Highscores:
+    # PATHS
+    BASE_PATH = Path(__file__).parents[1]
+    DATA_PATH = BASE_PATH / "data"
+    PICKLE_PATH = DATA_PATH / "highscores.pkl"
+    BACKUP_PATH = DATA_PATH / "backup_highscores.pkl"
+
     def __init__(self):
         self.today = datetime.datetime.today()
         self.date = str(self.today.date())
@@ -21,12 +21,12 @@ class Highscores:
     def _exists_pickle(self):
         """Returns True if main pickle file exists."""
 
-        return os.path.exists(PICKLE_PATH)
+        return os.path.exists(self.PICKLE_PATH)
 
     def _exists_backup(self):
         """Returns True if backup pickle file exists."""
 
-        return os.path.exists(BACKUP_PATH)
+        return os.path.exists(self.BACKUP_PATH)
 
     def _load_data(self):
         """
@@ -35,9 +35,9 @@ class Highscores:
         """
 
         if self._exists_pickle():
-            path = PICKLE_PATH
+            path = self.PICKLE_PATH
         elif self._exists_backup():
-            path = BACKUP_PATH
+            path = self.BACKUP_PATH
         else:
             self.data = {
                 "daily-highscores": [f"{self.date}: 0"],
@@ -61,14 +61,14 @@ class Highscores:
         """Deletes the backup pickle file, if it exists."""
 
         if self._exists_backup():
-            os.remove(BACKUP_PATH)
+            os.remove(self.BACKUP_PATH)
 
     def _make_backup(self):
         """Turns current pickle file into a backup file, and deletes old backup."""
 
         self._delete_backup()
 
-        os.rename(PICKLE_PATH, BACKUP_PATH)
+        os.rename(self.PICKLE_PATH, self.BACKUP_PATH)
 
     def _save_data(self):
         """Saves data to a pickle file."""
@@ -76,7 +76,7 @@ class Highscores:
         if self._exists_pickle():
             self._make_backup()
 
-        with open(PICKLE_PATH, "wb") as data_pickle:
+        with open(self.PICKLE_PATH, "wb") as data_pickle:
             pickle.dump(self.data, data_pickle)
 
     def _check_all_time_highscore(self, score: int) -> bool:
