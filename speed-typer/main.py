@@ -3,15 +3,18 @@ import json
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QSoundEffect
 from PyQt5.QtGui import QIcon
+from pathlib import Path
 
 from source_ui import main_window
 from type_test import highscores, settings, statistics, type_test
 
-
-FILE_PATH = os.path.dirname(os.path.abspath(__file__))
-ICON_PATH = os.path.join(FILE_PATH, "assets", "icon.png")
-SOUND_FOLDER = os.path.join(FILE_PATH, "assets", "sounds")
-SETTINGS_FILE = os.path.join(FILE_PATH, "data", "saved_settings.json")
+# PATHS
+BASE_FOLDER = Path(__file__).parents[0]
+ASSETS_FOLDER = BASE_FOLDER / "assets"
+DATA_FOLDER = BASE_FOLDER / "data"
+ICON_PATH = ASSETS_FOLDER / "icon.png"
+SOUND_FOLDER = ASSETS_FOLDER / "sounds"
+SETTINGS_FILE = DATA_FOLDER / "saved_settings.json"
 
 
 class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
@@ -22,7 +25,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         # setupui can be given self in for a window
         self.setupUi(self)
 
-        self.ICON = QIcon(ICON_PATH)
+        self.ICON = QIcon(str(ICON_PATH))
         self.setWindowIcon(self.ICON)
 
         self.buttonStart.clicked.connect(self.on_clicked_start)
