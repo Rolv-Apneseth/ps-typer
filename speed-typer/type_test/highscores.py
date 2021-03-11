@@ -16,32 +16,34 @@ class Highscores:
         self.today = datetime.datetime.today()
         self.date = str(self.today.date())
 
-        self.load_data()
+        self._load_data()
 
-    def exists_pickle(self):
+    def _exists_pickle(self):
         """Returns True if main pickle file exists."""
 
         return os.path.exists(PICKLE_PATH)
 
-    def exists_backup(self):
+    def _exists_backup(self):
         """Returns True if backup pickle file exists."""
 
         return os.path.exists(BACKUP_PATH)
 
-    def load_data(self):
-        """Loads pickle data to self.data if a pickle exists, otherwise it gives
-        a default value to self.data."""
+    def _load_data(self):
+        """
+        Loads pickle data to self.data if a pickle exists, otherwise
+        it gives a default value to self.data.
+        """
 
-        if self.exists_pickle():
+        if self._exists_pickle():
             path = PICKLE_PATH
-        elif self.exists_backup():
+        elif self._exists_backup():
             path = BACKUP_PATH
         else:
             self.data = {
                 "daily-highscores": [f"{self.date}: 0"],
                 "all-time-highscore": f"{self.date}: 0",
             }
-            return None
+            return
 
         with open(path, "rb") as data_pickle:
             self.data = pickle.load(data_pickle)
@@ -49,59 +51,49 @@ class Highscores:
             if self.data["daily-highscores"][-1][:10] != str(self.date):
                 self.data["daily-highscores"].append(f"{self.date}: 0")
 
-    def set_stats(self):
+    def _set_stats(self):
         """Sets current wpm stats from self.data."""
 
         self.today_wpm = int(self.data["daily-highscores"][-1].split()[-1])
         self.all_time_wpm = int(self.data["all-time-highscore"].split()[-1])
 
-    def get_wpm(self):
-        """Returns the daily and all time highest wpm.
-
-        Used to display wpm scores on main menu.
-        """
-
-        self.set_stats()
-
-        return self.today_wpm, self.all_time_wpm
-
-    def delete_backup(self):
+    def _delete_backup(self):
         """Deletes the backup pickle file, if it exists."""
 
-        if self.exists_backup():
+        if self._exists_backup():
             os.remove(BACKUP_PATH)
 
-    def make_backup(self):
+    def _make_backup(self):
         """Turns current pickle file into a backup file, and deletes old backup."""
 
-        self.delete_backup()
+        self._delete_backup()
 
         os.rename(PICKLE_PATH, BACKUP_PATH)
 
-    def save_data(self):
+    def _save_data(self):
         """Saves data to a pickle file."""
 
-        if self.exists_pickle():
-            self.make_backup()
+        if self._exists_pickle():
+            self._make_backup()
 
         with open(PICKLE_PATH, "wb") as data_pickle:
             pickle.dump(self.data, data_pickle)
 
-    def check_all_time_highscore(self, score: int) -> bool:
+    def _check_all_time_highscore(self, score: int) -> bool:
         """Returns True if highscore provided is greater than the all time highscore."""
 
-        self.set_stats()
+        self._set_stats()
 
         return score > self.all_time_wpm
 
-    def check_daily_highscore(self, score: int) -> bool:
+    def _check_daily_highscore(self, score: int) -> bool:
         """Returns True if highscore provided is greater than today's highscore."""
 
-        self.set_stats()
+        self._set_stats()
 
         return score > self.today_wpm
 
-    def add_daily_highscore(self, score: int) -> None:
+    def _add_daily_highscore(self, score: int) -> None:
         """Adds a highscore to self.data for today."""
 
         # Remove old daily highscore
@@ -109,23 +101,24 @@ class Highscores:
 
         self.data["daily-highscores"].append(f"{self.date}: {score}")
 
-    def add_all_time_highscore(self, score: int) -> None:
+    def _add_all_time_highscore(self, score: int) -> None:
         """Adds a daily and all time highscore to self.data."""
-        self.add_daily_highscore(score)
+        self._add_daily_highscore(score)
 
         self.data["all-time-highscore"] = f"{self.date}: {score}"
 
+    # PUBLIC METHODS
     def delete_daily_highscore(self):
         """Deletes current daily highscore."""
 
-        self.add_daily_highscore(0)
-        self.save_data()
+        self._add_daily_highscore(0)
+        self._save_data()
 
     def delete_all_time_highscore(self):
         """Deletes the current all-time highscore, and also today's highscore."""
 
-        self.add_all_time_highscore(0)
-        self.save_data()
+        self._add_all_time_highscore(0)
+        self._save_data()
 
     def delete_all_highscores(self):
         """Deletes all daily highscore and all-time highscore data."""
@@ -159,7 +152,17 @@ class Highscores:
 
         return difference.days
 
-    # Main
+    def get_wpm(self):
+        """
+        Returns the daily and all time highest wpm.
+
+        Used to display wpm scores on main menu.
+        """
+
+        self._set_stats()
+
+        return self.today_wpm, self.all_time_wpm
+
     def update(self, score: int) -> str:
         """Main function, checks if a given score is a highscore then saves that
         value to self.data and to a pickle file.
@@ -167,14 +170,14 @@ class Highscores:
         Returns string representing whether value was a daily or all time highscore.
         """
 
-        if self.check_all_time_highscore(score):
-            self.add_all_time_highscore(score)
-            self.save_data()
+        if self._check_all_time_highscore(score):
+            self._add_all_time_highscore(score)
+            self._save_data()
             return "all-time"
 
-        elif self.check_daily_highscore(score):
-            self.add_daily_highscore(score)
-            self.save_data()
+        elif self._check_daily_highscore(score):
+            self._add_daily_highscore(score)
+            self._save_data()
             return "daily"
 
         else:

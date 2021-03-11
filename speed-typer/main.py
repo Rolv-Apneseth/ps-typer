@@ -201,7 +201,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.stats_window.buttonResetAll.clicked.connect(self.on_clicked_reset_all)
 
     def update_highscores(self):
-        self.highscore.load_data()
+        self.highscore._load_data()
         self.today_wpm, self.all_time_wpm = self.highscore.get_wpm()
 
         self.labelTodayScore.setText(f"{self.today_wpm} WPM")
