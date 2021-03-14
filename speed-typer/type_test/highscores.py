@@ -170,18 +170,19 @@ class Highscores:
         Returns string representing whether value was a daily or all time highscore.
         """
 
+        result = "none"
+
         if self._check_all_time_highscore(score):
             self._add_all_time_highscore(score)
             self._save_data()
-            return "all-time"
+            result = "all-time"
 
         elif self._check_daily_highscore(score):
             self._add_daily_highscore(score)
             self._save_data()
-            return "daily"
+            result = "daily"
 
-        else:
-            return "none"
+        return result
 
     def get_stats_dailies(self) -> List[str]:
         """
