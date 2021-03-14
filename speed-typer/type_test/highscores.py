@@ -1,7 +1,7 @@
 import os
 import pickle
 import datetime
-from typing import List
+from typing import List, Dict
 from pathlib import Path
 
 
@@ -18,21 +18,23 @@ class Highscores:
 
         self._load_data()
 
-    def _exists_pickle(self):
+    def _exists_pickle(self) -> bool:
         """Returns True if main pickle file exists."""
 
         return os.path.exists(self.PICKLE_PATH)
 
-    def _exists_backup(self):
+    def _exists_backup(self) -> bool:
         """Returns True if backup pickle file exists."""
 
         return os.path.exists(self.BACKUP_PATH)
 
-    def _load_data(self):
+    def _load_data(self) -> None:
         """
         Loads pickle data to self.data if a pickle exists, otherwise
         it gives a default value to self.data.
         """
+
+        self.data: Dict
 
         if self._exists_pickle():
             path = self.PICKLE_PATH
@@ -51,26 +53,26 @@ class Highscores:
             if self.data["daily-highscores"][-1][:10] != str(self.date):
                 self.data["daily-highscores"].append(f"{self.date}: 0")
 
-    def _set_stats(self):
+    def _set_stats(self) -> None:
         """Sets current wpm stats from self.data."""
 
         self.today_wpm = int(self.data["daily-highscores"][-1].split()[-1])
         self.all_time_wpm = int(self.data["all-time-highscore"].split()[-1])
 
-    def _delete_backup(self):
+    def _delete_backup(self) -> None:
         """Deletes the backup pickle file, if it exists."""
 
         if self._exists_backup():
             os.remove(self.BACKUP_PATH)
 
-    def _make_backup(self):
+    def _make_backup(self) -> None:
         """Turns current pickle file into a backup file, and deletes old backup."""
 
         self._delete_backup()
 
         os.rename(self.PICKLE_PATH, self.BACKUP_PATH)
 
-    def _save_data(self):
+    def _save_data(self) -> None:
         """Saves data to a pickle file."""
 
         if self._exists_pickle():
@@ -108,19 +110,19 @@ class Highscores:
         self.data["all-time-highscore"] = f"{self.date}: {score}"
 
     # PUBLIC METHODS
-    def delete_daily_highscore(self):
+    def delete_daily_highscore(self) -> None:
         """Deletes current daily highscore."""
 
         self._add_daily_highscore(0)
         self._save_data()
 
-    def delete_all_time_highscore(self):
+    def delete_all_time_highscore(self) -> None:
         """Deletes the current all-time highscore, and also today's highscore."""
 
         self._add_all_time_highscore(0)
         self._save_data()
 
-    def delete_all_highscores(self):
+    def delete_all_highscores(self) -> None:
         """Deletes all daily highscore and all-time highscore data."""
 
         self.data["daily-highscores"] = [f"{self.date}: 0"]
@@ -152,7 +154,7 @@ class Highscores:
 
         return difference.days
 
-    def get_wpm(self):
+    def get_wpm(self) -> tuple:
         """
         Returns the daily and all time highest wpm.
 
