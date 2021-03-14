@@ -51,8 +51,7 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
         self.setupUi(self)
 
     # Helper methods
-
-    def get_values(self):
+    def _get_values(self) -> None:
         """Gets values entered by user for the different settings."""
 
         self.dark_mode = self.radioDarkMode.isChecked()  # False means light mode
@@ -71,26 +70,26 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
             self.comboSelectSound.currentText()
         )  # Sound to play on keystroke
 
-    def replace_colour(self, c1: str, c2: str) -> None:
+    def _replace_colour(self, c1: str, c2: str) -> None:
         """Replaces a colour in the current stylesheet with another."""
 
-        self.current_stylesheet = self.current_stylesheet.replace(c1, c2)
+        self.current_stylesheet: str = self.current_stylesheet.replace(c1, c2)
 
-    def set_dark_mode(self):
+    def _set_dark_mode(self) -> None:
         """Sets the style sheet to be in dark mode (changes colours)."""
 
         self.current_stylesheet = self.styleSheet()
         for option in LIGHT_COLOURS:
-            self.replace_colour(LIGHT_COLOURS[option], DARK_COLOURS[option])
+            self._replace_colour(LIGHT_COLOURS[option], DARK_COLOURS[option])
 
-    def set_light_mode(self):
+    def _set_light_mode(self) -> None:
         """Sets the style sheet to be in light mode (changes colours)."""
 
         self.current_stylesheet = self.styleSheet()
         for option in DARK_COLOURS:
-            self.replace_colour(DARK_COLOURS[option], LIGHT_COLOURS[option])
+            self._replace_colour(DARK_COLOURS[option], LIGHT_COLOURS[option])
 
-    def get_style_sheet(self) -> str:
+    def _get_style_sheet(self) -> str:
         """
         Changes the current_stylesheet variable and returns the new stylesheet.
 
@@ -99,18 +98,19 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
         """
 
         if self.dark_mode:
-            self.set_dark_mode()
+            self._set_dark_mode()
         else:
-            self.set_light_mode()
+            self._set_light_mode()
 
         return self.current_stylesheet
 
-    def get_settings(self):
+    # Public Method
+    def get_settings(self) -> list:
         """Returns a list of settings variables which control various attributes."""
 
-        self.get_values()
+        self._get_values()
 
-        self.style_sheet = self.get_style_sheet()
+        self.style_sheet = self._get_style_sheet()
 
         return [
             self.play_key_sound,
