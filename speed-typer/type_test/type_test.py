@@ -40,8 +40,13 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.key_sound = None
         self.set_colours(DEFAULT_COLOURS)
 
-    # Helper Methods
+    # Public Methods
     def set_mode(self, mode: str) -> None:
+        """
+        Sets the mode for the typing window, by getting a specific generator
+        from texts.py and setting a title for the window.
+        """
+
         self.mode = mode
 
         self.labelTitle.setText(mode)
@@ -63,6 +68,10 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.colours = colours
 
     def set_key_sound(self, key_sound: QSoundEffect) -> None:
+        """
+        Set the sound to be played on a keystroke (should be a QSoundEffect object).
+        """
+
         self.key_sound = key_sound
 
     # Private methods
@@ -106,6 +115,10 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.wpm = self._calculate_score(self.accuracy)
 
     def _display_highscore_result(self) -> None:
+        """
+        Updates the highscore in the highscore object and displays the result.
+        """
+
         self.highscore_result = self.highscore.update(self.wpm)
         self.results_window.labelHighscoreSet.setText(
             _TRANSLATE_RESULT[self.highscore_result]
@@ -154,6 +167,8 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.labelTime.setText("0")
 
     def _make_results_window(self) -> None:
+        """Generates the results window."""
+
         self.results_window = results.ResultsWindow()
 
         self.results_window.setWindowIcon(self.windowIcon())
@@ -171,6 +186,11 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         )
 
     def _on_finished(self, input_text: str) -> None:
+        """
+        Opens the results window, and is called when the user has typed
+        out all the given text.
+        """
+
         self._set_stats(input_text)
 
         self._make_results_window()
