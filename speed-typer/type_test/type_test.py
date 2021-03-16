@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtMultimedia import QSoundEffect
 from time import perf_counter
 from typing import List
 
@@ -22,15 +23,15 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         # setupui can be given self in for a window
         self.setupUi(self)
 
-        self.lineInput.textChanged.connect(self.on_input_text_changed)
+        self.lineInput.textChanged.connect(self._on_input_text_changed)
         self.buttonNewText.clicked.connect(self.on_clicked_new)
         self.buttonRestart.clicked.connect(self.on_clicked_restart)
 
         # time and timer
         self.timer = QtCore.QTimer(self)
-        self.timer.timeout.connect(self.update_time)
+        self.timer.timeout.connect(self._update_time)
         self.timer.setInterval(100)
-        self.reset_time()
+        self._reset_time()
 
         # Object to handle saving and updating of highscore values
         self.highscore = highscores.Highscores()
@@ -40,7 +41,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.set_colours(DEFAULT_COLOURS)
 
     # Helper Methods
-    def set_mode(self, mode):
+    def set_mode(self, mode: str) -> None:
         self.mode = mode
 
         self.labelTitle.setText(mode)
@@ -49,7 +50,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
             self.labelMainText.setAlignment(QtCore.Qt.AlignCenter)
 
         self.text_generator = texts._translate[mode]()
-        self.set_main_text()
+        self._set_main_text()
 
     def set_colours(self, colours: List[str]) -> None:
         """
@@ -61,7 +62,11 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.colours = colours
 
-    def set_main_text(self):
+    def set_key_sound(self, key_sound: QSoundEffect) -> None:
+        self.key_sound = key_sound
+
+    # Private methods
+    def _set_main_text(self) -> None:
         """
         Sets the text to be typed out by the user by getting a value
         from self.text_generator.
@@ -77,13 +82,14 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.labelMainText.setText(self.text)
 
-    def calculate_score(self, accuracy: int) -> int:
+    def _calculate_score(self, accuracy: int) -> int:
         """Returns wpm score after calculations including accuracy."""
 
         seconds: float = perf_counter() - self.start_time
+
         return int(((len(self.text) / 5) / (seconds / 60)) * accuracy / 100)
 
-    def calculate_accuracy(self, input_text: str) -> int:
+    def _calculate_accuracy(self, input_text: str) -> int:
         """Returns accuracy as an int between 1-100 representing a percentage."""
 
         correct: int = 0
@@ -93,22 +99,19 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         return int(correct / len(self.text) * 100)
 
-    def set_stats(self, input_text: str) -> None:
+    def _set_stats(self, input_text: str) -> None:
         """Sets instance variables for wpm score and accuracy."""
 
-        self.accuracy = self.calculate_accuracy(input_text)
-        self.wpm = self.calculate_score(self.accuracy)
+        self.accuracy = self._calculate_accuracy(input_text)
+        self.wpm = self._calculate_score(self.accuracy)
 
-    def display_highscore_result(self):
+    def _display_highscore_result(self) -> None:
         self.highscore_result = self.highscore.update(self.wpm)
         self.results_window.labelHighscoreSet.setText(
             _TRANSLATE_RESULT[self.highscore_result]
         )
 
-    def set_key_sound(self, key_sound):
-        self.key_sound = key_sound
-
-    def get_rich_text(self, input_text):
+    def _get_rich_text(self, input_text: str) -> str:
         """
         Returns the rich text to be displayed so characters typed correctly are
         highlighted green while incorrect characters are highlighted red.
@@ -135,7 +138,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         return rich_text
 
-    def update_time(self):
+    def _update_time(self) -> None:
         """
         Updates the displayed time on self.labelTime in
         seconds since self.start_time.
@@ -143,21 +146,21 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.labelTime.setText(str(int(perf_counter() - self.start_time)))
 
-    def reset_time(self):
+    def _reset_time(self) -> None:
         """Resets self.timer, self.start_time and self.labelTime."""
 
         self.start_time = None
         self.timer.stop()
         self.labelTime.setText("0")
 
-    def make_results_window(self):
+    def _make_results_window(self) -> None:
         self.results_window = results.ResultsWindow()
 
         self.results_window.setWindowIcon(self.windowIcon())
 
         self.results_window.labelAccuracy.setText(f"Accuracy: {str(self.accuracy)}%")
         self.results_window.labelSpeed.setText(f"Speed:    {str(self.wpm)} wpm!")
-        self.display_highscore_result()
+        self._display_highscore_result()
 
         self.results_window.buttonNext.clicked.connect(self.on_clicked_next)
 
@@ -167,10 +170,10 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
             self.on_clicked_results_main_menu
         )
 
-    def on_finished(self, input_text):
-        self.set_stats(input_text)
+    def _on_finished(self, input_text: str) -> None:
+        self._set_stats(input_text)
 
-        self.make_results_window()
+        self._make_results_window()
 
         self.hide()
         self.results_window.show()
@@ -178,34 +181,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         # stylesheet for results window must be set after the window is shown
         self.results_window.setStyleSheet(self.styleSheet())
 
-    # Button Methods
-    def on_clicked_restart(self):
-        self.lineInput.clear()
-        self.reset_time()
-
-    def on_clicked_new(self):
-        self.on_clicked_restart()
-        self.set_main_text()
-
-    def on_clicked_next(self):
-        self.show()
-        self.on_clicked_new()
-
-        self.results_window.close()
-        del self.results_window
-
-    def on_clicked_results_main_menu(self):
-        """
-        Clicks the typing window's main menu button and closes the results window.
-
-        This is done because the functinality for the main menu button is given
-        in main.py.
-        """
-
-        self.buttonMainMenu.click()
-        self.results_window.close()
-
-    def on_input_text_changed(self, input_text: str) -> None:
+    def _on_input_text_changed(self, input_text: str) -> None:
         """
         Updates background of each letter as user types and calls a function when
         the user is finished.
@@ -230,11 +206,38 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         # Set label text to rich text so typed characters are highlighted
         # based on whether they match self.text
-        rich_text = self.get_rich_text(input_text)
+        rich_text = self._get_rich_text(input_text)
         self.labelMainText.setText(rich_text)
 
-        if len(input_text) == len(self.text):
-            self.on_finished(input_text)
+        if len(input_text) >= len(self.text):
+            self._on_finished(input_text)
+
+    # BUTTON METHODS
+    def on_clicked_restart(self) -> None:
+        self.lineInput.clear()
+        self._reset_time()
+
+    def on_clicked_new(self) -> None:
+        self.on_clicked_restart()
+        self._set_main_text()
+
+    def on_clicked_next(self) -> None:
+        self.show()
+        self.on_clicked_new()
+
+        self.results_window.close()
+        del self.results_window
+
+    def on_clicked_results_main_menu(self) -> None:
+        """
+        Clicks the typing window's main menu button and closes the results window.
+
+        This is done because the functinality for the main menu button is given
+        in main.py.
+        """
+
+        self.buttonMainMenu.click()
+        self.results_window.close()
 
 
 if __name__ == "__main__":
