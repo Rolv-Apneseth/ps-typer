@@ -4,6 +4,7 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QSoundEffect
 from PyQt5.QtGui import QIcon
 from pathlib import Path
+from typing import Any
 
 from source_ui import main_window
 from type_test import highscores, settings, statistics, type_test
@@ -62,7 +63,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         # Stylesheet is set in the main program after instantiation
 
     # Button methods
-    def on_clicked_start(self):
+    def on_clicked_start(self) -> None:
         self.make_mode_window(str(self.comboBoxSelectMode.currentText()))
 
         self.mode_window.show()
@@ -71,14 +72,14 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.hide()
 
-    def on_clicked_main_menu(self, window):
+    def on_clicked_main_menu(self, window: QtWidgets.QWidget) -> None:
         self.update_highscores()
         self.show()
 
         window.close()
         del window
 
-    def on_clicked_settings(self):
+    def on_clicked_settings(self) -> None:
         self.make_settings_window()
 
         self.settings_window.show()
@@ -86,7 +87,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.hide()
 
-    def on_clicked_apply(self):
+    def on_clicked_apply(self) -> None:
         """Executed when apply button in settings window is clicked."""
 
         self.settings = self.settings_window.get_settings()
@@ -101,7 +102,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         # Save settings
         self.save_settings_to_file()
 
-    def on_clicked_statistics(self):
+    def on_clicked_statistics(self) -> None:
         self.make_stats_window()
 
         self.stats_window.show()
@@ -109,7 +110,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         self.hide()
 
-    def on_clicked_reset_daily(self):
+    def on_clicked_reset_daily(self) -> None:
         """
         To be executed when 'Reset today's highscore' is pressed in the stats window.
         """
@@ -119,7 +120,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.update_highscores()
         self.update_stats_highscores()
 
-    def on_clicked_reset_all_time(self):
+    def on_clicked_reset_all_time(self) -> None:
         """
         To be executed when 'Reset all-time highscore' is pressed in the stats window.
         """
@@ -129,7 +130,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.update_highscores()
         self.update_stats_highscores()
 
-    def on_clicked_reset_all(self):
+    def on_clicked_reset_all(self) -> None:
         """
         To be executed when 'Reset all highscores' is pressed in the stats window.
         """
@@ -140,7 +141,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.update_stats_highscores()
 
     # Helper Methods
-    def make_mode_window(self, mode):
+    def make_mode_window(self, mode: str) -> None:
         self.mode_window = type_test.TypingWindow()
         self.mode_window.set_mode(mode)
 
@@ -154,7 +155,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         if self.settings[0]:
             self.mode_window.set_key_sound(self.key_sound)
 
-    def make_settings_window(self):
+    def make_settings_window(self) -> None:
         self.settings_window = settings.SettingsWindow()
 
         self.settings_window.setWindowIcon(self.ICON)
@@ -179,7 +180,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.set_settings_sounds_options()
         self.set_selected_sound_option(self.settings[1])
 
-    def make_stats_window(self):
+    def make_stats_window(self) -> None:
         self.stats_window = statistics.StatsWindow()
 
         self.stats_window.setWindowIcon(self.ICON)
@@ -203,7 +204,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         )
         self.stats_window.buttonResetAll.clicked.connect(self.on_clicked_reset_all)
 
-    def update_highscores(self):
+    def update_highscores(self) -> None:
         self.highscore._load_data()
         self.today_wpm, self.all_time_wpm = self.highscore.get_wpm()
 
@@ -215,12 +216,12 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         return os.path.exists(SETTINGS_FILE)
 
-    def delete_settings(self):
+    def delete_settings(self) -> None:
         """Deletes saved settings file in the data folder."""
 
         os.remove(SETTINGS_FILE)
 
-    def save_settings_to_file(self):
+    def save_settings_to_file(self) -> None:
         """Saves self.settings into a .json file in the data folder."""
 
         # Deletes file if it already exists
@@ -230,7 +231,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         with open(SETTINGS_FILE, "w") as settings_file:
             settings_file.write(json.dumps(self.settings))
 
-    def load_settings_from_file(self):
+    def load_settings_from_file(self) -> None:
         """Sets self.settings to the values saved on the saved settings file."""
 
         with open(SETTINGS_FILE, "r") as settings_file:
@@ -241,7 +242,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         return os.listdir(SOUND_FOLDER)
 
-    def set_settings_sounds_options(self):
+    def set_settings_sounds_options(self) -> None:
         """
         Sets up options for the dropdown menu to select keystroke sounds in the
         settings menu.
@@ -286,13 +287,13 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.key_sound.setVolume(0.5)
         self.key_sound.setLoopCount(1)
 
-    def update_stats_highscores(self):
+    def update_stats_highscores(self) -> None:
         """Updates highscores displayed in the stats window."""
 
         self.stats_window.labelTodayScore.setText(f"{self.today_wpm} WPM")
         self.stats_window.labelAllTimeScore.setText(f"{self.all_time_wpm} WPM")
 
-    def update_stats_days_ago(self):
+    def update_stats_days_ago(self) -> None:
         """
         Updates the labelDaysAgo element in the stats window with the
         number of days since the all-time highscore was set.
