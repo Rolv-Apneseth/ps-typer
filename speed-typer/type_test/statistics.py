@@ -25,12 +25,12 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
 
         self.setupUi(self)
 
-    def update_days_ago(self, days_ago: int):
+    def update_days_ago(self, days_ago: int) -> None:
         """Updates labelDaysAgo with a given number of days."""
 
         self.labelDaysAgo.setText(f"- Set {str(days_ago)} days ago")
 
-    def set_up_graph(self, data: List[str], colours: dict = DEFAULT_COLOURS):
+    def set_up_graph(self, data: List[str], colours: dict = DEFAULT_COLOURS) -> None:
         """Sets up the graphView wpm over time graph with the given data."""
 
         self.colours = colours
@@ -45,18 +45,20 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
 
         # Set the colours for the graph
         self.graphView.setBackground(background=self.colours["background"])
-        self.set_axes_style(self.colours["axes"])
+        self._set_axes_style(self.colours["axes"])
 
         # Set up curve of wpm against date
         self.curve = self.graphView.plot()
-        self.set_data(data)
-        self.update_graph()
+        self._set_data(data)
+        self._update_graph()
 
-    def set_axes_style(
+    # Private Methods
+    def _set_axes_style(
         self, colour: tuple, width=AXIS_WIDTH, grid_alpha=GRID_ALPHA
     ) -> None:
         """
-        Sets the graph's axes colours to the provided tuple (rgb) and sets their alpha value.
+        Sets the graph's axes colours to the provided tuple (rgb) and
+        sets their alpha value.
         """
 
         self.left_axis.setTextPen(color=colour)
@@ -67,12 +69,12 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
         self.bottom_axis.setPen(color=colour, width=width)
         self.bottom_axis.setGrid(grid_alpha)
 
-    def get_time_stamp(self, datetime_object: datetime.datetime) -> int:
+    def _get_time_stamp(self, datetime_object: datetime.datetime) -> int:
         """Returns a timestamp (int) from a given datetime object."""
 
         return int(time.mktime(datetime_object.timetuple()))
 
-    def get_datetime_object(self, date_str: str) -> datetime.datetime:
+    def _get_datetime_object(self, date_str: str) -> datetime.datetime:
         """Takes a string in the format yyyy-mm-dd: and returns a datetime object."""
 
         raw_date: List[str] = date_str.replace(":", "").split("-")
@@ -80,15 +82,15 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
 
         return datetime.datetime(date_ints[0], date_ints[1], date_ints[2])
 
-    def clean_date(self, date_str: str) -> int:
+    def _clean_date(self, date_str: str) -> int:
         """
         Takes a string in the format 'yyyy-mm-dd:' and returns a
         usable timestamp representation.
         """
 
-        return self.get_time_stamp(self.get_datetime_object(date_str))
+        return self._get_time_stamp(self._get_datetime_object(date_str))
 
-    def set_data(self, data: List[str]):
+    def _set_data(self, data: List[str]) -> None:
         """
         Sets self.dates and self.wpms from the given data for
         daily highscores.
@@ -103,11 +105,11 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
         for day in data:
             split_day: List[str] = day.split()
 
-            self.dates.append(self.clean_date(split_day[0]))
+            self.dates.append(self._clean_date(split_day[0]))
             self.wpms.append(int(split_day[1]))
 
-    def update_graph(self, curve_width=CURVE_WIDTH):
-        """Updates self.curve with the data set in self.set_data."""
+    def _update_graph(self, curve_width: int = CURVE_WIDTH) -> None:
+        """Updates self.curve with the data set in self._set_data."""
 
         self.curve.setData(
             x=self.dates,
@@ -131,7 +133,7 @@ class DateAxisItem(pyqtgraph.AxisItem):
         self.setLabel(text="Day Set", units=None)
         self.enableAutoSIPrefix(False)
 
-    def get_string(self, time_stamp: int) -> str:
+    def _get_string(self, time_stamp: int) -> str:
         """Gets the string value which is to replace the given time_stamp value."""
 
         # types
@@ -152,7 +154,7 @@ class DateAxisItem(pyqtgraph.AxisItem):
         the given time stamp values in the format of Month Day.
         """
 
-        return [self.get_string(value) for value in values]
+        return [self._get_string(value) for value in values]
 
 
 if __name__ == "__main__":
