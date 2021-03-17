@@ -93,6 +93,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
     def _calculate_score(self, accuracy: int) -> int:
         """Returns wpm score after calculations including accuracy."""
+        self.start_time: float
 
         seconds: float = perf_counter() - self.start_time
 
@@ -162,7 +163,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
     def _reset_time(self) -> None:
         """Resets self.timer, self.start_time and self.labelTime."""
 
-        self.start_time = None
+        self.start_time = 0.0
         self.timer.stop()
         self.labelTime.setText("0")
 
