@@ -1,3 +1,4 @@
+from typing import Generator
 import random
 import re
 
@@ -351,7 +352,7 @@ QUOTES = [
 
 
 # FUNCTIONS
-def get_random_choice(lst: list) -> str:
+def get_random_choice(lst: list) -> Generator:
     """
     Generator which shuffles a list of strings and yields one string at a time.
     Text is also stripped of trailing and leading whitespaces.
@@ -400,7 +401,7 @@ def clean_text(raw_text: str) -> str:
     )
 
 
-def get_random_text(corpus) -> str:
+def get_random_text(corpus) -> Generator:
     """
     Generator which yields a string of randomly selected text from the given corpus.
 
