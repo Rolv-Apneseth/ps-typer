@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_mainWindow(object):
     def setupUi(self, mainWindow):
         mainWindow.setObjectName("mainWindow")
-        mainWindow.resize(789, 239)
+        mainWindow.resize(705, 239)
         mainWindow.setStyleSheet("QWidget {\n"
 "    background: rgb(18, 18, 18);\n"
 "    color: rgb(230, 230, 230);\n"
@@ -22,13 +22,15 @@ class Ui_mainWindow(object):
 "}\n"
 "\n"
 "QFrame {    \n"
-"   background: rgb(31, 26, 31);\n"
+"    background: rgb(31, 26, 31);\n"
 "    border: 1px solid rgb(235, 235, 235);\n"
+"    border-radius: 5;\n"
 "}\n"
 "\n"
 "QPushButton, QComboBox {    \n"
 "    background: rgb(70, 70, 70);\n"
 "    font-size: 16pt;\n"
+"    border-radius: 5;\n"
 "}\n"
 "\n"
 "QPushButton::hover, QComboBox::hover {\n"
@@ -133,10 +135,8 @@ class Ui_mainWindow(object):
         self.verticalLayout_2.addItem(spacerItem4)
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
-        spacerItem5 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem5)
         self.buttonStart = QtWidgets.QPushButton(self.frameMainMenu)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.buttonStart.sizePolicy().hasHeightForWidth())
@@ -148,10 +148,10 @@ class Ui_mainWindow(object):
         self.buttonStart.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.buttonStart.setObjectName("buttonStart")
         self.horizontalLayout_5.addWidget(self.buttonStart)
-        spacerItem6 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem6)
+        spacerItem5 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem5)
         self.buttonSettings = QtWidgets.QPushButton(self.frameMainMenu)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.buttonSettings.sizePolicy().hasHeightForWidth())
@@ -163,19 +163,17 @@ class Ui_mainWindow(object):
         self.buttonSettings.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.buttonSettings.setObjectName("buttonSettings")
         self.horizontalLayout_5.addWidget(self.buttonSettings)
-        spacerItem7 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem7)
+        spacerItem6 = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_5.addItem(spacerItem6)
         self.buttonStatistics = QtWidgets.QPushButton(self.frameMainMenu)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Maximum)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Maximum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.buttonStatistics.sizePolicy().hasHeightForWidth())
         self.buttonStatistics.setSizePolicy(sizePolicy)
-        self.buttonStatistics.setMinimumSize(QtCore.QSize(120, 40))
+        self.buttonStatistics.setMinimumSize(QtCore.QSize(0, 40))
         self.buttonStatistics.setObjectName("buttonStatistics")
         self.horizontalLayout_5.addWidget(self.buttonStatistics)
-        spacerItem8 = QtWidgets.QSpacerItem(20, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_5.addItem(spacerItem8)
         self.verticalLayout_2.addLayout(self.horizontalLayout_5)
         self.horizontalLayout_4.addWidget(self.frameMainMenu)
         self.frameHighscore = QtWidgets.QFrame(mainWindow)
@@ -213,8 +211,8 @@ class Ui_mainWindow(object):
         self.lineHighscore.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.lineHighscore.setObjectName("lineHighscore")
         self.verticalLayout.addWidget(self.lineHighscore)
-        spacerItem9 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
-        self.verticalLayout.addItem(spacerItem9)
+        spacerItem7 = QtWidgets.QSpacerItem(20, 10, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout.addItem(spacerItem7)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.labelTodayTitle = QtWidgets.QLabel(self.frameHighscore)
@@ -253,11 +251,11 @@ class Ui_mainWindow(object):
         self.verticalLayout.addLayout(self.horizontalLayout_3)
         self.horizontalLayout_4.addWidget(self.frameHighscore)
         self.verticalLayout_3.addLayout(self.horizontalLayout_4)
-        spacerItem10 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_3.addItem(spacerItem10)
+        spacerItem8 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem8)
         self.horizontalLayout.addLayout(self.verticalLayout_3)
-        spacerItem11 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem11)
+        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem9)
 
         self.retranslateUi(mainWindow)
         QtCore.QMetaObject.connectSlotsByName(mainWindow)
