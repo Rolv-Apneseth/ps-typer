@@ -4,7 +4,6 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QSoundEffect
 from PyQt5.QtGui import QIcon
 from pathlib import Path
-from typing import Any
 
 from source_ui import main_window
 from type_test import highscores, settings, statistics, type_test
