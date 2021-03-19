@@ -37,7 +37,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.highscore = highscore_obj
 
         # Defaults
-        self.key_sound = None
+        self.key_sound = QSoundEffect()
         self.set_colours(DEFAULT_COLOURS)
 
     # Public Methods
@@ -220,10 +220,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
             self.start_time = perf_counter()
 
         # Try to play key sound effect, if it exists
-        try:
-            self.key_sound.play()
-        except AttributeError:
-            pass
+        self.key_sound.play()
 
         # Set label text to rich text so typed characters are highlighted
         # based on whether they match self.text
