@@ -16,7 +16,7 @@ _TRANSLATE_RESULT = {
 
 
 class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, highscore_obj: highscores.Highscores, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # Multiple inheritance allows us to have the ui and window together so
@@ -34,10 +34,10 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self._reset_time()
 
         # Object to handle saving and updating of highscore values
-        self.highscore = highscores.Highscores()
+        self.highscore = highscore_obj
 
         # Defaults
-        self.key_sound = None
+        self.key_sound = QSoundEffect()
         self.set_colours(DEFAULT_COLOURS)
 
     # Public Methods
@@ -220,10 +220,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
             self.start_time = perf_counter()
 
         # Try to play key sound effect, if it exists
-        try:
-            self.key_sound.play()
-        except AttributeError:
-            pass
+        self.key_sound.play()
 
         # Set label text to rich text so typed characters are highlighted
         # based on whether they match self.text
@@ -264,7 +261,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 if __name__ == "__main__":
     app = QtWidgets.QApplication([])
 
-    window = TypingWindow()
+    window = TypingWindow(highscores.Highscores())
     window.show()
 
     app.exec_()
