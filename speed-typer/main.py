@@ -142,7 +142,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
     # Helper Methods
     def make_mode_window(self, mode: str) -> None:
-        self.mode_window = type_test.TypingWindow()
+        self.mode_window = type_test.TypingWindow(self.highscore)
         self.mode_window.set_mode(mode)
 
         self.mode_window.setWindowIcon(self.ICON)
