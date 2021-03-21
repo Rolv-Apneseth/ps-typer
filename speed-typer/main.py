@@ -65,7 +65,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     def on_clicked_start(self) -> None:
         self.make_mode_window(str(self.comboBoxSelectMode.currentText()))
 
-        self.mode_window.show()
+        self.show_window(self.mode_window, self.isMaximized())
         self.mode_window.setStyleSheet(self.settings[2])
         self.mode_window.set_colours(self.settings[5])
 
@@ -73,7 +73,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
     def on_clicked_main_menu(self, window: QtWidgets.QWidget) -> None:
         self.update_highscores()
-        self.show()
+
+        self.show_window(self, window.isMaximized())
 
         window.close()
         del window
@@ -81,7 +82,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     def on_clicked_settings(self) -> None:
         self.make_settings_window()
 
-        self.settings_window.show()
+        self.show_window(self.settings_window, self.isMaximized())
         self.settings_window.setStyleSheet(self.settings[2])
 
         self.hide()
@@ -104,7 +105,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     def on_clicked_statistics(self) -> None:
         self.make_stats_window()
 
-        self.stats_window.show()
+        self.show_window(self.stats_window, self.isMaximized())
         self.stats_window.setStyleSheet(self.settings[2])
 
         self.hide()
@@ -140,6 +141,16 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.update_stats_highscores()
 
     # Helper Methods
+    def show_window(self, window: QtWidgets.QWidget, fullscreen: bool) -> None:
+        """
+        Used to show windows, with the option to have them fullscreen provided.
+        """
+
+        if fullscreen:
+            window.showMaximized()
+        else:
+            window.show()
+
     def make_mode_window(self, mode: str) -> None:
         self.mode_window = type_test.TypingWindow(self.highscore)
         self.mode_window.set_mode(mode)
