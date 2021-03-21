@@ -24,7 +24,6 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         # Multiple inheritance allows us to have the ui and window together so
         # setupui can be given self in for a window
         self.setupUi(self)
-
         self.ICON = QIcon(str(ICON_PATH))
         self.setWindowIcon(self.ICON)
 
@@ -145,11 +144,10 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         """
         Used to show windows, with the option to have them fullscreen provided.
         """
-
+        
+        window.show()
         if fullscreen:
-            window.showMaximized()
-        else:
-            window.show()
+            window.setWindowState(QtCore.Qt.WindowFullScreen)   
 
     def make_mode_window(self, mode: str) -> None:
         self.mode_window = type_test.TypingWindow(self.highscore)
