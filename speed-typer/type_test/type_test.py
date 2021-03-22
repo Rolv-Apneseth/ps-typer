@@ -198,6 +198,8 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.hide()
         self.results_window.show()
+        if self.isMaximized():
+            self.results_window.setWindowState(QtCore.Qt.WindowMaximized)
 
         # stylesheet for results window must be set after the window is shown
         self.results_window.setStyleSheet(self.styleSheet())
