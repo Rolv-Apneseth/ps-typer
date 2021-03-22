@@ -24,7 +24,6 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         # Multiple inheritance allows us to have the ui and window together so
         # setupui can be given self in for a window
         self.setupUi(self)
-
         self.ICON = QIcon(str(ICON_PATH))
         self.setWindowIcon(self.ICON)
 
@@ -43,7 +42,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         #                   4. Colours for graph (dict)
         #                   5. Rich text colours (dict[list])
         #
-        # Load setings file from data folder if it exists, otherwise
+        # Load settings file from data folder if it exists, otherwise
         # set it to default settings
         if self.exists_settings_file():
             self.load_settings_from_file()
@@ -65,7 +64,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     def on_clicked_start(self) -> None:
         self.make_mode_window(str(self.comboBoxSelectMode.currentText()))
 
-        self.mode_window.show()
+        self.show_window(self.mode_window, self.isMaximized())
         self.mode_window.setStyleSheet(self.settings[2])
         self.mode_window.set_colours(self.settings[5])
 
@@ -73,7 +72,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
     def on_clicked_main_menu(self, window: QtWidgets.QWidget) -> None:
         self.update_highscores()
-        self.show()
+
+        self.show_window(self, window.isMaximized())
 
         window.close()
         del window
@@ -81,7 +81,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     def on_clicked_settings(self) -> None:
         self.make_settings_window()
 
-        self.settings_window.show()
+        self.show_window(self.settings_window, self.isMaximized())
         self.settings_window.setStyleSheet(self.settings[2])
 
         self.hide()
@@ -104,7 +104,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     def on_clicked_statistics(self) -> None:
         self.make_stats_window()
 
-        self.stats_window.show()
+        self.show_window(self.stats_window, self.isMaximized())
         self.stats_window.setStyleSheet(self.settings[2])
 
         self.hide()
@@ -140,6 +140,15 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.update_stats_highscores()
 
     # Helper Methods
+    def show_window(self, window: QtWidgets.QWidget, fullscreen: bool) -> None:
+        """
+        Used to show windows, with the option to have them maximised provided.
+        """
+
+        window.show()
+        if fullscreen:
+            window.setWindowState(QtCore.Qt.WindowMaximized)
+
     def make_mode_window(self, mode: str) -> None:
         self.mode_window = type_test.TypingWindow(self.highscore)
         self.mode_window.set_mode(mode)
