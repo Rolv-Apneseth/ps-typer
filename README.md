@@ -23,6 +23,8 @@ A program to test the speed at which you can type. Choose a mode, type out the t
    - In your terminal, navigate to the cloned directory and run: `python3 -m pip install -r requirements.txt`
 4. To run the actual program, navigate further into the speed-typer folder and run: `python3 main.py`
 
+Alternatively to steps 3 and 4, you can navigate to the bin folder and run one of the scripts included there, i.e. if you're on windows, double-click the `run_program.bat` file. This will create a virtual environment, install all required dependencies to that virtual environment, then run `main.py`. Note that this will of course take a while the first time it is run.
+
 ## Usage
 
 1. Select a mode from the dropdown menu
