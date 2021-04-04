@@ -3,6 +3,8 @@
 Scripts/
 *.cfg
 .DS_Store
+# for some reason lib64/from below wasn't working
+lib64
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
