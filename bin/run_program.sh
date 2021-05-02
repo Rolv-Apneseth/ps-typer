@@ -9,7 +9,7 @@
 #          venv
 #       2. Install any dependencies speed-typer needs into this
 #          virtual environment
-#       3. Launch the program with the virtual enviroment
+#       3. Launch the program with the virtual environment
 #
 #   Note that environment and dependencies set up will only happen
 #   if certain files are not found so effectively it will only

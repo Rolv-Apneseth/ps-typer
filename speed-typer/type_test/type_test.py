@@ -252,7 +252,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         """
         Clicks the typing window's main menu button and closes the results window.
 
-        This is done because the functinality for the main menu button is given
+        This is done because the functionality for the main menu button is given
         in main.py.
         """
 

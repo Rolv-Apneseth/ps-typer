@@ -101,7 +101,7 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
         self.dates: List[int] = []
         self.wpms: List[int] = []
 
-        # Add data for each day (data point) to 2 seperate lists (2 axes)
+        # Add data for each day (data point) to 2 separate lists (2 axes)
         for day in data:
             split_day: List[str] = day.split()
 

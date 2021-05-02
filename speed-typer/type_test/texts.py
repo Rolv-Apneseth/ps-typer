@@ -338,7 +338,7 @@ QUOTES = [
     "And homeless near a thousand homes I stood, and near a thousand tables pined and wanted food. - William Wordsworth",
     "1. A robot may not injure a human being or, through inaction, allow a human being to come to harm. 2. A robot must obey any orders given to it by human beings, except where such orders would conflict with the First Law. 3. A robot must protect its own existence as long as such protection does not conflict with the First or Second Law. - Isaac Asimov",
     "Pale Death beats equally at the poor man's gate and at the palaces of kings. - Horace",
-    "Most of us can, ad we choose, make of the world either a palace or a prison. - John Lubbock",
+    "Most of us can, as we choose, make of the world either a palace or a prison. - John Lubbock",
     "We only live to discover beauty. All else is a form of waiting. - Kahlil Gibran",
     "Every genuine work of art has as much reason for being as the earth and the sun. - Ralph Waldo Emerson",
     "Time crumbles things; everything grows old and is forgotten under the power of time. - Aristotle",
