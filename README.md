@@ -5,14 +5,12 @@ A program to test the speed at which you can type. Choose a mode, type out the t
 ## What I learned
 
 - Using issues, branches and pull requests to keep track of work on the project
-- Building GUI's using PyQt5 and Qt Designer
-- Making the GUI resizeable and configurable (settings specified by the user)
-- Using pickle files to save data, load it and set new highscores
-- Using .json files to save and load data for configuration of the program
-- Using of OOP to handle the use of different windows and functionality for each window
-- Use of the time module to time actions/functions
-- Rich text manipulation so the text typed is coloured based on whether it is correct/incorrect
+- Building GUIs using PyQt5 and Qt Designer
+- Making the GUI resizeable and configurable (for example light and dark modes are available)
+- Intricate use of OOP to handle the different windows and functionality for each window
 - Plotting data with pyqtgraph, and styling of the graph so it has the desired layout and appearance
+- Using .pkl and .json files to save data and load it when the program is run, for saving of highscores and remembering user settings.
+- Rich text manipulation so the text typed is coloured based on whether it is correct/incorrect
 
 ## Installation
 
@@ -30,8 +28,8 @@ Alternatively to steps 3 and 4, you can navigate to the bin folder and run one o
 1. Select a mode from the dropdown menu
 2. Click on begin and start typing! Characters typed correctly are highlighted green and characters typed incorrectly are highlighted red.
 3. When finished, a window will appear displaying your accuracy, average w.p.m and whether or not you set a daily or all-time highscore.
-   - Note: The highscores are stored in the assets folder in data.pkl and backup_data.pkl and can be deleted if you want to reset your highscore.
-     - Please take care not to delete other files in the assets folder as they are required for the program to function.
+   - Note: The highscores are stored in the assets folder in highscores.pkl and backup_highscores.pkl and can be deleted if you want to reset your highscore.
+     - There are however GUI options for resetting highscores in the Statistics window
 
 ## Modes
 
@@ -47,9 +45,10 @@ Select one of the following options to choose what you will be typing out:
 
 - Random Text Options
   - These 3 options are achieved using corpora from nltk, for which documentation can be found [here](https://www.nltk.org/book/ch02.html). The corpora included are:
-  1.  Brown, which is the first million-word electronic corpus of English. A snippet of this corpus is chosen at random each time.
+  1.  Brown, which is the first million-word electronic corpus of English.
   2.  Gutenberg, which is a small selection of texts from the Project Gutenberg electronic text archive, which contains some 25,000 free electronic books, hosted [here](http://www.gutenberg.org/).
   3.  Webtext, a collection of web text includes content from a Firefox discussion forum, conversations overheard in New York, the movie script of Pirates of the Carribean, personal advertisements, and wine reviews, for more informal text.
+  - To reduce the number of dependencies, as well as the processing that needs to be done for formatting the text, the corpora are already processed into plain text files stored in the `assets/texts/` directory, along with the python script used to generate them.
 
 ## W.P.M.
 
