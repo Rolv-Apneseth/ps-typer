@@ -115,7 +115,7 @@ def clean_text(raw_text: str) -> str:
     )
 
 
-def generate_corpus_text(corpus, filename: str) -> None:
+def generate_corpus_text(corpus, filename: Path) -> None:
     """
     Generates a text file of the given filename (absolute path) from the given
     corpus.
