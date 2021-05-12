@@ -1,62 +1,17 @@
+from pathlib import Path
 from typing import Generator
 import random
-import re
 
-# Nltk corpora for 'random' texts
-CORPORA = ["brown", "webtext", "gutenberg"]
-try:
-    # Check if nltk corpora are downloaded
-    from nltk import corpus
-
-    corpus.brown.ensure_loaded()
-    corpus.webtext.ensure_loaded()
-    corpus.gutenberg.ensure_loaded()
-
-except LookupError:
-    # Download nltk corpora
-    from nltk import download
-
-    for corpus in CORPORA:
-        download(corpus)
-
-    # Used for splitting texts into sentences
-    download("punkt")
-
-finally:
-    # Import corpora
-    from nltk.corpus import brown
-    from nltk.corpus import webtext
-    from nltk.corpus import gutenberg
-
+# PATHS
+PROJECT_FOLDER = Path(__file__).absolute().parents[1]
+ASSETS_FOLDER = PROJECT_FOLDER / "assets"
+TEXTS_FOLDER = ASSETS_FOLDER / "texts"
+BROWN_TEXT = TEXTS_FOLDER / "brown.txt"
+WEBTEXT_TEXT = TEXTS_FOLDER / "webtext.txt"
+GUTENBERG_TEXT = TEXTS_FOLDER / "gutenberg.txt"
 
 # CONSTANTS
-TOO_LONG = 900  # Max length of typeable text
-RANDOM_TEXT_SENTENCES = 3  # Number of sentences to be selected for random texts
-
-REPLACE_SYMBOLS = {
-    " ,": ",",
-    ",,": ",",
-    " .": ".",
-    " ?": "?",
-    "??": "?",
-    "( ": "(",
-    " )": ")",
-    " ;": ";",
-    ";;": ";",
-    " :": ":",
-    " -- ": "--",
-    " !": "!",
-    "!!": "!",
-    " ' ": "'",
-}
-
-REMOVE_SYMBOLS = [
-    " ''",
-    "'' ",
-    " ``",
-    "``",
-]
-
+RANDOM_TEXT_SENTENCES = 3  # Length in sentences for random text
 
 # TEXTS
 COMMON_PHRASES = [
@@ -364,73 +319,26 @@ def get_random_choice(lst: list) -> Generator:
         yield text.strip()
 
 
-def replace_from_text(raw_text: str, symbols: dict) -> str:
+def get_random_text(text_filename: Path, num_sentences: int) -> Generator:
     """
-    Replace every symbol/character in the keys of the given symbols dictionary
-    with the corresponding value for each key, from the given string raw_text.
-    """
+    Generator which yields a string of a given number of sentences from a given
+    text file (text_filename = Path object to .txt file).
 
-    for symbol in symbols:
-        if symbol in raw_text:
-            raw_text = raw_text.replace(symbol, symbols[symbol])
-
-    return raw_text
-
-
-def remove_from_text(raw_text: str, symbols: list) -> str:
-    """
-    Removes every symbol/character in the given symbols list from a given string,
-    raw_text.
+    The text is also formatted slightly.
     """
 
-    return re.sub("|".join(symbols), "", raw_text)
-
-
-def clean_text(raw_text: str) -> str:
-    """
-    Takes a raw string from having joined words from an nltk corpus
-    using, for example " ".join(words), and returns a more cleaned
-    version of the text.
-
-    This is achieved by replacing and removing certain symbols so that
-    the text reads more like normal written English.
-    """
-
-    return remove_from_text(
-        replace_from_text(raw_text, REPLACE_SYMBOLS), REMOVE_SYMBOLS
-    )
-
-
-def get_random_text(corpus) -> Generator:
-    """
-    Generator which yields a string of randomly selected text from the given corpus.
-
-    The text is formatted slightly to make it easier to type.
-    """
+    with open(text_filename) as corpus_text:
+        lines = corpus_text.readlines()
 
     while True:
-        rand_int = int(random.random() * 30000)
+        rand_int = int(random.random() * (len(lines) - num_sentences))
+        rand_sentences = lines[rand_int : rand_int + num_sentences]
 
-        # Get a list of sentences from the corpus
-        raw_sentences_lists = corpus.sents()[
-            rand_int : rand_int + RANDOM_TEXT_SENTENCES
-        ]
+        raw_text = " ".join(rand_sentences)
+        # Make sure first character is always capitalised if possible
+        processed_text = f"{raw_text[0].upper()}{raw_text[1:]}"
 
-        # Join words from every sentence with a space between
-        raw_text = " ".join(
-            word for sentence in raw_sentences_lists for word in sentence
-        )
-
-        # If text is too long or equates to False, try again
-        if not raw_text or len(raw_text) > TOO_LONG:
-            continue
-
-        # Process raw text
-        cleaned_text = clean_text(raw_text)
-        # Ensure first letter is always capitalised
-        cleaned_text = f"{cleaned_text[0].upper()}{cleaned_text[1:]}"
-
-        yield cleaned_text
+        yield processed_text
 
 
 _translate = {
@@ -438,7 +346,11 @@ _translate = {
     "Facts": lambda: get_random_choice(FACTS),
     "Famous Literature Excerpts": lambda: get_random_choice(LITERATURE_EXCERPTS),
     "Famous Quotes": lambda: get_random_choice(QUOTES),
-    "Random Text: Brown": lambda: get_random_text(brown),
-    "Random Text: Gutenberg": lambda: get_random_text(gutenberg),
-    "Random Text: Webtext": lambda: get_random_text(webtext),
+    "Random Text: Brown": lambda: get_random_text(BROWN_TEXT, RANDOM_TEXT_SENTENCES),
+    "Random Text: Gutenberg": lambda: get_random_text(
+        GUTENBERG_TEXT, RANDOM_TEXT_SENTENCES
+    ),
+    "Random Text: Webtext": lambda: get_random_text(
+        WEBTEXT_TEXT, RANDOM_TEXT_SENTENCES
+    ),
 }
