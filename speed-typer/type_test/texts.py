@@ -328,7 +328,7 @@ def get_random_text(text_filename: Path, num_sentences: int) -> Generator:
     """
 
     with open(text_filename) as corpus_text:
-        lines = corpus_text.readlines()
+        lines = corpus_text.read().splitlines()
 
     while True:
         rand_int = int(random.random() * (len(lines) - num_sentences))
