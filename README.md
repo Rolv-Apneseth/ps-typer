@@ -1,6 +1,6 @@
 # speed-typer
 
-A program to test the speed at which you can type. Choose a mode, type out the text and be told your average w.p.m. and your accuracy. The program can also keep track of your daily and all-time highscores. Have a look at the statistics window after a couple of days and see on a graph how you're progressing in terms of wpm.
+A program to test the speed at which you can type. Choose a mode, type out the text and be told your average w.p.m. and your accuracy. The program can also keep track of your daily and all-time high scores. Have a look at the statistics window after a couple of days and see on a graph how you're progressing in terms of wpm.
 
 ## What I learned
 
@@ -9,7 +9,7 @@ A program to test the speed at which you can type. Choose a mode, type out the t
 - Making the GUI resizeable and configurable (for example light and dark modes are available)
 - Intricate use of OOP to handle the different windows and functionality for each window
 - Plotting data with pyqtgraph, and styling of the graph so it has the desired layout and appearance
-- Using .pkl and .json files to save data and load it when the program is run, for saving of highscores and remembering user settings.
+- Using .pkl and .json files to save data and load it when the program is run, for saving of high scores and remembering user settings.
 - Rich text manipulation so the text typed is coloured based on whether it is correct/incorrect
 
 ## Installation
@@ -27,9 +27,9 @@ Alternatively to steps 3 and 4, you can navigate to the bin folder and run one o
 
 1. Select a mode from the dropdown menu
 2. Click on begin and start typing! Characters typed correctly are highlighted green and characters typed incorrectly are highlighted red.
-3. When finished, a window will appear displaying your accuracy, average w.p.m and whether or not you set a daily or all-time highscore.
-   - Note: The highscores are stored in the assets folder in highscores.pkl and backup_highscores.pkl and can be deleted if you want to reset your highscore.
-     - There are however GUI options for resetting highscores in the Statistics window
+3. When finished, a window will appear displaying your accuracy, average w.p.m and whether or not you set a daily or all-time high score.
+   - Note: The high scores are stored in the assets folder in `highscores.pkl` and `backup_highscores.pkl` and can be deleted if you want to reset your high score.
+     - There are however GUI options for resetting high scores in the Statistics window
 
 ## Modes
 
@@ -60,6 +60,6 @@ Accuracy is taken into account to incentivise you to type all the text out corre
 
 ## Statistics
 
-Highscores can be set both daily or as an all-time highscore. Both values are displayed in the main menu and saved for future sessions.
+High scores can be set both daily or as an all-time high score. Both values are displayed in the main menu and saved for future sessions.
 
-The program will save all of your daily highscores. This data is then visualised in the statistics window using a graph of wpm over time so you can get a sense of how you're progressing.
+The program will save all of your daily high scores. This data is then visualised in the statistics window using a graph of wpm over time so you can get a sense of how you're progressing.
