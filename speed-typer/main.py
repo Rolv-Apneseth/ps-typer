@@ -35,26 +35,11 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.highscore = highscores.Highscores()
         self.update_highscores()
 
-        # Settings - items: 0. Play key sound
-        #                   1. Name of sound file to play
-        #                   2. Stylesheet for all windows
-        #                   3. Dark mode (True or False)
-        #                   4. Colours for graph (dict)
-        #                   5. Rich text colours (dict[list])
-        #
-        # Load settings file from data folder if it exists, otherwise
-        # set it to default settings
+        # Load settings file from data folder if it exists, otherwise load defaults
         if self.exists_settings_file():
             self.load_settings_from_file()
         else:
-            self.settings = [
-                False,
-                "key_4.wav",
-                self.styleSheet(),
-                True,
-                settings.DARK_GRAPH,
-                settings.RICH_TEXT_COLOURS[True],
-            ]
+            self.settings = settings.DEFAULT_SETTINGS
 
         # Sound played on keystroke, if sounds are turned on
         self.set_key_sound(self.settings[1])

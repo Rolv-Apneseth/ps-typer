@@ -6,45 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>705</width>
-    <height>239</height>
+    <width>1085</width>
+    <height>764</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Speed Type Test</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget {
-	background: rgb(18, 18, 18);
-	color: rgb(230, 230, 230);
-	font-size: 24pt;
-}
-
-QFrame {	
-    background: rgb(31, 26, 31);
-	border: 1px solid rgb(235, 235, 235);
-    border-radius: 5;
-}
-
-QPushButton, QComboBox {	
-	background: rgb(70, 70, 70);
-	font-size: 16pt;
-    border-radius: 5;
-}
-
-QPushButton::hover, QComboBox::hover {
-	background: rgb(90, 90, 90)
-}
-
-QLabel, QRadioButton {
-	background: transparent;
-	border: none;
-}
-
-QFrame[frameShape=&quot;4&quot;] {
-    background-color: rgb(230, 230, 230);
-    border-color: rgb(230, 230, 230);
-}</string>
+   <string notr="true"/>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>

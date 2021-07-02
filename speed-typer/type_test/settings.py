@@ -4,8 +4,6 @@ from source_ui import settings_window
 
 
 # CONSTANTS
-# Note: Do not make any colours in these 2 dictionaries the same value
-# since these will be changed using a .replace method
 DARK_COLOURS = {
     "button": "rgb(70, 70, 70)",
     "hover": "rgb(90, 90, 90)",
@@ -44,6 +42,55 @@ LIGHT_GRAPH = {
 }
 
 
+# DEFAULT STYLESHEET AND SETTINGS
+def _get_style_sheet_(background="", text="", frame="", hover="", button=""):
+    """
+    Returns a string representing the style sheet.
+
+    Usage: _get_style_sheet(**DARK_COLOURS) or _get_style_sheet(**LIGHT_COLOURS)
+    """
+
+    try:
+        return (
+            "QWidget {\n"
+            f"  background: {background}; color: {text}; font-size: 24pt;"
+            "\n}\n"
+            "QFrame {\n"
+            f"  background: {frame}; border: 1px solid {text}; border-radius: 5;"
+            "\n}\n"
+            "QPushButton, QComboBox {\n"
+            f"  background: {button}; font-size: 16pt; border-radius: 5;"
+            "\n}\n"
+            "QPushButton::hover, QComboBox::hover {\n"
+            f"	background: {hover};"
+            "\n}\n"
+            "QLabel, QRadioButton {\n"
+            "	background: transparent; border: none;"
+            "\n}\n"
+            'QFrame[frameShape="4"] {\n'
+            f"    background-color: {text}; border-color: {text};"
+            "\n}"
+        )
+    except NameError as e:
+        print(e)
+        raise NameError(
+            "Pass in either DARK_COLOURS or LIGHT_COLOURS dictionaries as unpacked"
+            " kwargs i.e. _get_style_sheet(**DARK_COLOURS)"
+        )
+
+
+BASE_STYLE_SHEET = _get_style_sheet_(**DARK_COLOURS)
+
+DEFAULT_SETTINGS = [
+    False,  # Play key sound (True or False)
+    "key_4.wav",  # Name of sound file to play (str)
+    BASE_STYLE_SHEET,  # Stylesheet for all windows (list)
+    True,  # Dark mode (True or False)
+    DARK_GRAPH,  # Colours for graph (dict)
+    RICH_TEXT_COLOURS[True],  # Rich text colours (dict[list])
+]
+
+
 class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -52,14 +99,14 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
 
     # Helper methods
     def _get_values(self) -> None:
-        """Gets values entered by user for the different settings."""
+        """Updates all relevant settings into instance variables."""
 
-        self.dark_mode = self.radioDarkMode.isChecked()  # False means light mode
+        self.is_dark_mode = self.radioDarkMode.isChecked()  # False means light mode
 
-        self.graph_colours = DARK_GRAPH if self.dark_mode else LIGHT_GRAPH
+        self.graph_colours = DARK_GRAPH if self.is_dark_mode else LIGHT_GRAPH
 
         self.rich_text_colours = (
-            RICH_TEXT_COLOURS[True] if self.dark_mode else RICH_TEXT_COLOURS[False]
+            RICH_TEXT_COLOURS[True] if self.is_dark_mode else RICH_TEXT_COLOURS[False]
         )
 
         self.play_key_sound = (
@@ -70,39 +117,19 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
             self.comboSelectSound.currentText()
         )  # Sound to play on keystroke
 
-    def _replace_colour(self, c1: str, c2: str) -> None:
-        """Replaces a colour in the current stylesheet with another."""
-
-        self.current_stylesheet: str = self.current_stylesheet.replace(c1, c2)
-
-    def _set_dark_mode(self) -> None:
-        """Sets the style sheet to be in dark mode (changes colours)."""
-
-        self.current_stylesheet = self.styleSheet()
-        for option in LIGHT_COLOURS:
-            self._replace_colour(LIGHT_COLOURS[option], DARK_COLOURS[option])
-
-    def _set_light_mode(self) -> None:
-        """Sets the style sheet to be in light mode (changes colours)."""
-
-        self.current_stylesheet = self.styleSheet()
-        for option in DARK_COLOURS:
-            self._replace_colour(DARK_COLOURS[option], LIGHT_COLOURS[option])
+        self.style_sheet = self._get_style_sheet()
 
     def _get_style_sheet(self) -> str:
         """
-        Changes the current_stylesheet variable and returns the new stylesheet.
+        Returns a string representing the stylesheet.
 
         The stylesheet returned is to be used in main.py to set the
         styling for all windows.
         """
 
-        if self.dark_mode:
-            self._set_dark_mode()
-        else:
-            self._set_light_mode()
+        colours = DARK_COLOURS if self.is_dark_mode else LIGHT_COLOURS
 
-        return self.current_stylesheet
+        return _get_style_sheet_(**colours)
 
     # Public Method
     def get_settings(self) -> list:
@@ -110,13 +137,11 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
 
         self._get_values()
 
-        self.style_sheet = self._get_style_sheet()
-
         return [
             self.play_key_sound,
             self.key_sound,
             self.style_sheet,
-            self.dark_mode,
+            self.is_dark_mode,
             self.graph_colours,
             self.rich_text_colours,
         ]
