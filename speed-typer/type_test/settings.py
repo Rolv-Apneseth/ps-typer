@@ -76,7 +76,7 @@ def _get_style_sheet_(bg="", bg_lighter="", text="", text_button=""):
             QLabel, QRadioButton {{
                 background: transparent; border: none;
             }}
-            #labelMainMenu {{
+            #labelMainMenu, #labelTitle {{
             font-size: 50pt;
             }}"""
 
