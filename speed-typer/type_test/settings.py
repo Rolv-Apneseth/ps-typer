@@ -5,19 +5,17 @@ from source_ui import settings_window
 
 # CONSTANTS
 DARK_COLOURS = {
-    "button": "rgb(70, 70, 70)",
-    "hover": "rgb(90, 90, 90)",
-    "background": "rgb(18, 18, 18)",
-    "frame": "rgb(31, 26, 31)",
-    "text": "rgb(230, 230, 230)",
+    "bg": "hsl(217, 90, 20)",
+    "bg_lighter": "hsl(217, 90, 45)",
+    "text": "hsl(0, 0, 205)",
+    "text_button": "hsl(0, 0, 160)",
 }
 
 LIGHT_COLOURS = {
-    "button": "#cfe3e6",
-    "hover": "#defaff",
-    "background": "#94f0ff",
-    "frame": "#e2f3f5",
-    "text": "#0e153a",
+    "bg": "hsl(217, 90, 210)",
+    "bg_lighter": "hsl(217, 90, 235)",
+    "text": "hsl(0, 0, 50)",
+    "text_button": "hsl(0, 0, 120)",
 }
 
 # Colours for rich text highlighting
@@ -43,7 +41,7 @@ LIGHT_GRAPH = {
 
 
 # DEFAULT STYLESHEET AND SETTINGS
-def _get_style_sheet_(background="", text="", frame="", hover="", button=""):
+def _get_style_sheet_(bg="", bg_lighter="", text="", text_button=""):
     """
     Returns a string representing the style sheet.
 
@@ -51,26 +49,37 @@ def _get_style_sheet_(background="", text="", frame="", hover="", button=""):
     """
 
     try:
-        return (
-            "QWidget {\n"
-            f"  background: {background}; color: {text}; font-size: 24pt;"
-            "\n}\n"
-            "QFrame {\n"
-            f"  background: {frame}; border: 1px solid {text}; border-radius: 5;"
-            "\n}\n"
-            "QPushButton, QComboBox {\n"
-            f"  background: {button}; font-size: 16pt; border-radius: 5;"
-            "\n}\n"
-            "QPushButton::hover, QComboBox::hover {\n"
-            f"	background: {hover};"
-            "\n}\n"
-            "QLabel, QRadioButton {\n"
-            "	background: transparent; border: none;"
-            "\n}\n"
-            'QFrame[frameShape="4"] {\n'
-            f"    background-color: {text}; border-color: {text};"
-            "\n}"
-        )
+        return f"""QWidget {{
+                background: qlineargradient(
+                    spread:pad, x1:0, y1:0, x2:1, y2:1,
+                    stop:0 {bg}, stop:0.807107 {bg_lighter}
+                );
+                color: {text}; font-size: 24pt;
+                font-weight: bold; font-family: "Inconsolata Nerd Font"
+            }}
+            QPushButton, QComboBox {{
+                background: transparent; font-size: 25pt; border-radius: 5;
+                padding: 8px; text-align: left; color: {text_button}
+            }}
+            QPushButton::hover, QComboBox::hover, QPushButton::focus, QComboBox::focus {{
+                background: transparent; color: {text}; outline: none;
+            }}
+            QComboBox::down-arrow {{
+                background: transparent;
+            }}
+            QComboBox::item {{
+                background: {bg_lighter};
+            }}
+            QComboBox::item:selected {{
+                color: {text};
+            }}
+            QLabel, QRadioButton {{
+                background: transparent; border: none;
+            }}
+            #labelMainMenu {{
+            font-size: 50pt;
+            }}"""
+
     except NameError as e:
         print(e)
         raise NameError(

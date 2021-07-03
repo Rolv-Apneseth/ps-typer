@@ -200,9 +200,6 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     def update_highscores(self) -> None:
         self.today_wpm, self.all_time_wpm = self.highscore.get_wpm()
 
-        self.labelTodayScore.setText(f"{self.today_wpm} WPM")
-        self.labelAlltimeScore.setText(f"{self.all_time_wpm} WPM")
-
     def exists_settings_file(self) -> bool:
         """Returns boolean value representing whether a saved settings file exists."""
 
