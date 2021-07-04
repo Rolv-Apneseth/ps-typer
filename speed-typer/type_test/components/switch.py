@@ -1,8 +1,10 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import pyqtProperty
+from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QEasingCurve, QPropertyAnimation, pyqtProperty
+from PyQt5.QtGui import QColor, QPainter
+from PyQt5.QtWidgets import QCheckBox
 
 
-class Switch(QtWidgets.QCheckBox):
+class Switch(QCheckBox):
     """A custom toggle switch widget which inherits from QCheckBox."""
 
     def __init__(
@@ -10,23 +12,24 @@ class Switch(QtWidgets.QCheckBox):
         bg_colour="#777777",
         circle_colour="#DDDDDD",
         active_bg_colour="#00BCFF",
-        animation_curve=QtCore.QEasingCurve.InCurve,
+        animation_curve=QEasingCurve.InCurve,
         animation_duration=150,
     ):
 
         super().__init__()
 
-        self._bg_colour = bg_colour
-        self._circle_colour = circle_colour
-        self._active_bg_colour = active_bg_colour
+        # Colours
+        self._active_bg_colour = QColor(active_bg_colour)
+        self._bg_colour = QColor(bg_colour)
+        self._circle_colour = QColor(circle_colour)
 
         # Size and Cursor
         self.setFixedSize(60, 28)
-        self.setCursor(QtCore.Qt.PointingHandCursor)
+        self.setCursor(Qt.PointingHandCursor)
 
         # Animation
         self._circle_position = 3
-        self.animation = QtCore.QPropertyAnimation(self, b"circle_position", self)
+        self.animation = QPropertyAnimation(self, b"circle_position", self)
         self.animation.setEasingCurve(animation_curve)
         self.animation.setDuration(animation_duration)
 
@@ -55,22 +58,23 @@ class Switch(QtWidgets.QCheckBox):
         return self.contentsRect().contains(pos)
 
     def _paint(self, painter, colour):
+        """Helper method for self.PaintEvent()."""
         width = self.width()
         height = self.height()
         half_height = height / 2
 
         # Draw BG
-        painter.setBrush(QtGui.QColor(colour))
+        painter.setBrush(colour)
         painter.drawRoundedRect(0, 0, width, height, half_height, half_height)
 
         # Draw circle
-        painter.setBrush(QtGui.QColor(self._circle_colour))
+        painter.setBrush(self._circle_colour)
         painter.drawEllipse(self._circle_position, 3, 22, 22)
 
     def paintEvent(self, e):
-        painter = QtGui.QPainter(self)
-        painter.setRenderHint(QtGui.QPainter.Antialiasing)
-        painter.setPen(QtCore.Qt.NoPen)
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setPen(Qt.NoPen)
 
         if self.isChecked():
             self._paint(painter, self._active_bg_colour)
