@@ -10,8 +10,8 @@ class Switch(QCheckBox):
     def __init__(
         self,
         bg_colour="#777777",
-        circle_colour="#DDDDDD",
         active_bg_colour="#00BCFF",
+        circle_colour="#DDDDDD",
         animation_curve=QEasingCurve.InCurve,
         animation_duration=150,
     ):
@@ -22,6 +22,7 @@ class Switch(QCheckBox):
         self._active_bg_colour = QColor(active_bg_colour)
         self._bg_colour = QColor(bg_colour)
         self._circle_colour = QColor(circle_colour)
+        self._focused_circle_colour = self._circle_colour.lighter(120)
 
         # Size and Cursor
         self.setFixedSize(60, 28)
@@ -35,10 +36,13 @@ class Switch(QCheckBox):
 
         self.stateChanged.connect(self.start_transition)
 
+        # Focus default value
+        self._is_focused = False
+
     # Position property for animation
     @pyqtProperty(float)
     def circle_position(self):
-        return self._circle_position
+        return self._circle_positionself._circle_colour
 
     @circle_position.setter
     def circle_position(self, pos):
@@ -57,18 +61,36 @@ class Switch(QCheckBox):
     def hitButton(self, pos):
         return self.contentsRect().contains(pos)
 
-    def _paint(self, painter, colour):
+    # FOCUS
+    def focusInEvent(self, event):
+        super().focusInEvent(event)
+        self._is_focused = True
+
+    def focusOutEvent(self, event):
+        super().focusOutEvent(event)
+        self._is_focused = False
+
+    def isFocused(self):
+        """
+        Convenience helper method, so focus can be checked for in the same way as
+        self.isChecked() operates.
+        """
+
+        return self._is_focused
+
+    # PAINT
+    def _paint(self, painter, bg_colour, circle_colour):
         """Helper method for self.PaintEvent()."""
         width = self.width()
         height = self.height()
         half_height = height / 2
 
         # Draw BG
-        painter.setBrush(colour)
+        painter.setBrush(bg_colour)
         painter.drawRoundedRect(0, 0, width, height, half_height, half_height)
 
         # Draw circle
-        painter.setBrush(self._circle_colour)
+        painter.setBrush(circle_colour)
         painter.drawEllipse(self._circle_position, 3, 22, 22)
 
     def paintEvent(self, e):
@@ -76,9 +98,12 @@ class Switch(QCheckBox):
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setPen(Qt.NoPen)
 
-        if self.isChecked():
-            self._paint(painter, self._active_bg_colour)
-        else:
-            self._paint(painter, self._bg_colour)
+        bg_colour = self._active_bg_colour if self.isChecked() else self._bg_colour
+
+        circle_colour = (
+            self._focused_circle_colour if self.isFocused() else self._circle_colour
+        )
+
+        self._paint(painter, bg_colour, circle_colour)
 
         painter.end()
