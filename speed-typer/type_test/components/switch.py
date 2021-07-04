@@ -42,7 +42,7 @@ class Switch(QCheckBox):
     # Position property for animation
     @pyqtProperty(float)
     def circle_position(self):
-        return self._circle_positionself._circle_colour
+        return self._circle_position
 
     @circle_position.setter
     def circle_position(self, pos):
