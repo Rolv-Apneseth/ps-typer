@@ -213,7 +213,7 @@
         <enum>Qt::NoFocus</enum>
        </property>
        <property name="text">
-        <string>Main Menu</string>
+        <string>Back</string>
        </property>
        <property name="autoDefault">
         <bool>false</bool>

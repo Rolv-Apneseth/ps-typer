@@ -132,7 +132,7 @@ class Ui_typingWindow(object):
         typingWindow.setWindowTitle(_translate("typingWindow", "Typing window"))
         self.labelTitle.setText(_translate("typingWindow", "Mode"))
         self.labelMainText.setText(_translate("typingWindow", "Random text to type out blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah"))
-        self.buttonMainMenu.setText(_translate("typingWindow", "Main Menu"))
+        self.buttonMainMenu.setText(_translate("typingWindow", "Back"))
         self.buttonRestart.setText(_translate("typingWindow", "Restart"))
         self.buttonNewText.setText(_translate("typingWindow", "New Text"))
         self.labelTime.setText(_translate("typingWindow", "1000"))

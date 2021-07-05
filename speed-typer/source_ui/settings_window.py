@@ -131,7 +131,7 @@ class Ui_settingsWindow(object):
         self.labelKeystrokeSounds.setText(_translate("settingsWindow", "Sound Effects"))
         self.label.setText(_translate("settingsWindow", "Keystroke"))
         self.labelDarkMode.setText(_translate("settingsWindow", "Dark Theme"))
-        self.buttonMainMenu.setText(_translate("settingsWindow", "Main Menu"))
+        self.buttonMainMenu.setText(_translate("settingsWindow", "Back"))
         self.buttonApply.setText(_translate("settingsWindow", "Apply"))
 
 
