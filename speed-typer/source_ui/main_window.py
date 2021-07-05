@@ -117,11 +117,22 @@ class Ui_mainWindow(object):
         self.buttonStatistics.setAutoDefault(True)
         self.buttonStatistics.setObjectName("buttonStatistics")
         self.verticalLayout_3.addWidget(self.buttonStatistics)
-        spacerItem6 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem6 = QtWidgets.QSpacerItem(20, 5, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout_3.addItem(spacerItem6)
+        self.buttonExit = QtWidgets.QPushButton(mainWindow)
+        self.buttonExit.setMinimumSize(QtCore.QSize(0, 40))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.buttonExit.setFont(font)
+        self.buttonExit.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.buttonExit.setAutoDefault(True)
+        self.buttonExit.setObjectName("buttonExit")
+        self.verticalLayout_3.addWidget(self.buttonExit)
+        spacerItem7 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem7)
         self.horizontalLayout.addLayout(self.verticalLayout_3)
-        spacerItem7 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem7)
+        spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem8)
 
         self.retranslateUi(mainWindow)
         QtCore.QMetaObject.connectSlotsByName(mainWindow)
@@ -140,6 +151,7 @@ class Ui_mainWindow(object):
         self.comboBoxSelectMode.setItemText(6, _translate("mainWindow", "Random Text: Webtext"))
         self.buttonSettings.setText(_translate("mainWindow", "Settings"))
         self.buttonStatistics.setText(_translate("mainWindow", "Statistics"))
+        self.buttonExit.setText(_translate("mainWindow", "Exit"))
 
 
 if __name__ == "__main__":

@@ -30,6 +30,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.buttonStart.clicked.connect(self.on_clicked_start)
         self.buttonSettings.clicked.connect(self.on_clicked_settings)
         self.buttonStatistics.clicked.connect(self.on_clicked_statistics)
+        self.buttonExit.clicked.connect(QtWidgets.QApplication.instance().quit)
 
         # Initialize highscores handler
         self.highscore = highscores.Highscores()
