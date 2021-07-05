@@ -15,23 +15,19 @@ DARK_COLOURS = dict(
 LIGHT_COLOURS = dict(
     bg="hsl(217, 35%, 82%)",
     bg_lighter="hsl(217, 35%, 86%)",
-    text="hsl(0, 0%, 20%)",
+    text="hsl(0, 0%, 14%)",
     text_button="hsl(0, 0%, 47%)",
 )
 
 # Graph colours
 DARK_GRAPH = dict(
-    background=(20, 20, 20),
-    axes=(235, 235, 235),
-    curve=(0, 170, 0),
-    symbols=(170, 0, 170),
+    axes="#d9d9d9",
+    curve="#136c19",
 )
 
 LIGHT_GRAPH = dict(
-    background=(34, 209, 238),
-    axes=(14, 21, 58),
-    curve=(12, 153, 28),
-    symbols=(238, 63, 34),
+    axes="#000000",
+    curve="#1ca025",
 )
 
 # Colours for custom switch widget
@@ -82,11 +78,24 @@ def _get_style_sheet_(bg="", bg_lighter="", text="", text_button="", **kwargs):
             QComboBox::item:selected {{
                 color: {text};
             }}
-            QLabel, QRadioButton {{
+            QLabel, QRadioButton, QScrollArea, QScrollBar::add-line:vertical,
+            QScrollBar::sub-line:vertical, #graphView {{
                 background: transparent; border: none;
             }}
-            #labelMainMenu, #labelTitle {{
+            QScrollBar {{
+                background: {bg};
+            }}
+            QScrollBar::handle {{
+                background: {text_button}; border: none;
+            }}
+            QScrollBar::handle:pressed {{
+                background: {text};
+            }}
+            #labelMainMenu, #labelTitle, #labelStatistics {{
                 font-size: 50pt;
+            }}
+            #labelDaysAgo {{
+                color: {text_button}
             }}"""
 
     except NameError as e:
