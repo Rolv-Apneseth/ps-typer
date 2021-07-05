@@ -1,47 +1,56 @@
 from PyQt5 import QtWidgets
 
 from source_ui import settings_window
+from .components import Switch
 
 
 # CONSTANTS
-DARK_COLOURS = {
-    "bg": "hsl(217, 90, 20)",
-    "bg_lighter": "hsl(217, 90, 45)",
-    "text": "hsl(0, 0, 205)",
-    "text_button": "hsl(0, 0, 160)",
-}
+DARK_COLOURS = dict(
+    bg="hsl(217, 35%, 15%)",
+    bg_lighter="hsl(217, 35%, 19%)",
+    text="hsl(0, 0%, 85%)",
+    text_button="hsl(0, 0%, 62%)",
+)
 
-LIGHT_COLOURS = {
-    "bg": "hsl(217, 90, 210)",
-    "bg_lighter": "hsl(217, 90, 235)",
-    "text": "hsl(0, 0, 50)",
-    "text_button": "hsl(0, 0, 120)",
-}
-
-# Colours for rich text highlighting
-RICH_TEXT_COLOURS = {
-    True: ["rgb(0, 100, 0)", "rgb(140, 0, 0)"],
-    False: ["rgb(0, 215, 0)", "rgb(230, 0, 0)"],
-}
+LIGHT_COLOURS = dict(
+    bg="hsl(217, 35%, 82%)",
+    bg_lighter="hsl(217, 35%, 86%)",
+    text="hsl(0, 0%, 20%)",
+    text_button="hsl(0, 0%, 47%)",
+)
 
 # Graph colours
-DARK_GRAPH = {
-    "background": (20, 20, 20),
-    "axes": (235, 235, 235),
-    "curve": (0, 170, 0),
-    "symbols": (170, 0, 170),
-}
+DARK_GRAPH = dict(
+    background=(20, 20, 20),
+    axes=(235, 235, 235),
+    curve=(0, 170, 0),
+    symbols=(170, 0, 170),
+)
 
-LIGHT_GRAPH = {
-    "background": (34, 209, 238),
-    "axes": (14, 21, 58),
-    "curve": (12, 153, 28),
-    "symbols": (238, 63, 34),
-}
+LIGHT_GRAPH = dict(
+    background=(34, 209, 238),
+    axes=(14, 21, 58),
+    curve=(12, 153, 28),
+    symbols=(238, 63, 34),
+)
+
+# Colours for custom switch widget
+# Must be hex string for QColor object
+SWITCH_COLOURS = dict(
+    bg_colour="#9e9e9e",
+    circle_colour="#d9d9d9",
+    active_bg_colour="#3381ff",
+)
+
+# Colours for rich text highlighting
+RICH_TEXT_COLOURS = dict(
+    dark=["hsl(124, 70%, 21%)", "hsl(0, 65%, 38%)"],
+    light=["hsl(124, 60%, 45%)", "hsl(0, 80%, 55%)"],
+)
 
 
 # DEFAULT STYLESHEET AND SETTINGS
-def _get_style_sheet_(bg="", bg_lighter="", text="", text_button=""):
+def _get_style_sheet_(bg="", bg_lighter="", text="", text_button="", **kwargs):
     """
     Returns a string representing the style sheet.
 
@@ -77,7 +86,7 @@ def _get_style_sheet_(bg="", bg_lighter="", text="", text_button=""):
                 background: transparent; border: none;
             }}
             #labelMainMenu, #labelTitle {{
-            font-size: 50pt;
+                font-size: 50pt;
             }}"""
 
     except NameError as e:
@@ -96,7 +105,7 @@ DEFAULT_SETTINGS = [
     BASE_STYLE_SHEET,  # Stylesheet for all windows (list)
     True,  # Dark mode (True or False)
     DARK_GRAPH,  # Colours for graph (dict)
-    RICH_TEXT_COLOURS[True],  # Rich text colours (dict[list])
+    RICH_TEXT_COLOURS["dark"],  # Rich text colours (dict[list])
 ]
 
 
@@ -106,20 +115,33 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
 
         self.setupUi(self)
 
+        # Replace placeholder checkboxes with custom toggle switches
+        self.toggleDarkMode = Switch(**SWITCH_COLOURS)
+        self.layoutDarkMode.replaceWidget(self.checkBoxDarkMode, self.toggleDarkMode)
+        self.checkBoxDarkMode.close()
+
+        self.toggleKeystrokeSound = Switch(**SWITCH_COLOURS)
+        self.layoutKeystrokeSounds.replaceWidget(
+            self.checkBoxToggleSounds, self.toggleKeystrokeSound
+        )
+        self.checkBoxToggleSounds.close()
+
     # Helper methods
     def _get_values(self) -> None:
         """Updates all relevant settings into instance variables."""
 
-        self.is_dark_mode = self.radioDarkMode.isChecked()  # False means light mode
+        self.is_dark_mode = self.toggleDarkMode.isChecked()  # False means light mode
 
         self.graph_colours = DARK_GRAPH if self.is_dark_mode else LIGHT_GRAPH
 
         self.rich_text_colours = (
-            RICH_TEXT_COLOURS[True] if self.is_dark_mode else RICH_TEXT_COLOURS[False]
+            RICH_TEXT_COLOURS["dark"]
+            if self.is_dark_mode
+            else RICH_TEXT_COLOURS["light"]
         )
 
         self.play_key_sound = (
-            self.radioKeystrokeOn.isChecked()
+            self.toggleKeystrokeSound.isChecked()
         )  # False means key sound off
 
         self.key_sound = str(
