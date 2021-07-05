@@ -245,6 +245,9 @@
            <height>40</height>
           </size>
          </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string>Main Menu</string>
          </property>
@@ -287,6 +290,9 @@
           <font>
            <pointsize>8</pointsize>
           </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
          </property>
          <property name="text">
           <string>Next</string>
