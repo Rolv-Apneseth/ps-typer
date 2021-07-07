@@ -60,11 +60,11 @@ def _get_style_sheet_(bg="", bg_lighter="", text="", text_button="", **kwargs):
                     stop:0 {bg}, stop:0.807107 {bg_lighter}
                 );
                 color: {text}; font-size: 24pt;
-                font-weight: bold; font-family: "Inconsolata Nerd Font"
+                font-weight: bold; font-family: "Inconsolata Bold";
             }}
             QPushButton, QComboBox {{
                 background: transparent; font-size: 25pt; border-radius: 5;
-                padding: 8px; text-align: left; color: {text_button}
+                padding: 8px; text-align: left; color: {text_button};
             }}
             QPushButton::hover, QComboBox::hover, QPushButton::focus, QComboBox::focus {{
                 background: transparent; color: {text}; outline: none;
@@ -76,7 +76,7 @@ def _get_style_sheet_(bg="", bg_lighter="", text="", text_button="", **kwargs):
                 background: {bg_lighter};
             }}
             QComboBox::item:selected {{
-                color: {text};
+                font-weight: bold; color: {text};
             }}
             QLabel, QRadioButton, QScrollArea, QScrollBar::add-line:vertical,
             QScrollBar::sub-line:vertical, #graphView {{

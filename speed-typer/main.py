@@ -2,7 +2,7 @@ import os
 import json
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QSoundEffect
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFontDatabase
 from pathlib import Path
 
 from source_ui import main_window
@@ -13,6 +13,7 @@ BASE_FOLDER = Path(__file__).parents[0]
 ASSETS_FOLDER = BASE_FOLDER / "assets"
 DATA_FOLDER = BASE_FOLDER / "data"
 ICON_PATH = ASSETS_FOLDER / "icon.png"
+FONT_PATH = ASSETS_FOLDER / "InconsolataBold.ttf"
 SOUND_FOLDER = ASSETS_FOLDER / "sounds"
 SETTINGS_FILE = DATA_FOLDER / "saved_settings.json"
 
@@ -21,29 +22,32 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Multiple inheritance allows us to have the ui and window together so
-        # setupui can be given self in for a window
         self.setupUi(self)
         self.ICON = QIcon(str(ICON_PATH))
         self.setWindowIcon(self.ICON)
 
+        # BUTTONS
         self.buttonStart.clicked.connect(self.on_clicked_start)
         self.buttonSettings.clicked.connect(self.on_clicked_settings)
         self.buttonStatistics.clicked.connect(self.on_clicked_statistics)
         self.buttonExit.clicked.connect(QtWidgets.QApplication.instance().quit)
 
-        # Initialize highscores handler
+        # HIGHSCORES HANDLER
         self.highscore = highscores.Highscores()
         self.update_highscores()
 
-        # Load settings file from data folder if it exists, otherwise load defaults
+        # SETTINGS
         if self.exists_settings_file():
             self.load_settings_from_file()
         else:
             self.settings = settings.DEFAULT_SETTINGS
 
-        # Sound played on keystroke, if sounds are turned on
+        # SOUND
         self.set_key_sound(self.settings[1])
+
+        # FONT
+        self.inconsolata_bold = self.load_custom_font(str(FONT_PATH))
+
         # Stylesheet is set in the main program after instantiation
 
     # Button methods
@@ -126,6 +130,11 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.update_stats_highscores()
 
     # Helper Methods
+    def load_custom_font(self, font: str) -> int:
+        """Adds custom font to QFontDatabase, and returns its corresponding font id."""
+
+        return QFontDatabase.addApplicationFont(font)
+
     def show_window(self, window: QtWidgets.QWidget, fullscreen: bool) -> None:
         """
         Used to show windows, with the option to have them maximised provided.
