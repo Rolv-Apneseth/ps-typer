@@ -110,7 +110,7 @@ BASE_STYLE_SHEET = _get_style_sheet_(**DARK_COLOURS)
 
 DEFAULT_SETTINGS = [
     False,  # Play key sound (True or False)
-    "key_4.wav",  # Name of sound file to play (str)
+    "key_2.wav",  # Name of sound file to play (str)
     BASE_STYLE_SHEET,  # Stylesheet for all windows (list)
     True,  # Dark mode (True or False)
     DARK_GRAPH,  # Colours for graph (dict)
