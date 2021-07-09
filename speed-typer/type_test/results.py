@@ -9,7 +9,6 @@ class ResultsWindow(QtWidgets.QWidget, result_window.Ui_resultWindow):
 
         self.setupUi(self)
 
-        self.buttonNext.setDefault(True)
         self.buttonNext.setFocus()
 
 

@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets
+from PyQt5.QtGui import QColor
 from typing import List
 import pyqtgraph
 import datetime
@@ -9,14 +10,9 @@ from source_ui import stats_window
 
 # CONSTANTS
 AXIS_WIDTH = 1.5
-CURVE_WIDTH = 2
+CURVE_WIDTH = 2.5
+SYMBOL_WIDTH = 7
 GRID_ALPHA = 90
-DEFAULT_COLOURS = {
-    "background": (20, 20, 20),
-    "curve": (0, 170, 0),
-    "axes": (225, 225, 225),
-    "symbols": (170, 0, 170),
-}
 
 
 class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
@@ -25,15 +21,24 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
 
         self.setupUi(self)
 
+    def _get_qcolors(self, colours: dict):
+        """Converts the given dict of colours to a dict of QColor objects."""
+
+        qcolours = dict()
+        for name, colour in colours.items():
+            qcolours[name] = QColor(colour)
+
+        return qcolours
+
     def update_days_ago(self, days_ago: int) -> None:
         """Updates labelDaysAgo with a given number of days."""
 
-        self.labelDaysAgo.setText(f"- Set {str(days_ago)} days ago")
+        self.labelDaysAgo.setText(f"- {str(days_ago)} days ago")
 
-    def set_up_graph(self, data: List[str], colours: dict = DEFAULT_COLOURS) -> None:
+    def set_up_graph(self, data: List[str], colours: dict) -> None:
         """Sets up the graphView wpm over time graph with the given data."""
 
-        self.colours = colours
+        self.colours = self._get_qcolors(colours)
 
         # Set up axes
         self.graphView.setLabel("left", "WPM")
@@ -44,7 +49,7 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
         self.bottom_axis = self.graphView.getAxis("bottom")
 
         # Set the colours for the graph
-        self.graphView.setBackground(background=self.colours["background"])
+        self.graphView.setBackground(None)
         self._set_axes_style(self.colours["axes"])
 
         # Set up curve of wpm against date
@@ -115,7 +120,9 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
             x=self.dates,
             y=self.wpms,
             pen=pyqtgraph.mkPen(color=self.colours["curve"], width=curve_width),
-            symbolBrush=pyqtgraph.mkBrush(color=self.colours["symbols"]),
+            symbolBrush=pyqtgraph.mkBrush(color=self.colours["curve"]),
+            symbolPen=pyqtgraph.mkPen(color=self.colours["curve"]),
+            symbolSize=SYMBOL_WIDTH,
         )
 
 
@@ -130,7 +137,7 @@ class DateAxisItem(pyqtgraph.AxisItem):
         super().__init__(*args, **kwargs)
 
         # Set up label for axis
-        self.setLabel(text="Day Set", units=None)
+        self.setLabel(text="Date Set", units=None)
         self.enableAutoSIPrefix(False)
 
     def _get_string(self, time_stamp: int) -> str:

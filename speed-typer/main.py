@@ -2,7 +2,7 @@ import os
 import json
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QSoundEffect
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFontDatabase
 from pathlib import Path
 
 from source_ui import main_window
@@ -13,6 +13,7 @@ BASE_FOLDER = Path(__file__).parents[0]
 ASSETS_FOLDER = BASE_FOLDER / "assets"
 DATA_FOLDER = BASE_FOLDER / "data"
 ICON_PATH = ASSETS_FOLDER / "icon.png"
+FONT_PATH = ASSETS_FOLDER / "InconsolataBold.ttf"
 SOUND_FOLDER = ASSETS_FOLDER / "sounds"
 SETTINGS_FILE = DATA_FOLDER / "saved_settings.json"
 
@@ -21,43 +22,32 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Multiple inheritance allows us to have the ui and window together so
-        # setupui can be given self in for a window
         self.setupUi(self)
         self.ICON = QIcon(str(ICON_PATH))
         self.setWindowIcon(self.ICON)
 
+        # BUTTONS
         self.buttonStart.clicked.connect(self.on_clicked_start)
         self.buttonSettings.clicked.connect(self.on_clicked_settings)
         self.buttonStatistics.clicked.connect(self.on_clicked_statistics)
+        self.buttonExit.clicked.connect(QtWidgets.QApplication.instance().quit)
 
-        # Initialize highscores handler
+        # HIGHSCORES HANDLER
         self.highscore = highscores.Highscores()
         self.update_highscores()
 
-        # Settings - items: 0. Play key sound
-        #                   1. Name of sound file to play
-        #                   2. Stylesheet for all windows
-        #                   3. Dark mode (True or False)
-        #                   4. Colours for graph (dict)
-        #                   5. Rich text colours (dict[list])
-        #
-        # Load settings file from data folder if it exists, otherwise
-        # set it to default settings
+        # SETTINGS
         if self.exists_settings_file():
             self.load_settings_from_file()
         else:
-            self.settings = [
-                False,
-                "key_4.wav",
-                self.styleSheet(),
-                True,
-                settings.DARK_GRAPH,
-                settings.RICH_TEXT_COLOURS[True],
-            ]
+            self.settings = settings.DEFAULT_SETTINGS
 
-        # Sound played on keystroke, if sounds are turned on
+        # SOUND
         self.set_key_sound(self.settings[1])
+
+        # FONT
+        self.inconsolata_bold = self.load_custom_font(str(FONT_PATH))
+
         # Stylesheet is set in the main program after instantiation
 
     # Button methods
@@ -140,6 +130,11 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.update_stats_highscores()
 
     # Helper Methods
+    def load_custom_font(self, font: str) -> int:
+        """Adds custom font to QFontDatabase, and returns its corresponding font id."""
+
+        return QFontDatabase.addApplicationFont(font)
+
     def show_window(self, window: QtWidgets.QWidget, fullscreen: bool) -> None:
         """
         Used to show windows, with the option to have them maximised provided.
@@ -173,17 +168,13 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         )
         self.settings_window.buttonApply.clicked.connect(self.on_clicked_apply)
 
-        # Sound radio buttons
+        # Keystroke sound toggle
         if self.settings[0]:
-            self.settings_window.radioKeystrokeOn.setChecked(True)
-        else:
-            self.settings_window.radioKeystrokeOff.setChecked(True)
+            self.settings_window.toggleKeystrokeSound.setChecked(True)
 
-        # Mode radio buttons
+        # Dark mode toggle
         if self.settings[3]:
-            self.settings_window.radioDarkMode.setChecked(True)
-        else:
-            self.settings_window.radioLightMode.setChecked(True)
+            self.settings_window.toggleDarkMode.setChecked(True)
 
         self.set_settings_sounds_options()
         self.set_selected_sound_option(self.settings[1])
@@ -214,9 +205,6 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
     def update_highscores(self) -> None:
         self.today_wpm, self.all_time_wpm = self.highscore.get_wpm()
-
-        self.labelTodayScore.setText(f"{self.today_wpm} WPM")
-        self.labelAlltimeScore.setText(f"{self.all_time_wpm} WPM")
 
     def exists_settings_file(self) -> bool:
         """Returns boolean value representing whether a saved settings file exists."""

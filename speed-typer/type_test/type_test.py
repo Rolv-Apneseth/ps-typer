@@ -97,7 +97,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         seconds: float = perf_counter() - self.start_time
 
-        return int(((len(self.text) / 5) / (seconds / 60)) * accuracy / 100)
+        return round(((len(self.text) / 5) / (seconds / 60)) * accuracy / 100)
 
     def _calculate_accuracy(self, input_text: str) -> int:
         """Returns accuracy as an int between 1-100 representing a percentage."""
@@ -174,8 +174,9 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.results_window.setWindowIcon(self.windowIcon())
 
-        self.results_window.labelAccuracy.setText(f"Accuracy: {str(self.accuracy)}%")
-        self.results_window.labelSpeed.setText(f"Speed:    {str(self.wpm)} wpm!")
+        self.results_window.labelAccuracy.setText(f"{str(self.accuracy)}%")
+        self.results_window.labelSpeed.setText(f"{str(self.wpm)} WPM")
+
         self._display_highscore_result()
 
         self.results_window.buttonNext.clicked.connect(self.on_clicked_next)
