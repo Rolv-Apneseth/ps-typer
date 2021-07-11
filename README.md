@@ -2,6 +2,10 @@
 
 A program to test the speed at which you can type. Choose a mode, type out the text and be told your average w.p.m. and your accuracy. The program can also keep track of your daily and all-time high scores. Have a look at the statistics window after a couple of days and see on a graph how you're progressing in terms of wpm.
 
+## Demo
+
+[![Video demo of Speed Typer](http://img.youtube.com/vi/powSJJrZJtk/0.jpg)](http://www.youtube.com/watch?v=powSJJrZJtk "Portfolio Project - Speed Typer")
+
 ## What I learned
 
 - Using issues, branches and pull requests to keep track of work on the project
