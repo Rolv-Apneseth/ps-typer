@@ -13,8 +13,7 @@ A Python program used for practicing typing and keeping track of your progress.
 - Making the GUI resizeable and configurable (for example light and dark modes are available)
 - Intricate use of OOP to handle the different windows and functionality for each window
 - Plotting data with pyqtgraph, and styling of the graph so it has the desired layout and appearance
-- Using .pkl and .json files to save data and load it when the program is run, for saving of high scores and remembering user settings.
-- Rich text manipulation so the text typed is coloured based on whether it is correct/incorrect
+- Saving data to and loading data from local files, for saving of high scores and remembering user settings
 
 ## Installation
 
@@ -43,7 +42,7 @@ Select one of the following options to choose what you will be typing out:
 
 - Facts
 
-- Famous Novel Excerpts
+- Famous Literature Excerpts
 
 - Famous Quotes
 
