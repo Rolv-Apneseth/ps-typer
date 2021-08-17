@@ -1,6 +1,6 @@
 # speed-typer
 
-A program to test the speed at which you can type. Choose a mode, type out the text and be told your average w.p.m. and your accuracy. The program can also keep track of your daily and all-time high scores. Have a look at the statistics window after a couple of days and see on a graph how you're progressing in terms of wpm.
+A Python program used for practicing typing and keeping track of your progress.
 
 ## Demo
 
