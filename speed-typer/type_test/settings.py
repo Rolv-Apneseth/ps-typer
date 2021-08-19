@@ -108,14 +108,19 @@ def _get_style_sheet_(bg="", bg_lighter="", text="", text_button="", **kwargs):
 
 BASE_STYLE_SHEET = _get_style_sheet_(**DARK_COLOURS)
 
-DEFAULT_SETTINGS = [
-    False,  # Play key sound (True or False)
-    "key_2.wav",  # Name of sound file to play (str)
-    BASE_STYLE_SHEET,  # Stylesheet for all windows (list)
-    True,  # Dark mode (True or False)
-    DARK_GRAPH,  # Colours for graph (dict)
-    RICH_TEXT_COLOURS["dark"],  # Rich text colours (dict[list])
-]
+DEFAULT_SETTINGS = dict(
+    play_sound=False,
+    sound_filename="key_2.wav",
+    stylesheet=BASE_STYLE_SHEET,
+    dark_mode=True,
+    graph_colours=DARK_GRAPH,
+    rich_text_colours=RICH_TEXT_COLOURS["dark"],
+)
+
+DEFAULT_DATA = dict(
+    settings=DEFAULT_SETTINGS,
+    selected_mode=0,
+)
 
 
 class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
@@ -172,19 +177,19 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
         return _get_style_sheet_(**colours)
 
     # Public Method
-    def get_settings(self) -> list:
+    def get_settings(self) -> dict:
         """Returns a list of settings variables which control various attributes."""
 
         self._get_values()
 
-        return [
-            self.play_key_sound,
-            self.key_sound,
-            self.style_sheet,
-            self.is_dark_mode,
-            self.graph_colours,
-            self.rich_text_colours,
-        ]
+        return dict(
+            play_sound=self.play_key_sound,
+            sound_filename=self.key_sound,
+            stylesheet=self.style_sheet,
+            dark_mode=self.is_dark_mode,
+            graph_colours=self.graph_colours,
+            rich_text_colours=self.rich_text_colours,
+        )
 
 
 if __name__ == "__main__":
