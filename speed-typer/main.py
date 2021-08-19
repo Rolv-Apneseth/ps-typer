@@ -43,11 +43,10 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         else:
             self.data = settings.DEFAULT_DATA
 
-        self.settings = self.data.get("settings", settings.DEFAULT_SETTINGS)
         self.comboBoxSelectMode.setCurrentIndex(self.data.get("selected_mode", 0))
 
         # SOUND
-        self.set_key_sound(self.settings[1])
+        self.set_key_sound(self.get_setting("sound_filename"))
 
         # FONT
         self.inconsolata_bold = self.load_custom_font(str(FONT_PATH))
@@ -59,8 +58,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.make_mode_window(str(self.comboBoxSelectMode.currentText()))
 
         self.show_window(self.mode_window, self.isMaximized())
-        self.mode_window.setStyleSheet(self.settings[2])
-        self.mode_window.set_colours(self.settings[5])
+        self.mode_window.setStyleSheet(self.get_setting("stylesheet"))
+        self.mode_window.set_colours(self.get_setting("rich_text_colours"))
 
         self.hide()
 
@@ -76,31 +75,30 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.make_settings_window()
 
         self.show_window(self.settings_window, self.isMaximized())
-        self.settings_window.setStyleSheet(self.settings[2])
+        self.settings_window.setStyleSheet(self.get_setting("stylesheet"))
 
         self.hide()
 
     def on_clicked_apply(self) -> None:
         """Executed when apply button in settings window is clicked."""
 
-        self.settings = self.settings_window.get_settings()
+        self.data["settings"] = self.settings_window.get_settings()
 
         # Key sound
-        self.set_key_sound(self.settings[1])
+        self.set_key_sound(self.get_setting("sound_filename"))
 
         # Stylesheet
-        self.settings_window.setStyleSheet(self.settings[2])
-        self.setStyleSheet(self.settings[2])
+        self.settings_window.setStyleSheet(self.get_setting("stylesheet"))
+        self.setStyleSheet(self.get_setting("stylesheet"))
 
-        # Save settings
-        self.data["settings"] = self.settings
+        # Save
         self.save_data_to_file()
 
     def on_clicked_statistics(self) -> None:
         self.make_stats_window()
 
         self.show_window(self.stats_window, self.isMaximized())
-        self.stats_window.setStyleSheet(self.settings[2])
+        self.stats_window.setStyleSheet(self.get_setting("stylesheet"))
 
         self.hide()
 
@@ -144,6 +142,15 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.save_data_to_file()
 
     # Helper Methods
+    def get_setting(self, setting: str):
+        """
+        Convenience method for getting a specific setting from self.data, or a
+        default value.
+        """
+
+        return self.data["settings"].get(
+            setting, settings.DEFAULT_SETTINGS.get(setting)
+        )
 
     def load_custom_font(self, font: str) -> int:
         """Adds custom font to QFontDatabase, and returns its corresponding font id."""
@@ -169,8 +176,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
             lambda: self.on_clicked_main_menu(self.mode_window)
         )
 
-        # Sets key sound if option is set to True in self.settings
-        if self.settings[0]:
+        # Sets key sound if enabled
+        if self.get_setting("play_sound"):
             self.mode_window.set_key_sound(self.key_sound)
 
     def make_settings_window(self) -> None:
@@ -184,15 +191,15 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.settings_window.buttonApply.clicked.connect(self.on_clicked_apply)
 
         # Keystroke sound toggle
-        if self.settings[0]:
+        if self.get_setting("play_sound"):
             self.settings_window.toggleKeystrokeSound.setChecked(True)
 
         # Dark mode toggle
-        if self.settings[3]:
+        if self.get_setting("dark_mode"):
             self.settings_window.toggleDarkMode.setChecked(True)
 
         self.set_settings_sounds_options()
-        self.set_selected_sound_option(self.settings[1])
+        self.set_selected_sound_option(self.get_setting("sound_filename"))
 
     def make_stats_window(self) -> None:
         self.stats_window = statistics.StatsWindow()
@@ -205,7 +212,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         # Set up graph
         self.stats_window.set_up_graph(
-            self.highscore.get_stats_dailies(), self.settings[4]
+            self.highscore.get_stats_dailies(), self.get_setting("graph_colours")
         )
 
         # Connect buttons
@@ -305,6 +312,6 @@ if __name__ == "__main__":
     window.show()
 
     # Stylesheet must be changed after window is shown
-    window.setStyleSheet(window.settings[2])
+    window.setStyleSheet(window.get_setting("stylesheet"))
 
     app.exec_()
