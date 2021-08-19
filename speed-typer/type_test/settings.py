@@ -109,13 +109,18 @@ def _get_style_sheet_(bg="", bg_lighter="", text="", text_button="", **kwargs):
 BASE_STYLE_SHEET = _get_style_sheet_(**DARK_COLOURS)
 
 DEFAULT_SETTINGS = [
-    False,  # Play key sound (True or False)
+    False,  # Play key sound (bool)
     "key_2.wav",  # Name of sound file to play (str)
     BASE_STYLE_SHEET,  # Stylesheet for all windows (list)
-    True,  # Dark mode (True or False)
+    True,  # Dark mode (bool)
     DARK_GRAPH,  # Colours for graph (dict)
     RICH_TEXT_COLOURS["dark"],  # Rich text colours (dict[list])
 ]
+
+DEFAULT_DATA = dict(
+    settings=DEFAULT_SETTINGS,
+    selected_mode=0,
+)
 
 
 class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):

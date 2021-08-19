@@ -1,5 +1,5 @@
 import os
-import json
+import pickle
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QSoundEffect
 from PyQt5.QtGui import QIcon, QFontDatabase
@@ -15,7 +15,7 @@ DATA_FOLDER = BASE_FOLDER / "data"
 ICON_PATH = ASSETS_FOLDER / "icon.png"
 FONT_PATH = ASSETS_FOLDER / "InconsolataBold.ttf"
 SOUND_FOLDER = ASSETS_FOLDER / "sounds"
-SETTINGS_FILE = DATA_FOLDER / "saved_settings.json"
+DATA_FILE = DATA_FOLDER / "data.pkl"
 
 
 class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
@@ -31,16 +31,20 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.buttonSettings.clicked.connect(self.on_clicked_settings)
         self.buttonStatistics.clicked.connect(self.on_clicked_statistics)
         self.buttonExit.clicked.connect(QtWidgets.QApplication.instance().quit)
+        self.comboBoxSelectMode.currentIndexChanged.connect(self.on_change_mode)
 
         # HIGHSCORES HANDLER
         self.highscore = highscores.Highscores()
         self.update_highscores()
 
-        # SETTINGS
-        if self.exists_settings_file():
-            self.load_settings_from_file()
+        # DATA AND SETTINGS
+        if DATA_FILE.is_file():
+            self.load_data_from_file()
         else:
-            self.settings = settings.DEFAULT_SETTINGS
+            self.data = settings.DEFAULT_DATA
+
+        self.settings = self.data.get("settings", settings.DEFAULT_SETTINGS)
+        self.comboBoxSelectMode.setCurrentIndex(self.data.get("selected_mode", 0))
 
         # SOUND
         self.set_key_sound(self.settings[1])
@@ -89,7 +93,8 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.setStyleSheet(self.settings[2])
 
         # Save settings
-        self.save_settings_to_file()
+        self.data["settings"] = self.settings
+        self.save_data_to_file()
 
     def on_clicked_statistics(self) -> None:
         self.make_stats_window()
@@ -129,7 +134,17 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.update_highscores()
         self.update_stats_highscores()
 
+    def on_change_mode(self):
+        """
+        Saves the selected mode to self.data and pickles self.data so the selection is
+        remembered.
+        """
+
+        self.data["selected_mode"] = self.comboBoxSelectMode.currentIndex()
+        self.save_data_to_file()
+
     # Helper Methods
+
     def load_custom_font(self, font: str) -> int:
         """Adds custom font to QFontDatabase, and returns its corresponding font id."""
 
@@ -206,31 +221,17 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
     def update_highscores(self) -> None:
         self.today_wpm, self.all_time_wpm = self.highscore.get_wpm()
 
-    def exists_settings_file(self) -> bool:
-        """Returns boolean value representing whether a saved settings file exists."""
+    def save_data_to_file(self) -> None:
+        """Pickles self.data into a file in the data folder."""
 
-        return os.path.exists(SETTINGS_FILE)
+        with open(DATA_FILE, "wb") as data_pickle:
+            pickle.dump(self.data, data_pickle)
 
-    def delete_settings(self) -> None:
-        """Deletes saved settings file in the data folder."""
+    def load_data_from_file(self) -> None:
+        """Sets self.data to the values saved on the data.pkl file."""
 
-        os.remove(SETTINGS_FILE)
-
-    def save_settings_to_file(self) -> None:
-        """Saves self.settings into a .json file in the data folder."""
-
-        # Deletes file if it already exists
-        if self.exists_settings_file():
-            self.delete_settings()
-
-        with open(SETTINGS_FILE, "w") as settings_file:
-            settings_file.write(json.dumps(self.settings))
-
-    def load_settings_from_file(self) -> None:
-        """Sets self.settings to the values saved on the saved settings file."""
-
-        with open(SETTINGS_FILE, "r") as settings_file:
-            self.settings = json.load(settings_file)
+        with open(DATA_FILE, "rb") as data_pickle:
+            self.data = pickle.load(data_pickle)
 
     def get_sounds_list(self) -> list:
         """Returns a list of the sound files present in the sounds folder."""
