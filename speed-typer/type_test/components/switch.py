@@ -40,9 +40,9 @@ class Switch(QCheckBox):
         self._is_focused = False
 
     # Position property for animation
-    @pyqtProperty(float)
+    @pyqtProperty(int)
     def circle_position(self):
-        return self._circle_position
+        return round(self._circle_position)
 
     @circle_position.setter
     def circle_position(self, pos):
@@ -83,7 +83,7 @@ class Switch(QCheckBox):
         """Helper method for self.PaintEvent()."""
         width = self.width()
         height = self.height()
-        half_height = height / 2
+        half_height = height // 2
 
         # Draw BG
         painter.setBrush(bg_colour)
