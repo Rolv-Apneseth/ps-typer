@@ -1,6 +1,6 @@
-# speed-typer
+# PS Typer
 
-A Python program used for practicing typing and keeping track of your progress.
+A Python program with a PyQt5 UI used for practicing your typing skills and keeping track of your progress.
 
 ## Demo
 
@@ -8,7 +8,7 @@ A Python program used for practicing typing and keeping track of your progress.
 
 ## What I learned
 
-- Using issues, branches and pull requests to keep track of work on the project
+- Using issues, branches and pull requests to keep track of work on a project
 - Building GUIs using PyQt5 and Qt Designer
 - Making the GUI resizeable and configurable (for example light and dark modes are available)
 - Intricate use of OOP to handle the different windows and functionality for each window
@@ -19,12 +19,14 @@ A Python program used for practicing typing and keeping track of your progress.
 
 1. Requires python 3.6+ to run. Python can be installed from [here](https://www.python.org/downloads/)
 2. To download, click on 'Code' to the top right, then download as a zip file. You can unzip using your preferred program.
-   - You can also clone the repository using: `git clone https://github.com/Rolv-Apneseth/speed-typer.git`
+   - You can also clone the repository using: `git clone https://github.com/Rolv-Apneseth/PS-Typer.git`
 3. Install the requirements for the program.
    - In your terminal, navigate to the cloned directory and run: `python3 -m pip install -r requirements.txt`
 4. To run the actual program, navigate further into the speed-typer folder and run: `python3 main.py`
 
-Alternatively to steps 3 and 4, you can navigate to the bin folder and run one of the scripts included there, i.e. if you're on windows, double-click the `run_program.bat` file. This will create a virtual environment, install all required dependencies to that virtual environment, then run `main.py`. Note that this will of course take a while the first time it is run.
+Alternatively to steps 3 and 4, you can navigate to the bin folder and run one of the scripts included there, i.e. if you're on windows, double-click the `run_program.bat` file, or on Linux, navigate to this project's bin directory and run `./run_program.sh`. 
+
+This will create a virtual environment, install all required dependencies to that virtual environment, then run `main.py`. Note that while this may take a while the very first time it is run, it can still be used as the standard way of running this program as all subsequent runs should be almost instant as all dependencies will already be installed.
 
 ## Usage
 
