@@ -23,7 +23,7 @@
 # Note that this will not work with symlinks
 BIN_FOLDER="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 PYTHON3="$BIN_FOLDER/python3"
-PIP3="$BIN_FOLDER/pip3"
+PIP3="$PYTHON3 -m pip"
 
 CONTAINING_FOLDER="$(dirname "$BIN_FOLDER")"
 REQUIREMENTS="$CONTAINING_FOLDER/requirements.txt"
@@ -35,13 +35,13 @@ if [ ! -f "$PYTHON3" ]; then
     python3 -m venv "$CONTAINING_FOLDER"
     printf "\nVirtual environment created\n\n"
 
-    "$PIP3" install --upgrade pip
+    "$PYTHON3" -m pip install --upgrade pip
     printf "\nPip upgraded\n"
 fi
 
 # Install requirements if they are not already installed
-if [[ ! "$("$PIP3" list)" ]]; then
-    "$PIP3" install -r "$REQUIREMENTS"
+if ! "$PYTHON3" -m pip list | grep "PyQt5"; then
+    "$PYTHON3" -m pip install -r "$REQUIREMENTS"
     printf "\nDependencies installed\n"
 fi
 
