@@ -5,9 +5,9 @@
 # 
 # Description:
 #   This is a script used to:
-#       1. Initialise a virtual environment for speed-typer using
+#       1. Initialise a virtual environment for PS Typer using
 #          venv
-#       2. Install any dependencies speed-typer needs into this
+#       2. Install any dependencies PS Typer needs into this
 #          virtual environment
 #       3. Launch the program with the virtual environment
 #
@@ -23,11 +23,10 @@
 # Note that this will not work with symlinks
 BIN_FOLDER="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 PYTHON3="$BIN_FOLDER/python3"
-PIP3="$PYTHON3 -m pip"
 
 CONTAINING_FOLDER="$(dirname "$BIN_FOLDER")"
 REQUIREMENTS="$CONTAINING_FOLDER/requirements.txt"
-MAIN="$CONTAINING_FOLDER/speed-typer/main.py"
+MAIN="$CONTAINING_FOLDER/PS-Typer/main.py"
 
 # SETUP
 # Create venv if one does not exist. Also upgrades venv pip version
