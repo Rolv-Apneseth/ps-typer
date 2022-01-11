@@ -1,10 +1,8 @@
 # ps-typer
 
+![ps-typer demo gif](https://raw.githubusercontent.com/Rolv-Apneseth/Rolv-Apneseth.github.io/main/assets/images/gifs/ps-typer.gif)
+
 A Python program with a PyQt5 UI used for practicing your typing skills and keeping track of your progress.
-
-## Demo
-
-[![Video demo of Speed Typer](http://img.youtube.com/vi/powSJJrZJtk/0.jpg)](http://www.youtube.com/watch?v=powSJJrZJtk "Portfolio Project - Speed Typer")
 
 ## What I learned
 
