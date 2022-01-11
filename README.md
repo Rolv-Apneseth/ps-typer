@@ -6,6 +6,16 @@
 
 A Python program built on the PyQt5 GUI framework, used for practicing your typing skills and keeping track of your progress.
 
+## Index
+
+- [Dependencies](#dependencies)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Modes](#modes)
+- [W.P.M.](#wpm)
+- [Statistics](#statistics)
+- [License](#license)
+
 ## Dependencies
 
 - [Python3](https://www.python.org/downloads/) (v3.6 or later)
@@ -101,3 +111,7 @@ Accuracy is taken into account to incentivise you to type all the text out corre
 High scores can be set both daily or as an all-time high score. Both values are displayed in the main menu and saved for future sessions.
 
 The program will save all of your daily high scores. This data is then visualised in the statistics window using a graph of wpm over time so you can get a sense of how you're progressing.
+
+## License
+
+[MIT](https://github.com/Rolv-Apneseth/ps-typer/blob/master/LICENSE)
