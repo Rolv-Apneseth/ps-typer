@@ -26,7 +26,7 @@ PYTHON3="$BIN_FOLDER/python3"
 
 CONTAINING_FOLDER="$(dirname "$BIN_FOLDER")"
 REQUIREMENTS="$CONTAINING_FOLDER/requirements.txt"
-MAIN="$CONTAINING_FOLDER/PS-Typer/main.py"
+MAIN="$CONTAINING_FOLDER/ps-typer/main.py"
 
 # SETUP
 # Create venv if one does not exist. Also upgrades venv pip version
