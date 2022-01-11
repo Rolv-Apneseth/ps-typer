@@ -6,15 +6,13 @@ from .components import Switch
 
 # CONSTANTS
 DARK_COLOURS = dict(
-    bg="hsl(217, 35%, 15%)",
-    bg_lighter="hsl(217, 35%, 19%)",
+    bg="hsl(217, 35%, 17%)",
     text="hsl(0, 0%, 85%)",
     text_button="hsl(0, 0%, 62%)",
 )
 
 LIGHT_COLOURS = dict(
-    bg="hsl(217, 35%, 82%)",
-    bg_lighter="hsl(217, 35%, 86%)",
+    bg="hsl(217, 35%, 84%)",
     text="hsl(0, 0%, 14%)",
     text_button="hsl(0, 0%, 47%)",
 )
@@ -55,10 +53,7 @@ def _get_style_sheet_(bg="", bg_lighter="", text="", text_button="", **kwargs):
 
     try:
         return f"""QWidget {{
-                background: qlineargradient(
-                    spread:pad, x1:0, y1:0, x2:1, y2:1,
-                    stop:0 {bg}, stop:0.807107 {bg_lighter}
-                );
+                background: {bg};
                 color: {text}; font-size: 24pt;
                 font-weight: bold; font-family: "Inconsolata Bold";
             }}
