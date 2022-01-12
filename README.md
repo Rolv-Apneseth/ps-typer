@@ -1,6 +1,6 @@
 # ps-typer
 
-![ps-typer demo gif](https://raw.githubusercontent.com/Rolv-Apneseth/Rolv-Apneseth.github.io/main/assets/images/gifs/ps-typer.gif)
+![Demo aPNG](https://github.com/Rolv-Apneseth/Rolv-Apneseth.github.io/blob/7667f84775a622eeb7d090885661acaff59c16de/assets/images/animated_images/ps-typer.png)
 
 ## Description
 
