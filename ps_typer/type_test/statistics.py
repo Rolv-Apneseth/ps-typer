@@ -1,12 +1,13 @@
-from PyQt5 import QtWidgets
-from PyQt5.QtGui import QColor
-from typing import List
-import pyqtgraph
 import datetime
 import time
 from calendar import month_abbr
+from typing import List
 
-from source_ui import stats_window
+import pyqtgraph
+from PyQt5 import QtWidgets
+from PyQt5.QtGui import QColor
+
+from ps_typer.source_ui import stats_window
 
 # CONSTANTS
 AXIS_WIDTH = 1.5

@@ -1,12 +1,13 @@
 import os
 import pickle
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtMultimedia import QSoundEffect
-from PyQt5.QtGui import QIcon, QFontDatabase
 from pathlib import Path
 
-from source_ui import main_window
-from type_test import highscores, settings, statistics, type_test
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtGui import QFontDatabase, QIcon
+from PyQt5.QtMultimedia import QSoundEffect
+
+from ps_typer.source_ui import main_window
+from ps_typer.type_test import highscores, settings, statistics, type_test
 
 # PATHS
 BASE_FOLDER = Path(__file__).parents[0]
@@ -148,9 +149,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         default value.
         """
 
-        return self.data["settings"].get(
-            setting, settings.DEFAULT_SETTINGS.get(setting)
-        )
+        return self.data["settings"].get(setting, settings.DEFAULT_SETTINGS.get(setting))
 
     def load_custom_font(self, font: str) -> int:
         """Adds custom font to QFontDatabase, and returns its corresponding font id."""
@@ -305,7 +304,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.stats_window.update_days_ago(self.highscore.days_since_set())
 
 
-if __name__ == "__main__":
+def main():
     app = QtWidgets.QApplication([])
 
     window = MainWindow()
@@ -315,3 +314,7 @@ if __name__ == "__main__":
     window.setStyleSheet(window.get_setting("stylesheet"))
 
     app.exec_()
+
+
+if __name__ == "__main__":
+    main()

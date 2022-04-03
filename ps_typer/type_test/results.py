@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
 
-from source_ui import result_window
+from ps_typer.source_ui import result_window
 
 
 class ResultsWindow(QtWidgets.QWidget, result_window.Ui_resultWindow):
