@@ -22,7 +22,7 @@ jobs:
                   poetry install -v
             - name: Build with poetry
               run: |
-                  poetry publish --build
+                  poetry build
             - name: Publish to PyPi
               uses: pypa/gh-action-pypi-publish@master
               with:
