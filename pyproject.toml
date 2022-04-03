@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "ps-typer"
-version = "0.1.1"
+version = "0.1.2"
 readme="README.md"
-description = "A Python program with a PyQt5 UI used for practicing your typing skills and keeping track of your progress"
+description = "A Python program built on the PyQt5 GUI framework, used for practicing your typing skills and keeping track of your progress."
 authors = ["Rolv-Apneseth <rolv.apneseth@gmail.com>"]
 homepage = "https://github.com/Rolv-Apneseth/ps-typer"
 license = "MIT"
