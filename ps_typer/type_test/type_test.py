@@ -1,10 +1,11 @@
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtMultimedia import QSoundEffect
 from time import perf_counter
 from typing import List
 
-from source_ui import typing_window
-from type_test import texts, results, highscores
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtMultimedia import QSoundEffect
+
+from ps_typer.source_ui import typing_window
+from ps_typer.type_test import highscores, results, texts
 
 # Constants
 DEFAULT_COLOURS = ["rgb(0, 100, 0)", "rgb(100, 0, 0)"]
