@@ -1,6 +1,14 @@
 # ps-typer
 
-![PS-Typer](https://user-images.githubusercontent.com/69486699/161395389-247c75fd-c2b6-4a63-bf03-258c5046b1be.png)
+![Linux](https://img.shields.io/badge/-Linux-grey?logo=linux)
+![OSX](https://img.shields.io/badge/-OSX-black?logo=apple)
+![Windows](https://img.shields.io/badge/-Windows-blue?logo=windows)
+![Python](https://img.shields.io/badge/Python-v3.9%5E-green?logo=python)
+![Version](https://img.shields.io/github/v/tag/rolv-apneseth/ps-typer?label=version)
+[![PyPi](https://img.shields.io/pypi/v/daily_hn?label=pypi)](https://pypi.org/project/ps-typer/)
+![Black](https://img.shields.io/badge/code%20style-black-000000.svg)
+
+![PS-Typer demo](https://user-images.githubusercontent.com/69486699/161395389-247c75fd-c2b6-4a63-bf03-258c5046b1be.png)
 
 ## Description
 
