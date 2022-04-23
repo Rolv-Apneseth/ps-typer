@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'source/statsWindow.ui'
+# Form implementation generated from reading ui file 'source/stats_window.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #

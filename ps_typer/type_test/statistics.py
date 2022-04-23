@@ -7,7 +7,7 @@ import pyqtgraph
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QColor
 
-from ps_typer.source_ui import stats_window
+from ps_typer.ui import stats_window
 
 # CONSTANTS
 AXIS_WIDTH = 1.5

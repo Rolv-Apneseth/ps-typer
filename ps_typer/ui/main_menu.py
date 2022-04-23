@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'source/mainMenu.ui'
+# Form implementation generated from reading ui file 'source/main_menu.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -11,18 +11,18 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_mainWindow(object):
-    def setupUi(self, mainWindow):
-        mainWindow.setObjectName("mainWindow")
-        mainWindow.resize(858, 697)
-        mainWindow.setStyleSheet("")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(mainWindow)
+class Ui_mainMenu(object):
+    def setupUi(self, mainMenu):
+        mainMenu.setObjectName("mainMenu")
+        mainMenu.resize(858, 697)
+        mainMenu.setStyleSheet("")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(mainMenu)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.scrollArea = QtWidgets.QScrollArea(mainWindow)
+        self.scrollArea = QtWidgets.QScrollArea(mainMenu)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 836, 675))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 838, 677))
         self.scrollAreaWidgetContents.setMinimumSize(QtCore.QSize(640, 600))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.scrollAreaWidgetContents)
@@ -145,21 +145,21 @@ class Ui_mainWindow(object):
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.horizontalLayout.addWidget(self.scrollArea)
 
-        self.retranslateUi(mainWindow)
-        QtCore.QMetaObject.connectSlotsByName(mainWindow)
+        self.retranslateUi(mainMenu)
+        QtCore.QMetaObject.connectSlotsByName(mainMenu)
 
-    def retranslateUi(self, mainWindow):
+    def retranslateUi(self, mainMenu):
         _translate = QtCore.QCoreApplication.translate
-        mainWindow.setWindowTitle(_translate("mainWindow", "Speed Type Test"))
-        self.labelMainMenu.setText(_translate("mainWindow", "Main Menu"))
-        self.buttonStart.setText(_translate("mainWindow", "Begin"))
-        self.comboBoxSelectMode.setItemText(0, _translate("mainWindow", "Common Phrases"))
-        self.comboBoxSelectMode.setItemText(1, _translate("mainWindow", "Facts"))
-        self.comboBoxSelectMode.setItemText(2, _translate("mainWindow", "Famous Literature Excerpts"))
-        self.comboBoxSelectMode.setItemText(3, _translate("mainWindow", "Famous Quotes"))
-        self.comboBoxSelectMode.setItemText(4, _translate("mainWindow", "Random Text: Brown"))
-        self.comboBoxSelectMode.setItemText(5, _translate("mainWindow", "Random Text: Gutenberg"))
-        self.comboBoxSelectMode.setItemText(6, _translate("mainWindow", "Random Text: Webtext"))
-        self.buttonSettings.setText(_translate("mainWindow", "Settings"))
-        self.buttonStatistics.setText(_translate("mainWindow", "Statistics"))
-        self.buttonExit.setText(_translate("mainWindow", "Exit"))
+        mainMenu.setWindowTitle(_translate("mainMenu", "Speed Type Test"))
+        self.labelMainMenu.setText(_translate("mainMenu", "Main Menu"))
+        self.buttonStart.setText(_translate("mainMenu", "Begin"))
+        self.comboBoxSelectMode.setItemText(0, _translate("mainMenu", "Common Phrases"))
+        self.comboBoxSelectMode.setItemText(1, _translate("mainMenu", "Facts"))
+        self.comboBoxSelectMode.setItemText(2, _translate("mainMenu", "Famous Literature Excerpts"))
+        self.comboBoxSelectMode.setItemText(3, _translate("mainMenu", "Famous Quotes"))
+        self.comboBoxSelectMode.setItemText(4, _translate("mainMenu", "Random Text: Brown"))
+        self.comboBoxSelectMode.setItemText(5, _translate("mainMenu", "Random Text: Gutenberg"))
+        self.comboBoxSelectMode.setItemText(6, _translate("mainMenu", "Random Text: Webtext"))
+        self.buttonSettings.setText(_translate("mainMenu", "Settings"))
+        self.buttonStatistics.setText(_translate("mainMenu", "Statistics"))
+        self.buttonExit.setText(_translate("mainMenu", "Exit"))
