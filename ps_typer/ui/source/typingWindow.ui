@@ -27,8 +27,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1528</width>
-        <height>618</height>
+        <width>1530</width>
+        <height>620</height>
        </rect>
       </property>
       <property name="minimumSize">
@@ -157,7 +157,7 @@
           <number>1</number>
          </property>
          <property name="text">
-          <string>Random text to type out blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</string>
+          <string>Placeholder text: you should not be seeing this :(</string>
          </property>
          <property name="textFormat">
           <enum>Qt::RichText</enum>
