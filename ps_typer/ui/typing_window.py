@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_typingWindow(object):
     def setupUi(self, typingWindow):
         typingWindow.setObjectName("typingWindow")
-        typingWindow.resize(1550, 640)
+        typingWindow.resize(830, 619)
         self.verticalLayout = QtWidgets.QVBoxLayout(typingWindow)
         self.verticalLayout.setObjectName("verticalLayout")
         self.scrollArea = QtWidgets.QScrollArea(typingWindow)
@@ -22,8 +22,8 @@ class Ui_typingWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1530, 620))
-        self.scrollAreaWidgetContents.setMinimumSize(QtCore.QSize(1500, 600))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 810, 599))
+        self.scrollAreaWidgetContents.setMinimumSize(QtCore.QSize(800, 500))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
