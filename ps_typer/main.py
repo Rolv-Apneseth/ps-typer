@@ -1,13 +1,13 @@
 import os
 import pickle
+import sys
 from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QFontDatabase, QIcon
 from PyQt5.QtMultimedia import QSoundEffect
 
-from ps_typer.source_ui import main_window
-from ps_typer.type_test import highscores, settings, statistics, type_test
+from ps_typer.type_test import highscores, main_menu, settings, statistics, type_test
 
 # PATHS
 BASE_FOLDER = Path(__file__).parents[0]
@@ -19,20 +19,35 @@ SOUND_FOLDER = ASSETS_FOLDER / "sounds"
 DATA_FILE = DATA_FOLDER / "data.pkl"
 
 
-class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
+class MainWindow(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.setupUi(self)
         self.ICON = QIcon(str(ICON_PATH))
         self.setWindowIcon(self.ICON)
 
+        self.stacked_widget = QtWidgets.QStackedWidget()
+
+        main_layout = QtWidgets.QHBoxLayout()
+        main_layout.addWidget(self.stacked_widget)
+        self.setLayout(main_layout)
+
+        self.main_menu_window = main_menu.MainMenu()
+        self.main_menu_window.setWindowIcon(self.ICON)
+        self.stacked_widget.insertWidget(0, self.main_menu_window)
+
         # BUTTONS
-        self.buttonStart.clicked.connect(self.on_clicked_start)
-        self.buttonSettings.clicked.connect(self.on_clicked_settings)
-        self.buttonStatistics.clicked.connect(self.on_clicked_statistics)
-        self.buttonExit.clicked.connect(QtWidgets.QApplication.instance().quit)
-        self.comboBoxSelectMode.currentIndexChanged.connect(self.on_change_mode)
+        self.main_menu_window.buttonStart.clicked.connect(self.on_clicked_start)
+        self.main_menu_window.buttonSettings.clicked.connect(self.on_clicked_settings)
+        self.main_menu_window.buttonStatistics.clicked.connect(
+            self.on_clicked_statistics
+        )
+        self.main_menu_window.buttonExit.clicked.connect(
+            QtWidgets.QApplication.instance().quit
+        )
+        self.main_menu_window.comboBoxSelectMode.currentIndexChanged.connect(
+            self.on_change_mode
+        )
 
         # HIGHSCORES HANDLER
         self.highscore = highscores.Highscores()
@@ -44,7 +59,9 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         else:
             self.data = settings.DEFAULT_DATA
 
-        self.comboBoxSelectMode.setCurrentIndex(self.data.get("selected_mode", 0))
+        self.main_menu_window.comboBoxSelectMode.setCurrentIndex(
+            self.data.get("selected_mode", 0)
+        )
 
         # SOUND
         self.set_key_sound(self.get_setting("sound_filename"))
@@ -54,31 +71,41 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
         # Stylesheet is set in the main program after instantiation
 
+    def switch_focused_window(self, window: any) -> None:
+        self.stacked_widget.insertWidget(1, window)
+        self.stacked_widget.setCurrentIndex(1)
+
     # Button methods
     def on_clicked_start(self) -> None:
-        self.make_mode_window(str(self.comboBoxSelectMode.currentText()))
+        mode_window = self.create_mode_window(
+            str(self.main_menu_window.comboBoxSelectMode.currentText())
+        )
 
-        self.show_window(self.mode_window, self.isMaximized())
-        self.mode_window.setStyleSheet(self.get_setting("stylesheet"))
-        self.mode_window.set_colours(self.get_setting("rich_text_colours"))
+        self.switch_focused_window(mode_window)
 
-        self.hide()
+        self.show_window(mode_window, self.isMaximized())
+
+        mode_window.setStyleSheet(self.get_setting("stylesheet"))
+        mode_window.set_colours(self.get_setting("rich_text_colours"))
 
     def on_clicked_main_menu(self, window: QtWidgets.QWidget) -> None:
-        self.update_highscores()
+        #
+        #
+        # self.show_window(self, window.isMaximized())
 
-        self.show_window(self, window.isMaximized())
-
-        window.close()
+        # window.close()
+        self.stacked_widget.removeWidget(window)
         del window
 
+        self.stacked_widget.setCurrentIndex(0)
+
     def on_clicked_settings(self) -> None:
-        self.make_settings_window()
+        self.create_settings_window()
+
+        self.switch_focused_window(self.settings_window)
 
         self.show_window(self.settings_window, self.isMaximized())
         self.settings_window.setStyleSheet(self.get_setting("stylesheet"))
-
-        self.hide()
 
     def on_clicked_apply(self) -> None:
         """Executed when apply button in settings window is clicked."""
@@ -96,12 +123,12 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.save_data_to_file()
 
     def on_clicked_statistics(self) -> None:
-        self.make_stats_window()
+        self.create_stats_window()
+
+        self.switch_focused_window(self.stats_window)
 
         self.show_window(self.stats_window, self.isMaximized())
         self.stats_window.setStyleSheet(self.get_setting("stylesheet"))
-
-        self.hide()
 
     def on_clicked_reset_daily(self) -> None:
         """
@@ -139,7 +166,9 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         remembered.
         """
 
-        self.data["selected_mode"] = self.comboBoxSelectMode.currentIndex()
+        self.data[
+            "selected_mode"
+        ] = self.main_menu_window.comboBoxSelectMode.currentIndex()
         self.save_data_to_file()
 
     # Helper Methods
@@ -165,21 +194,23 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         if fullscreen:
             window.setWindowState(QtCore.Qt.WindowMaximized)
 
-    def make_mode_window(self, mode: str) -> None:
-        self.mode_window = type_test.TypingWindow(self.highscore)
-        self.mode_window.set_mode(mode)
+    def create_mode_window(self, mode: str) -> type_test.TypingWindow:
+        mode_window = type_test.TypingWindow(self.highscore)
+        mode_window.set_mode(mode)
 
-        self.mode_window.setWindowIcon(self.ICON)
+        mode_window.setWindowIcon(self.ICON)
 
-        self.mode_window.buttonMainMenu.clicked.connect(
-            lambda: self.on_clicked_main_menu(self.mode_window)
+        mode_window.buttonMainMenu.clicked.connect(
+            lambda: self.on_clicked_main_menu(mode_window)
         )
 
         # Sets key sound if enabled
         if self.get_setting("play_sound"):
-            self.mode_window.set_key_sound(self.key_sound)
+            mode_window.set_key_sound(self.key_sound)
 
-    def make_settings_window(self) -> None:
+        return mode_window
+
+    def create_settings_window(self) -> settings.SettingsWindow:
         self.settings_window = settings.SettingsWindow()
 
         self.settings_window.setWindowIcon(self.ICON)
@@ -200,7 +231,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
         self.set_settings_sounds_options()
         self.set_selected_sound_option(self.get_setting("sound_filename"))
 
-    def make_stats_window(self) -> None:
+    def create_stats_window(self) -> None:
         self.stats_window = statistics.StatsWindow()
 
         self.stats_window.setWindowIcon(self.ICON)
@@ -305,15 +336,14 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_mainWindow):
 
 
 def main():
-    app = QtWidgets.QApplication([])
+    app = QtWidgets.QApplication(sys.argv)
+    main_window = MainWindow()
 
-    window = MainWindow()
-    window.show()
+    # Stylesheet set after window is shown
+    main_window.show()
+    main_window.setStyleSheet(main_window.get_setting("stylesheet"))
 
-    # Stylesheet must be changed after window is shown
-    window.setStyleSheet(window.get_setting("stylesheet"))
-
-    app.exec_()
+    sys.exit(app.exec_())
 
 
 if __name__ == "__main__":

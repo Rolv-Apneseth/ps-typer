@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets
 
-from ps_typer.source_ui import settings_window
 from ps_typer.type_test.components import Switch
+from ps_typer.ui import settings_window
 
 # CONSTANTS
 DARK_COLOURS = dict(

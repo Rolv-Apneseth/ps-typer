@@ -4,8 +4,8 @@ from typing import List
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QSoundEffect
 
-from ps_typer.source_ui import typing_window
 from ps_typer.type_test import highscores, results, texts
+from ps_typer.ui import typing_window
 
 # Constants
 DEFAULT_COLOURS = ["rgb(0, 100, 0)", "rgb(100, 0, 0)"]

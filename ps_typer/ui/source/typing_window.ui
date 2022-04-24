@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1550</width>
-    <height>640</height>
+    <width>830</width>
+    <height>619</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,14 +27,14 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1528</width>
-        <height>618</height>
+        <width>810</width>
+        <height>599</height>
        </rect>
       </property>
       <property name="minimumSize">
        <size>
-        <width>1500</width>
-        <height>600</height>
+        <width>800</width>
+        <height>500</height>
        </size>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -157,7 +157,7 @@
           <number>1</number>
          </property>
          <property name="text">
-          <string>Random text to type out blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</string>
+          <string>Placeholder text: you should not be seeing this :(</string>
          </property>
          <property name="textFormat">
           <enum>Qt::RichText</enum>
