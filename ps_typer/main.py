@@ -195,7 +195,7 @@ class MainWindow(QtWidgets.QWidget):
             window.setWindowState(QtCore.Qt.WindowMaximized)
 
     def create_mode_window(self, mode: str) -> type_test.TypingWindow:
-        mode_window = type_test.TypingWindow(self.highscore)
+        mode_window = type_test.TypingWindow(self.highscore, self.stacked_widget)
         mode_window.set_mode(mode)
 
         mode_window.setWindowIcon(self.ICON)
