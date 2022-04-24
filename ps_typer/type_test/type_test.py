@@ -17,11 +17,17 @@ _TRANSLATE_RESULT = {
 
 
 class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
-    def __init__(self, highscore_obj: highscores.Highscores, *args, **kwargs):
+    def __init__(
+        self,
+        highscore_obj: highscores.Highscores,
+        stacked_widget: QtWidgets.QStackedWidget,
+        *args,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
 
-        # Multiple inheritance allows us to have the ui and window together so
-        # setupui can be given self in for a window
+        self.master_stacked_widget = stacked_widget
+
         self.setupUi(self)
 
         self.lineInput.textChanged.connect(self._on_input_text_changed)
@@ -168,7 +174,17 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.timer.stop()
         self.labelTime.setText("0")
 
-    def _make_results_window(self) -> None:
+    def _show_results_window(self) -> None:
+        self.master_stacked_widget.insertWidget(2, self.results_window)
+        self.master_stacked_widget.setCurrentIndex(2)
+        self.results_window.show()
+
+    def _close_results_window(self) -> None:
+        self.master_stacked_widget.removeWidget(self.results_window)
+        del self.results_window
+        self.master_stacked_widget.setCurrentIndex(1)
+
+    def _create_results_window(self) -> None:
         """Generates the results window."""
 
         self.results_window = results.ResultsWindow()
@@ -196,10 +212,10 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self._set_stats(input_text)
 
-        self._make_results_window()
+        self._create_results_window()
 
-        self.hide()
-        self.results_window.show()
+        self._show_results_window()
+
         if self.isMaximized():
             self.results_window.setWindowState(QtCore.Qt.WindowMaximized)
 
@@ -244,11 +260,8 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self._set_main_text()
 
     def on_clicked_next(self) -> None:
-        self.show()
+        self._close_results_window()
         self.on_clicked_new()
-
-        self.results_window.close()
-        del self.results_window
 
     def on_clicked_results_main_menu(self) -> None:
         """
@@ -258,8 +271,8 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         in main.py.
         """
 
+        self._close_results_window()
         self.buttonMainMenu.click()
-        self.results_window.close()
 
 
 if __name__ == "__main__":
