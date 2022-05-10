@@ -12,6 +12,8 @@ python = ">=3.9,<4.0.0"
 DateTime = "^4.4"
 PyQt5 = "^5.15.6"
 pyqtgraph = "^0.12.4"
+appdirs = "^1.4.4"
+dataclasses-json = "^0.5.7"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
