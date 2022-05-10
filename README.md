@@ -90,7 +90,11 @@ The program will save all of your daily high scores and keep track of your all-t
 
 From here you can also reset your highscores if you so wish.
 
-**Please note:** All the (very limited) data this program stores can be found in the `ps_typer/data/` directory
+**Please note:** All the (very limited) data this program stores can be found in the user's data directory under `ps-typer`. By default, these should be:
+
+-   **Linux:** `/home/trentm/.local/share/ps-typer`
+-   **Mac:** `/Users/trentm/Library/Application Support/ps-typer`
+-   **Windows:** `C:\\Users\\trentm\\AppData\\Local\\ps-typer`
 
 ## License
 
