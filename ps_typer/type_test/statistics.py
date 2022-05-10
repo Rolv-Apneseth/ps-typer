@@ -1,19 +1,16 @@
 import datetime
 import time
 from calendar import month_abbr
-from typing import List
 
 import pyqtgraph
 from PyQt5 import QtWidgets
 from PyQt5.QtGui import QColor
 
+from ps_typer.data.highscores_data_handler import Highscore
+from ps_typer.data.utils import GRAPH_MEASUREMENTS
 from ps_typer.ui import stats_window
 
 # CONSTANTS
-AXIS_WIDTH = 1.5
-CURVE_WIDTH = 2.5
-SYMBOL_WIDTH = 7
-GRID_ALPHA = 90
 
 
 class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
@@ -36,7 +33,7 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
 
         self.labelDaysAgo.setText(f"- {str(days_ago)} days ago")
 
-    def set_up_graph(self, data: List[str], colours: dict) -> None:
+    def set_up_graph(self, data: list[Highscore], colours: dict) -> None:
         """Sets up the graphView wpm over time graph with the given data."""
 
         self.colours = self._get_qcolors(colours)
@@ -60,7 +57,10 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
 
     # Private Methods
     def _set_axes_style(
-        self, colour: tuple, width=AXIS_WIDTH, grid_alpha=GRID_ALPHA
+        self,
+        colour: tuple,
+        width=GRAPH_MEASUREMENTS["axis_width"],
+        grid_alpha=GRAPH_MEASUREMENTS["grid_alpha"],
     ) -> None:
         """
         Sets the graph's axes colours to the provided tuple (rgb) and
@@ -83,38 +83,37 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
     def _get_datetime_object(self, date_str: str) -> datetime.datetime:
         """Takes a string in the format yyyy-mm-dd: and returns a datetime object."""
 
-        raw_date: List[str] = date_str.replace(":", "").split("-")
-        date_ints: List[int] = list(map(int, raw_date))
+        raw_date: list[str] = date_str.replace(":", "").split("-")
+        date_ints: list[int] = list(map(int, raw_date))
 
         return datetime.datetime(date_ints[0], date_ints[1], date_ints[2])
 
     def _clean_date(self, date_str: str) -> int:
         """
-        Takes a string in the format 'yyyy-mm-dd:' and returns a
-        usable timestamp representation.
+        Takes a string in the format 'yyyy-mm-dd:' and returns a usable timestamp
+        representation.
         """
 
         return self._get_time_stamp(self._get_datetime_object(date_str))
 
-    def _set_data(self, data: List[str]) -> None:
+    def _set_data(self, highscores: list[Highscore]) -> None:
         """
-        Sets self.dates and self.wpms from the given data for
-        daily highscores.
+        Sets self.dates and self.wpms from the given data for daily highscores.
 
         Strings in the data list should be in the format 'yyyy-mm-dd: WPM'.
         """
 
-        self.dates: List[int] = []
-        self.wpms: List[int] = []
+        self.dates: list[int] = []
+        self.wpms: list[int] = []
 
         # Add data for each day (data point) to 2 separate lists (2 axes)
-        for day in data:
-            split_day: List[str] = day.split()
+        for highscore in highscores:
+            self.dates.append(self._clean_date(highscore.date))
+            self.wpms.append(highscore.score)
 
-            self.dates.append(self._clean_date(split_day[0]))
-            self.wpms.append(int(split_day[1]))
-
-    def _update_graph(self, curve_width: int = CURVE_WIDTH) -> None:
+    def _update_graph(
+        self, curve_width: int = GRAPH_MEASUREMENTS["curve_width"]
+    ) -> None:
         """Updates self.curve with the data set in self._set_data."""
 
         self.curve.setData(
@@ -123,7 +122,7 @@ class StatsWindow(QtWidgets.QWidget, stats_window.Ui_statsWindow):
             pen=pyqtgraph.mkPen(color=self.colours["curve"], width=curve_width),
             symbolBrush=pyqtgraph.mkBrush(color=self.colours["curve"]),
             symbolPen=pyqtgraph.mkPen(color=self.colours["curve"]),
-            symbolSize=SYMBOL_WIDTH,
+            symbolSize=GRAPH_MEASUREMENTS["symbol_width"],
         )
 
 
@@ -146,7 +145,7 @@ class DateAxisItem(pyqtgraph.AxisItem):
 
         # types
         datetime_object: datetime.datetime
-        list_from_time: List[str]
+        list_from_time: list[str]
         month_name: str
 
         datetime_object = datetime.datetime.fromtimestamp(time_stamp)
