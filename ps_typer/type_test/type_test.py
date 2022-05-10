@@ -1,32 +1,34 @@
 from time import perf_counter
-from typing import List
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QSoundEffect
 
-from ps_typer.type_test import highscores, results, texts
+from ps_typer.data.highscores_data_handler import HighscoreDataHandler
+from ps_typer.data.utils import OPTIONS_HIGHSCORES
+from ps_typer.type_test import results, texts
 from ps_typer.ui import typing_window
 
 # Constants
 DEFAULT_COLOURS = ["rgb(0, 100, 0)", "rgb(100, 0, 0)"]
 _TRANSLATE_RESULT = {
-    "all-time": "New all-time highscore set! Congratulations!",
-    "daily": "New daily highscore set! Good job!",
-    "none": "No new highscore set. Don't give up!",
+    OPTIONS_HIGHSCORES[0]: "No new highscore set. Don't give up!",
+    OPTIONS_HIGHSCORES[1]: "New daily highscore set! Good job!",
+    OPTIONS_HIGHSCORES[2]: "New all-time highscore set! Congratulations!",
 }
 
 
 class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
     def __init__(
         self,
-        highscore_obj: highscores.Highscores,
+        highscore_handler: HighscoreDataHandler,
         stacked_widget: QtWidgets.QStackedWidget,
         *args,
         **kwargs,
     ):
         super().__init__(*args, **kwargs)
 
-        self.master_stacked_widget = stacked_widget
+        self.highscore_handler: HighscoreDataHandler = highscore_handler
+        self.master_stacked_widget: QtWidgets.QStackedWidget = stacked_widget
 
         self.setupUi(self)
 
@@ -40,14 +42,6 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.timer.setInterval(100)
         self._reset_time()
 
-        # Object to handle saving and updating of highscore values
-        self.highscore = highscore_obj
-
-        # Defaults
-        self.key_sound = QSoundEffect()
-        self.set_colours(DEFAULT_COLOURS)
-
-    # Public Methods
     def set_mode(self, mode: str) -> None:
         """
         Sets the mode for the typing window, by getting a specific generator
@@ -64,7 +58,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.text_generator = texts._translate[mode]()
         self._set_main_text()
 
-    def set_colours(self, colours: List[str]) -> None:
+    def set_rich_text_colours(self, colours: dict[str, str]) -> None:
         """
         Sets the colours to be used for rich text formatting.
 
@@ -72,7 +66,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
             [green_colour, red_colour]
         """
 
-        self.colours = colours
+        self.colours: dict[str, str] = colours
 
     def set_key_sound(self, key_sound: QSoundEffect) -> None:
         """
@@ -127,9 +121,9 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         Updates the highscore in the highscore object and displays the result.
         """
 
-        self.highscore_result = self.highscore.update(self.wpm)
+        highscore_result: str = self.highscore_handler.new_highscore(self.wpm)
         self.results_window.labelHighscoreSet.setText(
-            _TRANSLATE_RESULT[self.highscore_result]
+            _TRANSLATE_RESULT[highscore_result]
         )
 
     def _get_rich_text(self, input_text: str) -> str:
@@ -138,17 +132,17 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         highlighted green while incorrect characters are highlighted red.
         """
 
-        typed_text = []
+        typed_text = list()
         rest_of_text = self.text[len(input_text) :]
 
         for i, character in enumerate(input_text):
             if self.text[i] == character:
                 typed_text.append(
-                    f'<span style="background-color:{self.colours[0]};">{self.text[i]}</span>'
+                    f'<span style="background-color:{self.colours["green"]};">{self.text[i]}</span>'
                 )
             else:
                 typed_text.append(
-                    f'<span style="background-color:{self.colours[1]};">{self.text[i]}</span>'
+                    f'<span style="background-color:{self.colours["red"]};">{self.text[i]}</span>'
                 )
 
         rich_text = (
@@ -273,12 +267,3 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self._close_results_window()
         self.buttonMainMenu.click()
-
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication([])
-
-    window = TypingWindow(highscores.Highscores())
-    window.show()
-
-    app.exec_()

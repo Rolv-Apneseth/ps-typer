@@ -1,29 +1,36 @@
 import os
 import pickle
+import sqlite3
 import sys
-from pathlib import Path
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QFontDatabase, QIcon
 from PyQt5.QtMultimedia import QSoundEffect
 
-from ps_typer.type_test import highscores, main_menu, settings, statistics, type_test
-
-# PATHS
-BASE_FOLDER = Path(__file__).parents[0]
-ASSETS_FOLDER = BASE_FOLDER / "assets"
-DATA_FOLDER = BASE_FOLDER / "data"
-ICON_PATH = ASSETS_FOLDER / "icon.png"
-FONT_PATH = ASSETS_FOLDER / "InconsolataBold.ttf"
-SOUND_FOLDER = ASSETS_FOLDER / "sounds"
-DATA_FILE = DATA_FOLDER / "data.pkl"
+from ps_typer.data import defaults, style, utils
+from ps_typer.data.highscores_data_handler import HighscoreDataHandler
+from ps_typer.data.user_preferences_handler import UserPreferencesDataHandler
+from ps_typer.data.utils import PATH_SOUNDS, get_today
+from ps_typer.type_test import main_menu, settings, statistics, type_test
 
 
 class MainWindow(QtWidgets.QWidget):
-    def __init__(self, *args, **kwargs):
+    def __init__(
+        self,
+        highscore_handler: HighscoreDataHandler,
+        user_preferences_handler: UserPreferencesDataHandler,
+        *args,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
 
-        self.ICON = QIcon(str(ICON_PATH))
+        self.highscore_handler: HighscoreDataHandler = highscore_handler
+        self.user_preferences_handler: UserPreferencesDataHandler = (
+            user_preferences_handler
+        )
+        self.set_stylesheet()
+
+        self.ICON = QIcon(str(utils.PATH_ICONS))
         self.setWindowIcon(self.ICON)
 
         self.stacked_widget = QtWidgets.QStackedWidget()
@@ -49,25 +56,18 @@ class MainWindow(QtWidgets.QWidget):
             self.on_change_mode
         )
 
-        # HIGHSCORES HANDLER
-        self.highscore = highscores.Highscores()
         self.update_highscores()
 
         # DATA AND SETTINGS
-        if DATA_FILE.is_file():
-            self.load_data_from_file()
-        else:
-            self.data = settings.DEFAULT_DATA
-
         self.main_menu_window.comboBoxSelectMode.setCurrentIndex(
-            self.data.get("selected_mode", 0)
+            self.get_preference("selected_mode")
         )
 
         # SOUND
-        self.set_key_sound(self.get_setting("sound_filename"))
+        self.set_key_sound()
 
         # FONT
-        self.inconsolata_bold = self.load_custom_font(str(FONT_PATH))
+        self.inconsolata_bold = self.load_custom_font(str(utils.PATH_FONTS))
 
         # Stylesheet is set in the main program after instantiation
 
@@ -77,16 +77,15 @@ class MainWindow(QtWidgets.QWidget):
 
     # Button methods
     def on_clicked_start(self) -> None:
-        mode_window = self.create_mode_window(
+        typing_window = self.create_typing_window(
             str(self.main_menu_window.comboBoxSelectMode.currentText())
         )
 
-        self.switch_focused_window(mode_window)
+        self.switch_focused_window(typing_window)
 
-        self.show_window(mode_window, self.isMaximized())
+        self.show_window(typing_window, self.isMaximized())
 
-        mode_window.setStyleSheet(self.get_setting("stylesheet"))
-        mode_window.set_colours(self.get_setting("rich_text_colours"))
+        typing_window.setStyleSheet(self.stylesheet)
 
     def on_clicked_main_menu(self, window: QtWidgets.QWidget) -> None:
         #
@@ -105,22 +104,16 @@ class MainWindow(QtWidgets.QWidget):
         self.switch_focused_window(self.settings_window)
 
         self.show_window(self.settings_window, self.isMaximized())
-        self.settings_window.setStyleSheet(self.get_setting("stylesheet"))
+        self.settings_window.setStyleSheet(self.stylesheet)
 
     def on_clicked_apply(self) -> None:
         """Executed when apply button in settings window is clicked."""
 
-        self.data["settings"] = self.settings_window.get_settings()
-
-        # Key sound
-        self.set_key_sound(self.get_setting("sound_filename"))
-
-        # Stylesheet
-        self.settings_window.setStyleSheet(self.get_setting("stylesheet"))
-        self.setStyleSheet(self.get_setting("stylesheet"))
-
-        # Save
-        self.save_data_to_file()
+        self.settings_window.apply_settings()
+        self.set_key_sound()
+        self.set_stylesheet()
+        self.setStyleSheet(self.stylesheet)
+        self.settings_window.setStyleSheet(self.stylesheet)
 
     def on_clicked_statistics(self) -> None:
         self.create_stats_window()
@@ -128,14 +121,14 @@ class MainWindow(QtWidgets.QWidget):
         self.switch_focused_window(self.stats_window)
 
         self.show_window(self.stats_window, self.isMaximized())
-        self.stats_window.setStyleSheet(self.get_setting("stylesheet"))
+        self.stats_window.setStyleSheet(self.stylesheet)
 
     def on_clicked_reset_daily(self) -> None:
         """
         To be executed when 'Reset today's highscore' is pressed in the stats window.
         """
 
-        self.highscore.delete_daily_highscore()
+        self.highscore_handler.delete_highscore(get_today())
 
         self.update_highscores()
         self.update_stats_highscores()
@@ -145,7 +138,7 @@ class MainWindow(QtWidgets.QWidget):
         To be executed when 'Reset all-time highscore' is pressed in the stats window.
         """
 
-        self.highscore.delete_all_time_highscore()
+        self.highscore_handler.delete_all_highscores()
 
         self.update_highscores()
         self.update_stats_highscores()
@@ -155,30 +148,32 @@ class MainWindow(QtWidgets.QWidget):
         To be executed when 'Reset all highscores' is pressed in the stats window.
         """
 
-        self.highscore.delete_all_highscores()
+        self.highscore_handler.delete_all_highscores()
 
         self.update_highscores()
         self.update_stats_highscores()
 
     def on_change_mode(self):
         """
-        Saves the selected mode to self.data and pickles self.data so the selection is
-        remembered.
+        Saves the selected mode to self.user_preferences_handler.preferences so the
+        selection is remembered.
         """
 
-        self.data[
-            "selected_mode"
-        ] = self.main_menu_window.comboBoxSelectMode.currentIndex()
-        self.save_data_to_file()
+        self.user_preferences_handler.set_selected_mode(
+            self.main_menu_window.comboBoxSelectMode.currentIndex()
+        )
 
     # Helper Methods
-    def get_setting(self, setting: str):
+    def get_preference(self, preference: str) -> str | bool | int:
         """
-        Convenience method for getting a specific setting from self.data, or a
-        default value.
+        Convenience method for getting a specific preference from
+        self.user_preferences_handler.preferences
         """
 
-        return self.data["settings"].get(setting, settings.DEFAULT_SETTINGS.get(setting))
+        return getattr(self.user_preferences_handler.preferences, preference)
+
+    def set_stylesheet(self) -> None:
+        self.stylesheet = style.get_style_sheet(**self.get_preference("colours")["base"])
 
     def load_custom_font(self, font: str) -> int:
         """Adds custom font to QFontDatabase, and returns its corresponding font id."""
@@ -194,24 +189,25 @@ class MainWindow(QtWidgets.QWidget):
         if fullscreen:
             window.setWindowState(QtCore.Qt.WindowMaximized)
 
-    def create_mode_window(self, mode: str) -> type_test.TypingWindow:
-        mode_window = type_test.TypingWindow(self.highscore, self.stacked_widget)
-        mode_window.set_mode(mode)
+    def create_typing_window(self, mode: str) -> type_test.TypingWindow:
+        typing_window = type_test.TypingWindow(
+            self.highscore_handler, self.stacked_widget
+        )
+        typing_window.set_mode(mode)
+        typing_window.setWindowIcon(self.ICON)
+        typing_window.set_rich_text_colours(self.get_preference("colours")["rich_text"])
 
-        mode_window.setWindowIcon(self.ICON)
-
-        mode_window.buttonMainMenu.clicked.connect(
-            lambda: self.on_clicked_main_menu(mode_window)
+        typing_window.buttonMainMenu.clicked.connect(
+            lambda: self.on_clicked_main_menu(typing_window)
         )
 
         # Sets key sound if enabled
-        if self.get_setting("play_sound"):
-            mode_window.set_key_sound(self.key_sound)
+        typing_window.set_key_sound(self.key_sound)
 
-        return mode_window
+        return typing_window
 
     def create_settings_window(self) -> settings.SettingsWindow:
-        self.settings_window = settings.SettingsWindow()
+        self.settings_window = settings.SettingsWindow(self.user_preferences_handler)
 
         self.settings_window.setWindowIcon(self.ICON)
 
@@ -221,15 +217,15 @@ class MainWindow(QtWidgets.QWidget):
         self.settings_window.buttonApply.clicked.connect(self.on_clicked_apply)
 
         # Keystroke sound toggle
-        if self.get_setting("play_sound"):
+        if self.get_preference("play_sound"):
             self.settings_window.toggleKeystrokeSound.setChecked(True)
 
         # Dark mode toggle
-        if self.get_setting("dark_mode"):
+        if self.get_preference("dark_mode"):
             self.settings_window.toggleDarkMode.setChecked(True)
 
         self.set_settings_sounds_options()
-        self.set_selected_sound_option(self.get_setting("sound_filename"))
+        self.set_selected_sound_option(self.get_preference("sound_filename"))
 
     def create_stats_window(self) -> None:
         self.stats_window = statistics.StatsWindow()
@@ -237,12 +233,14 @@ class MainWindow(QtWidgets.QWidget):
         self.stats_window.setWindowIcon(self.ICON)
 
         # Update labels
+        self.update_highscores()
         self.update_stats_highscores()
         self.update_stats_days_ago()
 
         # Set up graph
         self.stats_window.set_up_graph(
-            self.highscore.get_stats_dailies(), self.get_setting("graph_colours")
+            self.highscore_handler.get_all_highscores(),
+            self.get_preference("colours")["graph"],
         )
 
         # Connect buttons
@@ -256,24 +254,12 @@ class MainWindow(QtWidgets.QWidget):
         self.stats_window.buttonResetAll.clicked.connect(self.on_clicked_reset_all)
 
     def update_highscores(self) -> None:
-        self.today_wpm, self.all_time_wpm = self.highscore.get_wpm()
-
-    def save_data_to_file(self) -> None:
-        """Pickles self.data into a file in the data folder."""
-
-        with open(DATA_FILE, "wb") as data_pickle:
-            pickle.dump(self.data, data_pickle)
-
-    def load_data_from_file(self) -> None:
-        """Sets self.data to the values saved on the data.pkl file."""
-
-        with open(DATA_FILE, "rb") as data_pickle:
-            self.data = pickle.load(data_pickle)
+        self.today_wpm, self.all_time_wpm = self.highscore_handler.get_wpm()
 
     def get_sounds_list(self) -> list:
         """Returns a list of the sound files present in the sounds folder."""
 
-        return os.listdir(SOUND_FOLDER)
+        return os.listdir(PATH_SOUNDS)
 
     def set_settings_sounds_options(self) -> None:
         """
@@ -306,14 +292,18 @@ class MainWindow(QtWidgets.QWidget):
         if index >= 0:
             self.settings_window.comboSelectSound.setCurrentIndex(index)
 
-    def set_key_sound(self, sound_file: str) -> None:
+    def set_key_sound(self) -> None:
         """
         Sets the given sound file to a QSoundEffect object which will be played on each
         keystroke in the mode window.
         """
 
-        self.key_sound_path = os.path.join(SOUND_FOLDER, sound_file)
-        self.key_sound_url = QtCore.QUrl.fromLocalFile(self.key_sound_path)
+        if not self.get_preference("play_sound"):
+            self.key_sound = QSoundEffect()
+            return
+
+        self.key_sound_path = PATH_SOUNDS / self.get_preference("sound_filename")
+        self.key_sound_url = QtCore.QUrl.fromLocalFile(str(self.key_sound_path))
 
         self.key_sound = QSoundEffect()
         self.key_sound.setSource(self.key_sound_url)
@@ -332,16 +322,20 @@ class MainWindow(QtWidgets.QWidget):
         number of days since the all-time highscore was set.
         """
 
-        self.stats_window.update_days_ago(self.highscore.days_since_set())
+        self.stats_window.update_days_ago(self.highscore_handler.days_since_set())
 
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
-    main_window = MainWindow()
 
-    # Stylesheet set after window is shown
-    main_window.show()
-    main_window.setStyleSheet(main_window.get_setting("stylesheet"))
+    with sqlite3.connect(utils.PATH_USER_DATA_DB.absolute()) as conn:
+        highscore_handler = HighscoreDataHandler(conn)
+        user_preferences_handler = UserPreferencesDataHandler()
+        main_window = MainWindow(highscore_handler, user_preferences_handler)
+
+        # Stylesheet set after window is shown
+        main_window.show()
+        main_window.setStyleSheet(main_window.stylesheet)
 
     sys.exit(app.exec_())
 

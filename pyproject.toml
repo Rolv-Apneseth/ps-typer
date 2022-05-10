@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ps-typer"
-version = "0.1.7"
+version = "0.2.0"
 readme="README.md"
 description = "A Python program built on the PyQt5 GUI framework, used for practicing your typing skills and keeping track of your progress."
 authors = ["Rolv-Apneseth <rolv.apneseth@gmail.com>"]
@@ -12,6 +12,8 @@ python = ">=3.9,<4.0.0"
 DateTime = "^4.4"
 PyQt5 = "^5.15.6"
 pyqtgraph = "^0.12.4"
+appdirs = "^1.4.4"
+dataclasses-json = "^0.5.7"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
