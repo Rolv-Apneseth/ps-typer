@@ -7,7 +7,7 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QFontDatabase, QIcon
 from PyQt5.QtMultimedia import QSoundEffect
 
-from ps_typer.data import defaults, style, utils
+from ps_typer.data import style, utils
 from ps_typer.data.highscores_data_handler import HighscoreDataHandler
 from ps_typer.data.user_preferences_handler import UserPreferencesDataHandler
 from ps_typer.data.utils import PATH_SOUNDS, get_today
