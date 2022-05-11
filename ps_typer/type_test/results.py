@@ -8,5 +8,3 @@ class ResultsWindow(QtWidgets.QWidget, results_window.Ui_resultWindow):
         super().__init__(*args, **kwargs)
 
         self.setupUi(self)
-
-        self.buttonNext.setFocus()
