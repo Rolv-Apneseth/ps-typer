@@ -94,6 +94,10 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
     def _calculate_score(self, accuracy: int) -> int:
         """Returns wpm score after calculations including accuracy."""
+
+        if accuracy < 75:
+            return 0
+
         self.start_time: float
 
         seconds: float = perf_counter() - self.start_time
