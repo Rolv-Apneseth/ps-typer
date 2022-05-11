@@ -30,6 +30,8 @@ A Python program built on the PyQt5 GUI framework, used for practicing your typi
     -   [DateTime](https://pypi.org/project/DateTime/)
     -   [PyQt5](https://pypi.org/project/PyQt5/)
     -   [PyQtGraph](https://pypi.org/project/pyqtgraph/)
+    -   [Appdirs](https://pypi.org/project/appdirs/)
+    -   [Dataclasses-JSON](https://pypi.org/project/dataclasses-json/)
 
 ## Installation
 
