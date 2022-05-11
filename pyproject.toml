@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "ps-typer"
-version = "0.2.1"
+version = "0.2.2"
 readme="README.md"
 description = "A Python program built on the PyQt5 GUI framework, used for practicing your typing skills and keeping track of your progress."
 authors = ["Rolv-Apneseth <rolv.apneseth@gmail.com>"]
@@ -26,6 +26,8 @@ flake8 = "^4.0.1"
 flake8-black = "^0.2.4"
 flake8-isort = "^4.1.1"
 flake8-tidy-imports = "^4.6.0"
+types-appdirs = "^1.4.2"
+PyQt5-stubs = "^5.15.6"
 
 [tool.poetry.scripts]
 ps-typer = "ps_typer.main:main"

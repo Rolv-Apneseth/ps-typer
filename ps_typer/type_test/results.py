@@ -10,12 +10,3 @@ class ResultsWindow(QtWidgets.QWidget, results_window.Ui_resultWindow):
         self.setupUi(self)
 
         self.buttonNext.setFocus()
-
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication([])
-
-    window = ResultsWindow()
-    window.show()
-
-    app.exec_()

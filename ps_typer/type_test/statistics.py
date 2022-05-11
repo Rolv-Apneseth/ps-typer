@@ -162,12 +162,3 @@ class DateAxisItem(pyqtgraph.AxisItem):
         """
 
         return [self._get_string(value) for value in values]
-
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication([])
-
-    window = StatsWindow()
-    window.show()
-
-    app.exec_()
