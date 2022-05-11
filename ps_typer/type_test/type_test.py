@@ -94,6 +94,10 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
     def _calculate_score(self, accuracy: int) -> int:
         """Returns wpm score after calculations including accuracy."""
+
+        if accuracy < 75:
+            return 0
+
         self.start_time: float
 
         seconds: float = perf_counter() - self.start_time
@@ -183,8 +187,6 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
 
         self.results_window = results.ResultsWindow()
 
-        self.results_window.setWindowIcon(self.windowIcon())
-
         self.results_window.labelAccuracy.setText(f"{str(self.accuracy)}%")
         self.results_window.labelSpeed.setText(f"{str(self.wpm)} WPM")
 
@@ -209,6 +211,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self._create_results_window()
 
         self._show_results_window()
+        self.results_window.buttonNext.setFocus()
 
         if self.isMaximized():
             self.results_window.setWindowState(QtCore.Qt.WindowMaximized)
