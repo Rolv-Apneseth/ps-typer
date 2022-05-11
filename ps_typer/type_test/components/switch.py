@@ -1,5 +1,4 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtCore import QEasingCurve, QPropertyAnimation, pyqtProperty
+from PyQt5.QtCore import QEasingCurve, QPropertyAnimation, Qt, pyqtProperty
 from PyQt5.QtGui import QColor, QPainter
 from PyQt5.QtWidgets import QCheckBox
 
@@ -44,8 +43,10 @@ class Switch(QCheckBox):
     def circle_position(self):
         return round(self._circle_position)
 
-    @circle_position.setter
-    def circle_position(self, pos):
+    # Error on setter ignored due to issue with mypy itself
+    # https://github.com/python/mypy/issues/9911
+    @circle_position.setter  # type: ignore
+    def circle_position(self, pos: int):
         self._circle_position = pos
         self.update()
 
