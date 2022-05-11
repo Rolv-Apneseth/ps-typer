@@ -37,11 +37,15 @@ class UserPreferencesDataHandler:
             return
 
         with open(PATH_USER_PREFERENCES_JSON, "r") as json_file:
-            self.preferences = Preferences.from_dict(json.load(json_file))
+            # https://github.com/lidatong/dataclasses-json/issues/31
+            self.preferences = Preferences.from_dict(  # type: ignore
+                json.load(json_file)
+            )
 
     def _save_preferences(self) -> None:
         with open(PATH_USER_PREFERENCES_JSON, "w") as json_file:
-            json.dump(self.preferences.to_dict(), json_file)
+            # https://github.com/lidatong/dataclasses-json/issues/31
+            json.dump(self.preferences.to_dict(), json_file)  # type: ignore
 
     def get_preferences(self) -> Preferences:
         return self.preferences
