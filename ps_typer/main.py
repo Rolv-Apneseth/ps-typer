@@ -1,7 +1,7 @@
 import os
-import pickle
 import sqlite3
 import sys
+from typing import Any
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QFontDatabase, QIcon
@@ -11,7 +11,8 @@ from ps_typer.data import style, utils
 from ps_typer.data.highscores_data_handler import HighscoreDataHandler
 from ps_typer.data.user_preferences_handler import UserPreferencesDataHandler
 from ps_typer.data.utils import PATH_SOUNDS, get_today
-from ps_typer.type_test import main_menu, settings, statistics, type_test
+from ps_typer.type_test import main_menu, results, settings, statistics, type_test
+from ps_typer.ui import settings_window
 
 
 class MainWindow(QtWidgets.QWidget):
@@ -49,9 +50,7 @@ class MainWindow(QtWidgets.QWidget):
         self.main_menu_window.buttonStatistics.clicked.connect(
             self.on_clicked_statistics
         )
-        self.main_menu_window.buttonExit.clicked.connect(
-            QtWidgets.QApplication.instance().quit
-        )
+        self.main_menu_window.buttonExit.clicked.connect(self.on_clicked_exit)
         self.main_menu_window.comboBoxSelectMode.currentIndexChanged.connect(
             self.on_change_mode
         )
@@ -71,11 +70,22 @@ class MainWindow(QtWidgets.QWidget):
 
         # Stylesheet is set in the main program after instantiation
 
-    def switch_focused_window(self, window: any) -> None:
+    def switch_focused_window(
+        self,
+        window: type_test.TypingWindow
+        | settings.SettingsWindow
+        | results.ResultsWindow
+        | statistics.StatsWindow,
+    ) -> None:
         self.stacked_widget.insertWidget(1, window)
         self.stacked_widget.setCurrentIndex(1)
 
     # Button methods
+    def on_clicked_exit(self) -> None:
+        instance: QtCore.QCoreApplication | None = QtWidgets.QApplication.instance()
+        if instance:
+            instance.quit()
+
     def on_clicked_start(self) -> None:
         typing_window = self.create_typing_window(
             str(self.main_menu_window.comboBoxSelectMode.currentText())
@@ -99,21 +109,12 @@ class MainWindow(QtWidgets.QWidget):
         self.stacked_widget.setCurrentIndex(0)
 
     def on_clicked_settings(self) -> None:
-        self.create_settings_window()
+        settings_window: settings.SettingsWindow = self.create_settings_window()
 
-        self.switch_focused_window(self.settings_window)
+        self.switch_focused_window(settings_window)
 
-        self.show_window(self.settings_window, self.isMaximized())
-        self.settings_window.setStyleSheet(self.stylesheet)
-
-    def on_clicked_apply(self) -> None:
-        """Executed when apply button in settings window is clicked."""
-
-        self.settings_window.apply_settings()
-        self.set_key_sound()
-        self.set_stylesheet()
-        self.setStyleSheet(self.stylesheet)
-        self.settings_window.setStyleSheet(self.stylesheet)
+        self.show_window(settings_window, self.isMaximized())
+        settings_window.setStyleSheet(self.stylesheet)
 
     def on_clicked_statistics(self) -> None:
         self.create_stats_window()
@@ -164,7 +165,7 @@ class MainWindow(QtWidgets.QWidget):
         )
 
     # Helper Methods
-    def get_preference(self, preference: str) -> str | bool | int:
+    def get_preference(self, preference: str) -> Any:
         """
         Convenience method for getting a specific preference from
         self.user_preferences_handler.preferences
@@ -173,7 +174,8 @@ class MainWindow(QtWidgets.QWidget):
         return getattr(self.user_preferences_handler.preferences, preference)
 
     def set_stylesheet(self) -> None:
-        self.stylesheet = style.get_style_sheet(**self.get_preference("colours")["base"])
+        colours: dict[str, dict[str, str]] = self.get_preference("colours")
+        self.stylesheet: str = style.get_style_sheet(**colours["base"])
 
     def load_custom_font(self, font: str) -> int:
         """Adds custom font to QFontDatabase, and returns its corresponding font id."""
@@ -207,25 +209,26 @@ class MainWindow(QtWidgets.QWidget):
         return typing_window
 
     def create_settings_window(self) -> settings.SettingsWindow:
-        self.settings_window = settings.SettingsWindow(self.user_preferences_handler)
+        settings_window = settings.SettingsWindow(self.user_preferences_handler)
 
-        self.settings_window.setWindowIcon(self.ICON)
+        settings_window.setWindowIcon(self.ICON)
 
-        self.settings_window.buttonMainMenu.clicked.connect(
-            lambda: self.on_clicked_main_menu(self.settings_window)
+        settings_window.buttonMainMenu.clicked.connect(
+            lambda: self.on_clicked_main_menu(settings_window)
         )
-        self.settings_window.buttonApply.clicked.connect(self.on_clicked_apply)
 
-        # Keystroke sound toggle
-        if self.get_preference("play_sound"):
-            self.settings_window.toggleKeystrokeSound.setChecked(True)
+        def on_clicked_apply(self) -> None:
+            """Executed when apply button in settings window is clicked."""
 
-        # Dark mode toggle
-        if self.get_preference("dark_mode"):
-            self.settings_window.toggleDarkMode.setChecked(True)
+            settings_window.apply_settings()
+            self.set_key_sound()
+            self.set_stylesheet()
+            self.setStyleSheet(self.stylesheet)
+            settings_window.setStyleSheet(self.stylesheet)
 
-        self.set_settings_sounds_options()
-        self.set_selected_sound_option(self.get_preference("sound_filename"))
+        settings_window.buttonApply.clicked.connect(on_clicked_apply)
+
+        return settings_window
 
     def create_stats_window(self) -> None:
         self.stats_window = statistics.StatsWindow()
@@ -255,42 +258,6 @@ class MainWindow(QtWidgets.QWidget):
 
     def update_highscores(self) -> None:
         self.today_wpm, self.all_time_wpm = self.highscore_handler.get_wpm()
-
-    def get_sounds_list(self) -> list:
-        """Returns a list of the sound files present in the sounds folder."""
-
-        return os.listdir(PATH_SOUNDS)
-
-    def set_settings_sounds_options(self) -> None:
-        """
-        Sets up options for the dropdown menu to select keystroke sounds in the
-        settings menu.
-        """
-
-        for sound_file in self.get_sounds_list():
-            # Add sound file name to dropdown menu
-            self.settings_window.comboSelectSound.addItem(sound_file)
-
-    def find_sound_file_index(self, sound_file: str) -> int:
-        """
-        Returns the index of the given file name within the settings window
-        comboSelectSound object.
-        """
-
-        return self.settings_window.comboSelectSound.findText(
-            sound_file, QtCore.Qt.MatchFixedString
-        )
-
-    def set_selected_sound_option(self, sound_file: str) -> None:
-        """
-        Sets the selected option for sound file from the settings window's
-        comboSelectSound object to the given sound file name.
-        """
-
-        index: int = self.find_sound_file_index(sound_file)
-
-        if index >= 0:
-            self.settings_window.comboSelectSound.setCurrentIndex(index)
 
     def set_key_sound(self) -> None:
         """
