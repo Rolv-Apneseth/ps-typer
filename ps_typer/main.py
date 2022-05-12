@@ -12,7 +12,6 @@ from ps_typer.data.highscores_data_handler import HighscoreDataHandler
 from ps_typer.data.user_preferences_handler import UserPreferencesDataHandler
 from ps_typer.data.utils import PATH_SOUNDS, get_today
 from ps_typer.type_test import main_menu, results, settings, statistics, type_test
-from ps_typer.ui import settings_window
 
 
 class MainWindow(QtWidgets.QWidget):
@@ -217,7 +216,7 @@ class MainWindow(QtWidgets.QWidget):
             lambda: self.on_clicked_main_menu(settings_window)
         )
 
-        def on_clicked_apply(self) -> None:
+        def on_clicked_apply() -> None:
             """Executed when apply button in settings window is clicked."""
 
             settings_window.apply_settings()
