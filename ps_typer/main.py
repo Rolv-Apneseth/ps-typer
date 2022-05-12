@@ -1,7 +1,7 @@
 import os
 import sqlite3
 import sys
-from typing import Any
+from typing import Any, Generator
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import QFontDatabase, QIcon
@@ -60,9 +60,6 @@ class MainWindow(QtWidgets.QWidget):
         self.main_menu_window.comboBoxSelectMode.setCurrentIndex(
             self.get_preference("selected_mode")
         )
-
-        # SOUND
-        self.set_key_sound()
 
         # FONT
         self.inconsolata_bold = self.load_custom_font(str(utils.PATH_FONTS))
@@ -192,7 +189,7 @@ class MainWindow(QtWidgets.QWidget):
 
     def create_typing_window(self, mode: str) -> type_test.TypingWindow:
         typing_window = type_test.TypingWindow(
-            self.highscore_handler, self.stacked_widget
+            self.highscore_handler, self.stacked_widget, self.get_key_sounds_rotator()
         )
         typing_window.set_mode(mode)
         typing_window.setWindowIcon(self.ICON)
@@ -201,9 +198,6 @@ class MainWindow(QtWidgets.QWidget):
         typing_window.buttonMainMenu.clicked.connect(
             lambda: self.on_clicked_main_menu(typing_window)
         )
-
-        # Sets key sound if enabled
-        typing_window.set_key_sound(self.key_sound)
 
         return typing_window
 
@@ -220,7 +214,6 @@ class MainWindow(QtWidgets.QWidget):
             """Executed when apply button in settings window is clicked."""
 
             settings_window.apply_settings()
-            self.set_key_sound()
             self.set_stylesheet()
             self.setStyleSheet(self.stylesheet)
             settings_window.setStyleSheet(self.stylesheet)
@@ -258,23 +251,48 @@ class MainWindow(QtWidgets.QWidget):
     def update_highscores(self) -> None:
         self.today_wpm, self.all_time_wpm = self.highscore_handler.get_wpm()
 
-    def set_key_sound(self) -> None:
+    def _get_key_sound(self) -> QSoundEffect:
         """
-        Sets the given sound file to a QSoundEffect object which will be played on each
-        keystroke in the mode window.
+        Gets QSoundEffect object from the sound_filename preference which is to be played
+        on each keystroke in the typing window.
         """
+
+        key_sound_path = PATH_SOUNDS / self.get_preference("sound_filename")
+        key_sound_url = QtCore.QUrl.fromLocalFile(str(key_sound_path))
+
+        key_sound = QSoundEffect()
+        key_sound.setSource(key_sound_url)
+        key_sound.setVolume(0.4)
+        key_sound.setLoopCount(1)
+        return key_sound
+
+    def _get_key_sounds_list(self) -> list[QSoundEffect]:
+        """Returns a list of QSoundEffect objects."""
 
         if not self.get_preference("play_sound"):
-            self.key_sound = QSoundEffect()
-            return
+            return [QSoundEffect()]
 
-        self.key_sound_path = PATH_SOUNDS / self.get_preference("sound_filename")
-        self.key_sound_url = QtCore.QUrl.fromLocalFile(str(self.key_sound_path))
+        return [self._get_key_sound() for _ in range(10)]
 
-        self.key_sound = QSoundEffect()
-        self.key_sound.setSource(self.key_sound_url)
-        self.key_sound.setVolume(0.5)
-        self.key_sound.setLoopCount(1)
+    def get_key_sounds_rotator(self) -> Generator[QSoundEffect, None, None]:
+        """
+        Returns a generator which will rotate through a list of QSoundEffect objects
+        which are the sounds to be played on each user keystroke.
+
+        This is necessary for faster typing speeds because the .play() method is static
+        so the sound will not play on every keystroke like intended.
+        """
+        i = 0
+        keysounds = self._get_key_sounds_list()
+        print(sum(sys.getsizeof(keysound) for keysound in keysounds))
+        length = len(keysounds)
+
+        while True:
+            i += 1
+            if i == length:
+                i = 0
+
+            yield keysounds[i]
 
     def update_stats_highscores(self) -> None:
         """Updates highscores displayed in the stats window."""
