@@ -284,7 +284,6 @@ class MainWindow(QtWidgets.QWidget):
         """
         i = 0
         keysounds = self._get_key_sounds_list()
-        print(sum(sys.getsizeof(keysound) for keysound in keysounds))
         length = len(keysounds)
 
         while True:
