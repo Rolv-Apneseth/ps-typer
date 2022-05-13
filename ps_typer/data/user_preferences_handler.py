@@ -1,14 +1,15 @@
 import json
 from dataclasses import dataclass, field, fields
+from pathlib import Path
 
 from dataclasses_json import dataclass_json
 
 from ps_typer.data import style
-from ps_typer.data.utils import PATH_USER_PREFERENCES_JSON
+from ps_typer.data.utils import PATH_SOUNDS, PATH_USER_PREFERENCES_JSON
 
 # DEFAULTS ------------------------------------------------------------------------------
 DEFAULT_COLOURS = style.get_colours()
-DEFAULT_STYLESHEET = style.get_style_sheet(**DEFAULT_COLOURS["base"])
+DEFAULT_SOUND_FILENAME = "key_1.wav"
 
 
 # MODEL ---------------------------------------------------------------------------------
@@ -20,7 +21,7 @@ class Preferences:
     colours: dict[str, dict[str, str]] = field(default_factory=lambda: DEFAULT_COLOURS)
 
     play_sound: bool = False
-    sound_filename: str = "key_2.wav"
+    sound_filename: str = DEFAULT_SOUND_FILENAME
 
 
 # DATA HANDLER --------------------------------------------------------------------------
@@ -42,10 +43,17 @@ class UserPreferencesDataHandler:
                 json.load(json_file)
             )
 
+        self._ensure_exists_sound_file()
+
     def _save_preferences(self) -> None:
         with open(PATH_USER_PREFERENCES_JSON, "w") as json_file:
             # https://github.com/lidatong/dataclasses-json/issues/31
             json.dump(self.preferences.to_dict(), json_file)  # type: ignore
+
+    def _ensure_exists_sound_file(self) -> None:
+        sound_file: Path = PATH_SOUNDS / self.preferences.sound_filename
+        if not sound_file.is_file():
+            self.preferences.sound_filename = DEFAULT_SOUND_FILENAME
 
     def get_preferences(self) -> Preferences:
         return self.preferences
@@ -65,6 +73,7 @@ class UserPreferencesDataHandler:
 
     def set_sound_filename(self, filename: str) -> None:
         self.preferences.sound_filename = filename
+        self._ensure_exists_sound_file()
         self._save_preferences()
 
 
