@@ -63,9 +63,10 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
         settings menu.
         """
 
-        sound_file: Path
-        for sound_file in PATH_SOUNDS.iterdir():
-            self.comboSelectSound.addItem(sound_file.name)
+        file_path: Path
+        for file_path in PATH_SOUNDS.iterdir():
+            if file_path.suffix == ".wav":
+                self.comboSelectSound.addItem(file_path.name)
 
     def _find_sound_file_index(self, sound_file: str) -> int:
         """
