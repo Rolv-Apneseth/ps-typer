@@ -1,4 +1,5 @@
 from time import perf_counter
+from typing import Generator
 
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtMultimedia import QSoundEffect
@@ -22,6 +23,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self,
         highscore_handler: HighscoreDataHandler,
         stacked_widget: QtWidgets.QStackedWidget,
+        key_sounds_rotator: Generator[QSoundEffect, None, None],
         *args,
         **kwargs,
     ):
@@ -33,6 +35,7 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         self.setupUi(self)
 
         self.lineInput.textChanged.connect(self._on_input_text_changed)
+        self.lineInput.textChanged.connect(lambda: next(key_sounds_rotator).play())
         self.buttonNewText.clicked.connect(self.on_clicked_new)
         self.buttonRestart.clicked.connect(self.on_clicked_restart)
 
@@ -67,13 +70,6 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         """
 
         self.colours: dict[str, str] = colours
-
-    def set_key_sound(self, key_sound: QSoundEffect) -> None:
-        """
-        Set the sound to be played on a keystroke (should be a QSoundEffect object).
-        """
-
-        self.key_sound = key_sound
 
     # Private methods
     def _set_main_text(self) -> None:
@@ -235,9 +231,6 @@ class TypingWindow(QtWidgets.QWidget, typing_window.Ui_typingWindow):
         if not self.start_time:
             self.timer.start()
             self.start_time = perf_counter()
-
-        # Try to play key sound effect, if it exists
-        self.key_sound.play()
 
         # Set label text to rich text so typed characters are highlighted
         # based on whether they match self.text
