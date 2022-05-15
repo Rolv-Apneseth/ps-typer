@@ -29,9 +29,19 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
             self.toggleKeystrokeSound.setChecked(True)
         self._set_sounds_options()
         self._set_selected_sound_option()
+        self.comboSelectSound.currentIndexChanged.connect(
+            self._handle_apply_button_enabled_state
+        )
+
+        # Disable apply button on startup
+        self.buttonApply.setEnabled(False)
 
     def _get_switch(self):
-        return Switch(**self.user_preferences_handler.preferences.colours["switch"])
+        switch: Switch = Switch(
+            **self.user_preferences_handler.preferences.colours["switch"]
+        )
+        switch.stateChanged.connect(self._handle_apply_button_enabled_state)
+        return switch
 
     def _replace_checkbox(
         self,
@@ -89,12 +99,39 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
         if index >= 0:
             self.comboSelectSound.setCurrentIndex(index)
 
+    def _get_selections(self) -> tuple[str | bool]:
+        """Returns tuple with selected values from this object's widgets."""
+
+        return (
+            self.toggleDarkMode.isChecked(),
+            self.toggleKeystrokeSound.isChecked(),
+            str(self.comboSelectSound.currentText()),
+        )
+
+    def _is_selection_changed(
+        self, is_dark_mode: bool, is_play_sound: bool, sound_filename: str
+    ) -> bool:
+        """
+        Returns true if any of the selected values differ from the current values for
+        preferences.
+        """
+
+        return any(
+            [
+                is_dark_mode != self.user_preferences_handler.preferences.dark_mode,
+                is_play_sound != self.user_preferences_handler.preferences.play_sound,
+                sound_filename
+                != self.user_preferences_handler.preferences.sound_filename,
+            ]
+        )
+
+    def _handle_apply_button_enabled_state(self) -> None:
+        self.buttonApply.setEnabled(self._is_selection_changed(*self._get_selections()))
+
     def apply_settings(self) -> None:
         """Updates preference values according to values selected in the UI."""
 
-        is_dark_mode: bool = self.toggleDarkMode.isChecked()
-        is_play_sound: bool = self.toggleKeystrokeSound.isChecked()
-        sound_filename = str(self.comboSelectSound.currentText())
+        is_dark_mode, is_play_sound, sound_filename = self._get_selections()
 
         if is_dark_mode != self.user_preferences_handler.preferences.dark_mode:
             self.user_preferences_handler.toggle_dark_mode()
@@ -104,3 +141,5 @@ class SettingsWindow(QtWidgets.QWidget, settings_window.Ui_settingsWindow):
 
         if sound_filename != self.user_preferences_handler.preferences.sound_filename:
             self.user_preferences_handler.set_sound_filename(sound_filename)
+
+        self.buttonApply.setEnabled(False)
