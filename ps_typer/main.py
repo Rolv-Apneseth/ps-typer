@@ -28,7 +28,9 @@ class MainWindow(QtWidgets.QWidget):
         self.user_preferences_handler: UserPreferencesDataHandler = (
             user_preferences_handler
         )
+
         self.set_stylesheet()
+        self.setMinimumSize(1080, 800)
 
         self.ICON = QIcon(str(utils.PATH_ICONS))
         self.setWindowIcon(self.ICON)
@@ -89,16 +91,11 @@ class MainWindow(QtWidgets.QWidget):
 
         self.switch_focused_window(typing_window)
 
-        self.show_window(typing_window, self.isMaximized())
+        typing_window.show()
 
         typing_window.setStyleSheet(self.stylesheet)
 
     def on_clicked_main_menu(self, window: QtWidgets.QWidget) -> None:
-        #
-        #
-        # self.show_window(self, window.isMaximized())
-
-        # window.close()
         self.stacked_widget.removeWidget(window)
         del window
 
@@ -109,7 +106,7 @@ class MainWindow(QtWidgets.QWidget):
 
         self.switch_focused_window(settings_window)
 
-        self.show_window(settings_window, self.isMaximized())
+        settings_window.show()
         settings_window.setStyleSheet(self.stylesheet)
 
     def on_clicked_statistics(self) -> None:
@@ -117,7 +114,7 @@ class MainWindow(QtWidgets.QWidget):
 
         self.switch_focused_window(self.stats_window)
 
-        self.show_window(self.stats_window, self.isMaximized())
+        self.stats_window.show()
         self.stats_window.setStyleSheet(self.stylesheet)
 
     def on_clicked_reset_daily(self) -> None:
@@ -177,15 +174,6 @@ class MainWindow(QtWidgets.QWidget):
         """Adds custom font to QFontDatabase, and returns its corresponding font id."""
 
         return QFontDatabase.addApplicationFont(font)
-
-    def show_window(self, window: QtWidgets.QWidget, fullscreen: bool) -> None:
-        """
-        Used to show windows, with the option to have them maximised provided.
-        """
-
-        window.show()
-        if fullscreen:
-            window.setWindowState(QtCore.Qt.WindowMaximized)
 
     def create_typing_window(self, mode: str) -> type_test.TypingWindow:
         typing_window = type_test.TypingWindow(
@@ -317,7 +305,7 @@ def main():
         main_window = MainWindow(highscore_handler, user_preferences_handler)
 
         # Stylesheet set after window is shown
-        main_window.show()
+        main_window.showMaximized()
         main_window.setStyleSheet(main_window.stylesheet)
 
     sys.exit(app.exec_())
