@@ -9,7 +9,9 @@ class FactsApi:
         result = None
 
         try:
-            result = requests.get(cls.URL).json()
+            response = requests.get(cls.URL)
+            if response.status_code == requests.codes.ok:
+                result = response.json()
         except requests.exceptions.RequestException:
             pass
 
