@@ -4,15 +4,10 @@ from typing import Generator
 
 from marshmallow.fields import Function
 
+from ps_typer.data.utils import PATH_TEXT_BROWN, PATH_TEXT_GUTENBERG, PATH_TEXT_WEBTEXT
 from ps_typer.type_test.api import FactsApi
 
 # PATHS
-PROJECT_FOLDER = Path(__file__).absolute().parents[1]
-ASSETS_FOLDER = PROJECT_FOLDER / "assets"
-TEXTS_FOLDER = ASSETS_FOLDER / "texts"
-BROWN_TEXT = TEXTS_FOLDER / "brown.txt"
-WEBTEXT_TEXT = TEXTS_FOLDER / "webtext.txt"
-GUTENBERG_TEXT = TEXTS_FOLDER / "gutenberg.txt"
 
 # CONSTANTS
 RANDOM_TEXT_SENTENCES = 3  # Length in sentences for random text
@@ -363,9 +358,13 @@ _translate = {
     "Facts": lambda: get_random_text_from_api(FactsApi.get_random_fact, BACKUP_FACTS),
     "Famous Literature Excerpts": lambda: get_random_choice(LITERATURE_EXCERPTS),
     "Famous Quotes": lambda: get_random_choice(QUOTES),
-    "Random Text: Brown": lambda: get_random_text(BROWN_TEXT, RANDOM_TEXT_SENTENCES),
-    "Random Text: Gutenberg": lambda: get_random_text(
-        GUTENBERG_TEXT, RANDOM_TEXT_SENTENCES
+    "Random Text: Brown": lambda: get_random_text(
+        PATH_TEXT_BROWN, RANDOM_TEXT_SENTENCES
     ),
-    "Random Text: Webtext": lambda: get_random_text(WEBTEXT_TEXT, RANDOM_TEXT_SENTENCES),
+    "Random Text: Gutenberg": lambda: get_random_text(
+        PATH_TEXT_GUTENBERG, RANDOM_TEXT_SENTENCES
+    ),
+    "Random Text: Webtext": lambda: get_random_text(
+        PATH_TEXT_WEBTEXT, RANDOM_TEXT_SENTENCES
+    ),
 }

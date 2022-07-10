@@ -18,6 +18,13 @@ if not PATH_USER_DATA_DIR.is_dir():
     PATH_USER_DATA_DIR.mkdir(parents=True)
 
 PATH_BASE: Path = Path(__file__).parents[1]
+
+PATH_DATA: Path = PATH_BASE / "data"
+PATH_TEXTS: Path = PATH_DATA / "texts"
+PATH_TEXT_BROWN = PATH_TEXTS / "brown.txt"
+PATH_TEXT_WEBTEXT = PATH_TEXTS / "webtext.txt"
+PATH_TEXT_GUTENBERG = PATH_TEXTS / "gutenberg.txt"
+
 PATH_ASSETS: Path = PATH_BASE / "assets"
 PATH_ICONS: Path = PATH_ASSETS / "icon.png"
 PATH_FONTS: Path = PATH_ASSETS / "InconsolataBold.ttf"

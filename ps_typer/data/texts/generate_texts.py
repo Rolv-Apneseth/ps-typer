@@ -2,12 +2,7 @@ import re
 from pathlib import Path
 from string import ascii_letters
 
-# PATHS
-TEXTS_FOLDER = Path(__file__).absolute().parent
-BROWN = TEXTS_FOLDER / "brown.txt"
-WEBTEXT = TEXTS_FOLDER / "webtext.txt"
-GUTENBERG = TEXTS_FOLDER / "gutenberg.txt"
-
+from ps_typer.data.utils import PATH_TEXT_BROWN, PATH_TEXT_GUTENBERG, PATH_TEXT_WEBTEXT
 
 # Nltk corpora for 'random' texts
 CORPORA = [
@@ -161,9 +156,9 @@ def generate_corpus_text(corpus, filename: Path) -> None:
 
 
 def main():
-    generate_corpus_text(brown, BROWN)
-    generate_corpus_text(webtext, WEBTEXT)
-    generate_corpus_text(gutenberg, GUTENBERG)
+    generate_corpus_text(brown, PATH_TEXT_BROWN)
+    generate_corpus_text(webtext, PATH_TEXT_WEBTEXT)
+    generate_corpus_text(gutenberg, PATH_TEXT_GUTENBERG)
 
 
 if __name__ == "__main__":
