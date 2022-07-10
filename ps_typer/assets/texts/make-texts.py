@@ -1,6 +1,6 @@
-from pathlib import Path
 import re
-
+from pathlib import Path
+from string import ascii_letters
 
 # PATHS
 TEXTS_FOLDER = Path(__file__).absolute().parent
@@ -35,9 +35,7 @@ except LookupError:
 
 finally:
     # Import corpora
-    from nltk.corpus import brown
-    from nltk.corpus import webtext
-    from nltk.corpus import gutenberg
+    from nltk.corpus import brown, gutenberg, webtext
 
 
 # CONSTANTS
@@ -110,8 +108,22 @@ def clean_text(raw_text: str) -> str:
     the text reads more like normal written English.
     """
 
-    return remove_from_text(
-        replace_from_text(raw_text, REPLACE_SYMBOLS), REMOVE_SYMBOLS
+    return remove_from_text(replace_from_text(raw_text, REPLACE_SYMBOLS), REMOVE_SYMBOLS)
+
+
+def validate_corpus_sentence(sentence: str) -> bool:
+    """Returns True if sentence is valid i.e. meets all criteria."""
+
+    startswith_letter = sentence[0] in ascii_letters
+    is_correct_length = SENTENCE_MIN_LEN <= len(sentence) <= SENTENCE_MAX_LEN
+    has_no_disallowed_words = SENTENCE_MIN_LEN <= len(sentence) <= SENTENCE_MAX_LEN
+
+    return all(
+        [
+            startswith_letter,
+            is_correct_length,
+            has_no_disallowed_words,
+        ]
     )
 
 
@@ -129,14 +141,7 @@ def generate_corpus_text(corpus, filename: Path) -> None:
 
         processed_sentence = f"{clean_text(joined_sentence).strip()}\n"
 
-        # Checks for sentence length and whether sentence contains an unallowed word
-        conditions_met = SENTENCE_MIN_LEN <= len(
-            processed_sentence
-        ) <= SENTENCE_MAX_LEN and not any(
-            (word in processed_sentence) for word in DISALLOWED_WORDS
-        )
-
-        if conditions_met:
+        if validate_corpus_sentence(processed_sentence):
             processed_sentences.append(processed_sentence)
 
     # Write the processed sentences to a text file
@@ -144,10 +149,14 @@ def generate_corpus_text(corpus, filename: Path) -> None:
         corpus_file.writelines(processed_sentences)
 
 
-if __name__ == "__main__":
+def main():
     # Generate brown corpus text
     generate_corpus_text(brown, BROWN)
     # Generate webtext corpus text
     generate_corpus_text(webtext, WEBTEXT)
     # Generate gutenberg corpus text
     generate_corpus_text(gutenberg, GUTENBERG)
+
+
+if __name__ == "__main__":
+    main()
