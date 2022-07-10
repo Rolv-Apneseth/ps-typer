@@ -39,7 +39,7 @@ finally:
 
 
 # CONSTANTS
-SENTENCE_MIN_LEN = 4
+SENTENCE_MIN_LEN = 25
 SENTENCE_MAX_LEN = 275
 REPLACE_SYMBOLS = {
     " ,": ",",
@@ -69,9 +69,10 @@ REMOVE_SYMBOLS = [
     "`'",
 ]
 
-DISALLOWED_WORDS = [
-    "nigg",
-    "Nigg",
+DISALLOWED_PATTERNS = [
+    r"[-\s]af[.,;:\s]",
+    r"^af[.,;:\s]",
+    r"nigg",
 ]
 
 
@@ -114,15 +115,22 @@ def clean_text(raw_text: str) -> str:
 def validate_corpus_sentence(sentence: str) -> bool:
     """Returns True if sentence is valid i.e. meets all criteria."""
 
-    startswith_letter = sentence[0] in ascii_letters
-    is_correct_length = SENTENCE_MIN_LEN <= len(sentence) <= SENTENCE_MAX_LEN
-    has_no_disallowed_words = SENTENCE_MIN_LEN <= len(sentence) <= SENTENCE_MAX_LEN
+    is_correct_length = SENTENCE_MIN_LEN < len(sentence) <= SENTENCE_MAX_LEN
+    starts_with_letter = sentence[0] in ascii_letters
+    does_not_end_with_letter = is_correct_length and sentence[-2] not in ascii_letters
+    has_no_disallowed_patterns = all(
+        [
+            not re.search(pattern, sentence, flags=re.IGNORECASE)
+            for pattern in DISALLOWED_PATTERNS
+        ]
+    )
 
     return all(
         [
-            startswith_letter,
             is_correct_length,
-            has_no_disallowed_words,
+            starts_with_letter,
+            does_not_end_with_letter,
+            has_no_disallowed_patterns,
         ]
     )
 
@@ -139,9 +147,10 @@ def generate_corpus_text(corpus, filename: Path) -> None:
     for sentence in raw_sentences:
         joined_sentence = " ".join(word for word in sentence)
 
-        processed_sentence = f"{clean_text(joined_sentence).strip()}\n"
+        if not joined_sentence:
+            continue
 
-        # Conditions for allowing sentence through
+        processed_sentence = f"{clean_text(joined_sentence).strip()}\n"
 
         if validate_corpus_sentence(processed_sentence):
             processed_sentences.append(processed_sentence)
@@ -152,11 +161,8 @@ def generate_corpus_text(corpus, filename: Path) -> None:
 
 
 def main():
-    # Generate brown corpus text
     generate_corpus_text(brown, BROWN)
-    # Generate webtext corpus text
     generate_corpus_text(webtext, WEBTEXT)
-    # Generate gutenberg corpus text
     generate_corpus_text(gutenberg, GUTENBERG)
 
 
