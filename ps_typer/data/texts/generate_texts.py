@@ -32,6 +32,9 @@ finally:
     # Import corpora
     from nltk.corpus import brown, gutenberg, webtext
 
+    # Remove bible from gutenberg corpus' list of books
+    gutenberg._fileids.remove("bible-kjv.txt")
+
 
 # CONSTANTS
 SENTENCE_MIN_LEN = 25
