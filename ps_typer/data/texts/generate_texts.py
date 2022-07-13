@@ -37,9 +37,10 @@ finally:
 
 
 # CONSTANTS
-SENTENCE_MIN_LEN = 25
-SENTENCE_MAX_LEN = 275
-REPLACE_SYMBOLS = {
+SENTENCE_MIN_LEN: int = 25
+SENTENCE_MAX_LEN: int = 275
+
+REPLACE_SYMBOLS: dict = {
     " ,": ",",
     ",,": ",",
     " .": ".",
@@ -67,43 +68,52 @@ REPLACE_SYMBOLS = {
     "..": ".",
 }
 
-REMOVE_SYMBOLS = [
-    " ''",
-    "'' ",
-    " ``",
-    "``",
-    "`'",
-    '"$',
-]
+PATTERN_REMOVE: re.Pattern = re.compile(
+    "|".join(
+        [
+            " ''",
+            "'' ",
+            " ``",
+            "``",
+            "`'",
+            '"$',
+        ]
+    )
+)
 
-DISALLOWED_PATTERNS = [
-    r"[-\s]af[.,;:\s]",
-    r"^af[.,;:\s]",
-    r"bitch|cunt|fuck|nigg|retarded|shit|whore",
-]
+PATTERN_DISALLOWED: re.Pattern = re.compile(
+    "|".join(
+        [
+            r"[-\s]af[.,;:\s]",
+            r"^af[.,;:\s]",
+            r"bitch|cunt|fuck|nigg|retarded|shit|whore",
+        ]
+    ),
+    flags=re.IGNORECASE,
+)
 
 
 # FUNCTIONS
-def replace_from_text(raw_text: str, symbols: dict) -> str:
+def replace_from_text(raw_text: str) -> str:
     """
-    Replace every symbol/character in the keys of the given symbols dictionary
-    with the corresponding value for each key, from the given string raw_text.
+    Replace every key of the REPLACE_SYMBOLS with it's corresponding value
+    in the given raw_text.
     """
 
-    for symbol in symbols:
+    for symbol in REPLACE_SYMBOLS:
         if symbol in raw_text:
-            raw_text = raw_text.replace(symbol, symbols[symbol])
+            raw_text = raw_text.replace(symbol, REPLACE_SYMBOLS[symbol])
 
     return raw_text
 
 
-def remove_from_text(raw_text: str, symbols: list) -> str:
+def remove_from_text(raw_text: str) -> str:
     """
-    Removes every symbol/character in the given symbols list from a given string,
-    raw_text.
+    Removes every symbol/character which matches the pattern PATTERN_REMOVE
+    from the given raw_text.
     """
 
-    return re.sub("|".join(symbols), "", raw_text)
+    return PATTERN_REMOVE.sub("", raw_text)
 
 
 def clean_text(raw_text: str) -> str:
@@ -116,7 +126,7 @@ def clean_text(raw_text: str) -> str:
     the text reads more like normal written English.
     """
 
-    return remove_from_text(replace_from_text(raw_text, REPLACE_SYMBOLS), REMOVE_SYMBOLS)
+    return remove_from_text(replace_from_text(raw_text))
 
 
 def validate_corpus_sentence(sentence: str) -> bool:
@@ -125,12 +135,7 @@ def validate_corpus_sentence(sentence: str) -> bool:
     is_correct_length = SENTENCE_MIN_LEN < len(sentence) <= SENTENCE_MAX_LEN
     starts_with_letter = sentence[0] in ascii_letters
     does_not_end_with_letter = is_correct_length and sentence[-2] not in ascii_letters
-    has_no_disallowed_patterns = all(
-        [
-            not re.search(pattern, sentence, flags=re.IGNORECASE)
-            for pattern in DISALLOWED_PATTERNS
-        ]
-    )
+    has_no_disallowed_patterns = not PATTERN_DISALLOWED.search(sentence)
 
     return all(
         [
