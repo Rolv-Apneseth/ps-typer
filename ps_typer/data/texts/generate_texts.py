@@ -57,6 +57,10 @@ REPLACE_SYMBOLS = {
     "` ": "'",
     """"'""": "'",
     """"`""": "'",
+<<<<<<< HEAD
+=======
+    "'''": "'",
+>>>>>>> 460ff68 (Added extra symbols to replace list and extra words/patterns to remove list)
     ";--": "--",
     ".--": "--",
     "!--": "--",
