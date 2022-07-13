@@ -57,6 +57,13 @@ REPLACE_SYMBOLS = {
     "` ": "'",
     """"'""": "'",
     """"`""": "'",
+    ";--": "--",
+    ".--": "--",
+    "!--": "--",
+    ",--": "--",
+    "...": "....",
+    "....": ".....",
+    "..": ".",
 }
 
 REMOVE_SYMBOLS = [
@@ -65,12 +72,20 @@ REMOVE_SYMBOLS = [
     " ``",
     "``",
     "`'",
+    '"$',
 ]
 
 DISALLOWED_PATTERNS = [
     r"[-\s]af[.,;:\s]",
     r"^af[.,;:\s]",
+    # Swears
+    r"bitch",
+    r"cunt",
+    r"fuck",
     r"nigg",
+    r"retarded",
+    r"shit",
+    r"whore",
 ]
 
 
