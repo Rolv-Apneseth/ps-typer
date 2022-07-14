@@ -32,8 +32,26 @@ finally:
     # Import corpora
     from nltk.corpus import brown, gutenberg, webtext
 
-    # Remove bible from gutenberg corpus' list of books
-    gutenberg._fileids.remove("bible-kjv.txt")
+    # Remove certain texts from corpora
+    for fileid in [
+        "bible-kjv.txt",
+        "blake-poems.txt",
+        "bryant-stories.txt",
+        "melville-moby_dick.txt",
+        "shakespeare-caesar.txt",
+        "shakespeare-hamlet.txt",
+        "shakespeare-macbeth.txt",
+        "whitman-leaves.txt",
+    ]:
+        gutenberg._fileids.remove(fileid)
+
+    for fileid in [
+        "grail.txt",
+        "pirates.txt",
+        "singles.txt",
+        "wine.txt",
+    ]:
+        webtext._fileids.remove(fileid)
 
 
 # CONSTANTS
