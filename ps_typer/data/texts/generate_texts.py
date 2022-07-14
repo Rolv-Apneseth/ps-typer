@@ -176,21 +176,17 @@ def generate_corpus_text(corpus, filename: Path) -> None:
     # Get a list of sentences from the corpus
     raw_sentences = corpus.sents()
 
-    processed_sentences = []
-    for sentence in raw_sentences:
-        joined_sentence = " ".join(word for word in sentence)
-
-        if not joined_sentence:
-            continue
-
-        processed_sentence = f"{clean_text(joined_sentence).strip()}\n"
-
-        if validate_corpus_sentence(processed_sentence):
-            processed_sentences.append(processed_sentence)
-
-    # Write the processed sentences to a text file
     with open(filename, "wt") as corpus_file:
-        corpus_file.writelines(processed_sentences)
+        for sentence in raw_sentences:
+            joined_sentence = " ".join(word for word in sentence)
+
+            if not joined_sentence:
+                continue
+
+            processed_sentence = f"{clean_text(joined_sentence).strip()}\n"
+
+            if validate_corpus_sentence(processed_sentence):
+                corpus_file.write(processed_sentence)
 
 
 def main():
