@@ -67,9 +67,6 @@ Select one of the following options to choose what you will be typing out:
 
 -   Facts
 
-    -   This mode works by fetching random facts from the [Random Useless Facts API](https://uselessfacts.jsph.pl/), but has backup facts in case the API requests are unsuccessful
-    -   Please note that while this API claims these are all "facts", not all of them are true. For example, [duck's quacks DO echo](https://www.birdspot.co.uk/bird-brain/does-a-ducks-quack-echo)
-
 -   Famous Literature Excerpts
 
 -   Famous Quotes

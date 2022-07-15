@@ -2,12 +2,7 @@ import random
 from pathlib import Path
 from typing import Generator
 
-from marshmallow.fields import Function
-
 from ps_typer.data.utils import PATH_TEXT_BROWN, PATH_TEXT_GUTENBERG, PATH_TEXT_WEBTEXT
-from ps_typer.type_test.api import FactsApi
-
-# PATHS
 
 # CONSTANTS
 RANDOM_TEXT_SENTENCES = 3  # Length in sentences for random text
@@ -93,7 +88,7 @@ COMMON_PHRASES = [
     "You can't make an omelet without breaking some eggs.",
 ]
 
-BACKUP_FACTS = [
+FACTS = [
     "There are more possible iterations of a game of chess than there are atoms in the known universe. There are also more ways to arrange a deck of cards than atoms in the known universe.",
     "Cleopatra lived closer in time to the Moon landing than to the construction of the Great Pyramid of Giza.",
     "It can take a photon 100,000 years to travel from the core of the sun to the surface, but only 8 minutes to travel the rest of the way to earth. This is due to the extreme density of the core of the Sun (150 times that of water).",
@@ -322,15 +317,6 @@ def get_random_choice(lst: list) -> Generator:
         yield text.strip()
 
 
-def get_random_text_from_api(fetch_random_text: Function, backup_text: list[str]):
-    backup_generator: Generator = get_random_choice(backup_text)
-
-    while True:
-        random_api_text: str | None = fetch_random_text()
-
-        yield random_api_text if random_api_text else next(backup_generator)
-
-
 def get_random_text(text_filename: Path, num_sentences: int) -> Generator:
     """
     Generator which yields a string of a given number of sentences from a given
@@ -355,7 +341,7 @@ def get_random_text(text_filename: Path, num_sentences: int) -> Generator:
 
 _translate = {
     "Common Phrases": lambda: get_random_choice(COMMON_PHRASES),
-    "Facts": lambda: get_random_text_from_api(FactsApi.get_random_fact, BACKUP_FACTS),
+    "Facts": lambda: get_random_choice(FACTS),
     "Famous Literature Excerpts": lambda: get_random_choice(LITERATURE_EXCERPTS),
     "Famous Quotes": lambda: get_random_choice(QUOTES),
     "Random Text: Brown": lambda: get_random_text(
