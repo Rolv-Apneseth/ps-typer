@@ -1,4 +1,3 @@
-import os
 import sqlite3
 import sys
 from typing import Any, Generator
@@ -28,7 +27,6 @@ class MainWindow(QtWidgets.QWidget):
         self.user_preferences_handler: UserPreferencesDataHandler = (
             user_preferences_handler
         )
-
         self.set_stylesheet()
         self.setMinimumSize(1080, 800)
 
